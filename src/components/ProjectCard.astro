@@ -12,7 +12,7 @@ const { entry, why } = Astro.props;
 
 <a class="project-card" href={`/work/${entry.id}`}>
   <Image class="project-card__cover" src={entry.data.cover} alt={entry.data.coverAlt} width={480} height={320} />
-  <h3 class="project-card__title">{entry.data.title}</h3>
+  <h2 class="project-card__title">{entry.data.title}</h2>
   <p class="project-card__summary">{entry.data.summary}</p>
   {why && <p class="project-card__why">{why}</p>}
 </a>

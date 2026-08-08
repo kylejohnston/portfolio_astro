@@ -7,15 +7,8 @@ const projects = await getCollection('projects');
 ---
 
 <Layout title="All work">
-  <div class="work-grid">
+  <h1>All work</h1>
+  <div class="card-grid">
     {projects.map((entry) => <ProjectCard entry={entry} />)}
   </div>
 </Layout>
-
-<style>
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.5rem;
-  }
-</style>

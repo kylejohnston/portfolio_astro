@@ -5,9 +5,10 @@ import type { Set } from '../data/sets';
 
 interface Props {
   set: Set;
+  heading: string;
 }
 
-const { set } = Astro.props;
+const { set, heading } = Astro.props;
 const all = await getCollection('projects');
 
 const picked = set.projects.map(({ id, why }) => {
@@ -17,8 +18,9 @@ const picked = set.projects.map(({ id, why }) => {
 });
 ---
 
+<h1>{heading}</h1>
 <p class="intro">{set.intro}</p>
-<div class="set-grid">
+<div class="card-grid">
   {picked.map(({ entry, why }) => <ProjectCard entry={entry} why={why} />)}
 </div>
 <p class="see-all"><a href="/work">See all work</a></p>
@@ -28,10 +30,7 @@ const picked = set.projects.map(({ id, why }) => {
     max-width: 60ch;
     font-size: 1.125rem;
   }
-  .set-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: var(--space-3);
+  .card-grid {
     margin-block: var(--space-3);
   }
   .see-all {

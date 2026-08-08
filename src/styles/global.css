@@ -20,6 +20,7 @@ body {
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.6;
+  overflow-x: clip;
 }
 
 .site-header {
@@ -60,4 +61,10 @@ article img {
 
 h1, h2, h3 {
   line-height: 1.25;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-3);
 }
