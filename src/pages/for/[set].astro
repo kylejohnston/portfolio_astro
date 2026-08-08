@@ -1,0 +1,14 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SetView from '../../components/SetView.astro';
+import { sets } from '../../data/sets';
+
+export const getStaticPaths = () =>
+  Object.keys(sets)
+    .filter((s) => s !== 'default')
+    .map((set) => ({ params: { set } }));
+---
+
+<Layout title="Selected work" noindex>
+  <SetView set={sets[Astro.params.set!]} />
+</Layout>

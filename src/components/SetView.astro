@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+import type { Set } from '../data/sets';
+
+interface Props {
+  set: Set;
+}
+
+const { set } = Astro.props;
+const all = await getCollection('projects');
+
+const picked = set.projects.map(({ id, why }) => {
+  const entry = all.find((e) => e.id === id);
+  if (!entry) throw new Error(`Unknown project id "${id}"`);
+  return { entry, why };
+});
+---
+
+<p class="intro">{set.intro}</p>
+<div class="set-grid">
+  {picked.map(({ entry, why }) => <ProjectCard entry={entry} why={why} />)}
+</div>
+<p class="see-all"><a href="/work">See all work</a></p>
+
+<style>
+  .intro {
+    max-width: 60ch;
+    font-size: 1.125rem;
+  }
+  .set-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-3);
+    margin-block: var(--space-3);
+  }
+  .see-all {
+    margin-top: var(--space-3);
+  }
+</style>

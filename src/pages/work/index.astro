@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projects = await getCollection('projects');
+---
+
+<Layout title="All work">
+  <div class="work-grid">
+    {projects.map((entry) => <ProjectCard entry={entry} />)}
+  </div>
+</Layout>
+
+<style>
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+</style>

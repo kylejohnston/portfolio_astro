@@ -1,0 +1,30 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  noindex?: boolean;
+}
+
+const { title, noindex = false } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    {noindex && <meta name="robots" content="noindex" />}
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-title" href="/">Design Portfolio</a>
+      <nav>
+        <a href="/work">Work</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
