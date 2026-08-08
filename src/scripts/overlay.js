@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const overlayContent = document.getElementById('overlayPageContent');
   const siteHeader = document.querySelector('.site-header');
   const siteMain = document.querySelector('main');
+  const originalTitle = document.title;
 
   const OVERLAY_PATH_PREFIX = '/work/';
   const TRANSITION_MS = 350;
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.setAttribute('aria-hidden', 'true');
     overlayBackground.setAttribute('aria-hidden', 'true');
     setBackgroundInert(false);
+    document.title = originalTitle;
 
     const timeoutDuration = prefersReducedMotion() ? 0 : TRANSITION_MS;
     setTimeout(() => {
