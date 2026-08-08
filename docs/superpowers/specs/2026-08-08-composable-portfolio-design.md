@@ -74,7 +74,9 @@ Per case study: 1 cover (1200×800) + 2 in-body images (one ~1600×900 for full-
 
 ## MDX layout components (fills the gap left open in PLAN.md Step 4)
 
-Three small components, auto-imported into MDX case study bodies:
+Three small components, explicitly imported at the top of each MDX case study body (standard Astro
+MDX usage — six boilerplate import lines per case study is a fair trade against adding an
+auto-import dependency for what stays a one-line-per-component win):
 
 - `src/components/mdx/FullBleed.astro` — `{ src, alt }`, image breaks out to full viewport width.
 - `src/components/mdx/SideBySide.astro` — `{ left: { src, alt }, right: { src, alt } }`, two images
