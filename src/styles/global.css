@@ -221,9 +221,10 @@ body.overlay-open {
   margin-inline: 0;
 }
 
-/* The overlay panel is capped at 640px, narrower than the 640px breakpoint
-   SideBySide uses on the full page — inside the overlay it should always
-   stack, regardless of the browser's true viewport width. */
+/* @media (max-width: 640px) checks the browser viewport, not the overlay
+   panel's own width, so it never matches on a wide desktop screen even
+   though the ~592px-wide panel is too narrow for two comfortable columns.
+   Force single-column regardless of the true viewport width. */
 .overlay .side-by-side {
   grid-template-columns: 1fr;
 }

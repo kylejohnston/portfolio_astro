@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# untracked reference prototype with its own .git — must never be swept into a commit
+overlay-concept/

@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const contentCache = {};
   let lastFocusedElement = null;
   let activeRequestUrl = null;
+  let hideTimeoutId = null;
+  let closing = false;
 
   function isOverlayTarget(href) {
     if (!href) return false;
@@ -29,11 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function setBackgroundInert(isInert) {
-    if (siteHeader) siteHeader.inert = isInert;
-    if (siteMain) siteMain.inert = isInert;
+    siteHeader.inert = isInert;
+    siteMain.inert = isInert;
   }
 
   function showOverlay() {
+    if (hideTimeoutId) {
+      clearTimeout(hideTimeoutId);
+      hideTimeoutId = null;
+    }
+    closing = false;
+
     overlayBackground.style.display = 'block';
     overlay.style.display = 'block';
     overlay.setAttribute('aria-hidden', 'false');
@@ -41,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('overlay-open');
     setBackgroundInert(true);
     overlay.scrollTop = 0;
+    closeOverlayBtn.focus();
 
     if (prefersReducedMotion()) {
       overlay.classList.add('active');
@@ -56,19 +65,27 @@ document.addEventListener('DOMContentLoaded', () => {
     setBackgroundInert(false);
     document.title = originalTitle;
     activeRequestUrl = null;
+    closing = false;
 
     const timeoutDuration = prefersReducedMotion() ? 0 : TRANSITION_MS;
-    setTimeout(() => {
+    hideTimeoutId = setTimeout(() => {
       overlay.style.display = 'none';
       overlayBackground.style.display = 'none';
       document.body.classList.remove('overlay-open');
       overlayContent.innerHTML = '';
+      hideTimeoutId = null;
     }, timeoutDuration);
 
     if (lastFocusedElement) {
       lastFocusedElement.focus();
       lastFocusedElement = null;
     }
+  }
+
+  function requestClose() {
+    if (closing || !overlay.classList.contains('active')) return;
+    closing = true;
+    history.back();
   }
 
   function loadOverlayContent(url) {
@@ -95,10 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
           throw new Error('Main content not found on the page');
         }
 
-        if (activeRequestUrl !== url) return;
-
         const title = doc.querySelector('title')?.textContent || document.title;
         contentCache[url] = { html: mainContent.innerHTML, title };
+
+        if (activeRequestUrl !== url) return;
         displayContent(mainContent.innerHTML, title);
       })
       .catch((error) => {
@@ -154,18 +171,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   closeOverlayBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    history.back();
+    requestClose();
   });
 
-  overlayBackground.addEventListener('click', (event) => {
-    if (event.target === overlayBackground) {
-      history.back();
-    }
+  overlayBackground.addEventListener('click', () => {
+    requestClose();
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && overlay.classList.contains('active')) {
-      history.back();
+    if (event.key === 'Escape') {
+      requestClose();
     }
   });
 
