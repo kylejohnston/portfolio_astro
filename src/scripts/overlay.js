@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const contentCache = {};
   let lastFocusedElement = null;
+  let activeRequestUrl = null;
 
   function isOverlayTarget(href) {
     if (!href) return false;
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     overlayBackground.setAttribute('aria-hidden', 'true');
     setBackgroundInert(false);
     document.title = originalTitle;
+    activeRequestUrl = null;
 
     const timeoutDuration = prefersReducedMotion() ? 0 : TRANSITION_MS;
     setTimeout(() => {
@@ -70,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function loadOverlayContent(url) {
+    activeRequestUrl = url;
     overlayContent.innerHTML = '<div class="overlay-loader">Loading content…</div>';
 
     if (contentCache[url]) {
@@ -92,11 +95,16 @@ document.addEventListener('DOMContentLoaded', () => {
           throw new Error('Main content not found on the page');
         }
 
+        if (activeRequestUrl !== url) return;
+
         const title = doc.querySelector('title')?.textContent || document.title;
         contentCache[url] = { html: mainContent.innerHTML, title };
         displayContent(mainContent.innerHTML, title);
       })
-      .catch((error) => displayError(url, error.message));
+      .catch((error) => {
+        if (activeRequestUrl !== url) return;
+        displayError(url, error.message);
+      });
   }
 
   function displayContent(html, title) {
