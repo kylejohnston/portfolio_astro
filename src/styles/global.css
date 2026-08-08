@@ -107,3 +107,123 @@ h1, h2, h3 {
   text-align: center;
   margin-top: 0.5rem;
 }
+
+body.overlay-open {
+  overflow: hidden;
+}
+
+.overlay-background {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 998;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: min(640px, 100%);
+  height: 100%;
+  background-color: var(--color-bg);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  transition: right 0.35s cubic-bezier(0.8, -0.4, 0.5, 1), opacity 0.35s;
+  opacity: 0;
+  z-index: 999;
+  display: none;
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+}
+
+.overlay.active {
+  right: 0;
+  opacity: 1;
+}
+
+.overlay-content {
+  padding: var(--space-3);
+}
+
+.overlay-header {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: var(--space-1);
+}
+
+#closeOverlay {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: var(--space-1);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+#closeOverlay:hover,
+#closeOverlay:focus-visible {
+  background-color: var(--color-border);
+}
+
+.overlay-loader {
+  text-align: center;
+  padding: var(--space-4);
+  font-style: italic;
+  color: var(--color-muted);
+}
+
+.error-message {
+  background-color: rgba(220, 38, 38, 0.08);
+  border-left: 4px solid #dc2626;
+  padding: var(--space-2);
+  margin: var(--space-2) 0;
+}
+
+#retryButton {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  border: none;
+  padding: var(--space-1) var(--space-2);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#retryButton:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .overlay {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    transition-duration: 0.01s;
+  }
+}
+
+/* FullBleed's viewport-relative breakout (width: 100vw) would spill past the
+   overlay panel's own edges, since vw units ignore ancestor bounds. Inside the
+   overlay, fill the panel's content width instead of breaking out past it. */
+.overlay .full-bleed {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+}
+
+/* The overlay panel is capped at 640px, narrower than the 640px breakpoint
+   SideBySide uses on the full page — inside the overlay it should always
+   stack, regardless of the browser's true viewport width. */
+.overlay .side-by-side {
+  grid-template-columns: 1fr;
+}
