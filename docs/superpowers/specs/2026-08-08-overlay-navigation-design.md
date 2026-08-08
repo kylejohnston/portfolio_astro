@@ -108,8 +108,12 @@ No changes to: any `src/pages/*.astro` route, `ProjectCard.astro`, `SetView.astr
 6. With JavaScript disabled, case study links behave as normal full-page navigations to the same real,
    working pages.
 7. `prefers-reduced-motion` is respected, including live toggling mid-session.
-8. All three MDX layout components render identically whether reached via direct load or via overlay
-   (proves the CSS-relocation fix).
+8. All three MDX layout components render correctly whether reached via direct load or via overlay
+   (proves the CSS-relocation fix). `SideBySide` and `Caption` have no viewport-relative sizing and
+   render identically in both contexts. `FullBleed`'s breakout technique (`width: 100vw`) is relative
+   to the true browser viewport, not any ancestor, so unmodified it would spill past the overlay
+   panel's edges over the backdrop — inside the overlay it fills the panel's own width instead of
+   breaking out past it, rather than being pixel-identical to the direct-load rendering.
 
 ## Out of scope
 
