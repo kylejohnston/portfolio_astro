@@ -65,9 +65,13 @@ hand-rolled CSS.
 | Token | Hex | Utilities generated | Role |
 |---|---|---|---|
 | `--color-ink` | `#231A1A` | `bg-ink`, `text-ink`, etc. | primary text |
-| `--color-muted` | `#7F7676` | `bg-muted`, `text-muted`, etc. | secondary/muted text |
+| `--color-muted-brand` | `#7F7676` | `bg-muted-brand`, `text-muted-brand`, etc. | secondary/muted text |
 | `--color-paper` | `#FBF9F9` | `bg-paper`, etc. | page background |
 | `--color-accent` | `#FF8888` | `bg-accent`, `text-accent`, etc. | accent/interactive |
+
+Named `--color-muted-brand` rather than `--color-muted`: `global.css` already declares its own
+`--color-muted: #6b7280` (a plain CSS custom property, not a Tailwind theme token) and several existing
+rules actively use it. Reusing the name would shadow that in-use property — kept both, untouched.
 
 `#FFFFFF` gets no custom token — Tailwind already ships `white` (`bg-white`, `text-white`), so a
 duplicate token would be redundant.
