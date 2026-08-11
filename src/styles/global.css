@@ -39,6 +39,29 @@
   --space-3: 1.5rem;
   --space-4: 2.5rem;
   --content-width: 70ch;
+
+  /* Shared 12-column grid — read by <header>/<main>/<footer> (via
+     Tailwind's max-w-[var(...)]/px-[var(...)]/gap-[var(...)] arbitrary
+     values in Layout.astro) and by .overlay's column-matching calc below.
+     Change the value once here rather than in both places. */
+  --grid-margin: 24px;
+  --grid-gutter: 24px;
+  --grid-max-width: 1400px;
+
+  /* .overlay-content's own inner breathing room (Layout.astro:
+     px-[var(...)] on .overlay-content) — conceptually separate from
+     --grid-margin even though it's the same value today. .overlay's
+     calc below has to subtract it, since it eats into the grid area
+     from the inside, after .overlay's own outer edges are already
+     placed. */
+  --overlay-content-pad: 24px;
+
+  /* Overlay transition — dialed in with the overlay tool.
+     Enter is longer and eased; exit is shorter and gets out of the way. */
+  --overlay-enter-dur: 512ms;
+  --overlay-enter-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --overlay-exit-dur: 128ms;
+  --overlay-exit-ease: cubic-bezier(0, 0, 1, 1);
 }
 
 * {
@@ -76,7 +99,7 @@ main {
 }
 
 article {
-  max-width: var(--content-width);
+  /* max-width: var(--content-width); */
   margin-inline: auto;
 }
 
@@ -90,6 +113,11 @@ footer {
   color: var(--color-white);
 }
 
+figure {
+  margin: 0;
+  padding: 0;
+}
+
 h1, h2, h3 {
   line-height: 1.25;
 }
@@ -100,45 +128,6 @@ h1, h2, h3 {
   gap: var(--space-3); */
 }
 
-.full-bleed {
-  margin-inline: calc(50% - 50vw);
-  width: 100vw;
-  max-width: 100vw;
-  margin-block: 2rem;
-}
-
-.full-bleed img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.side-by-side {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-block: 2rem;
-}
-
-.side-by-side img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-@media (max-width: 640px) {
-  .side-by-side {
-    grid-template-columns: 1fr;
-  }
-}
-
-.caption {
-  font-size: 0.875rem;
-  color: var(--color-muted);
-  text-align: center;
-  margin-top: 0.5rem;
-}
-
 body.overlay-open {
   overflow: hidden;
 }
@@ -146,35 +135,94 @@ body.overlay-open {
 .overlay-background {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
   display: none;
   z-index: 998;
+  transition-property: opacity;
+  transition-duration: calc(var(--overlay-exit-dur) * 0.8);
+  transition-timing-function: var(--overlay-exit-ease);
 }
 
+.overlay-background.active {
+  opacity: 1;
+  transition-duration: 256ms;
+}
+
+/* Bottom sheet. Only transform, opacity and filter animate — all three are
+   GPU-compositable, so no frame of this transition triggers layout. The old
+   version animated `right`, which did. */
 .overlay {
   position: fixed;
-  top: 0;
-  right: -100%;
-  width: min(640px, 100%);
-  height: 100%;
+  bottom: 0;
+
+  /* Pin left/right so that, after .overlay-content's own inner padding
+     (--overlay-content-pad) is subtracted back out, its grid-cols-10
+     (9 internal gaps) lands on the exact same column widths as <main>'s
+     columns 2-11 — not a percentage guess. Both insets reduce to the same
+     margin + column + gutter - content-pad, since removing one
+     column+gutter from each side of an even grid stays symmetric.
+     --grid-margin/--grid-gutter/--grid-max-width/--overlay-content-pad are
+     the same :root values <main> and .overlay-content read, so this can't
+     drift out of sync with the page grid.
+
+     <main> itself caps at --grid-max-width and centers past that (mx-auto),
+     so its columns stop growing and shift inward past that width too —
+     --overlay-container-offset accounts for that inward shift before the
+     column math runs, and collapses to 0 below the cap. */
+  --overlay-container-width: min(100vw, var(--grid-max-width));
+  --overlay-container-offset: calc((100vw - var(--overlay-container-width)) / 2);
+  --overlay-grid-col: calc((var(--overlay-container-width) - 2 * var(--grid-margin) - 11 * var(--grid-gutter)) / 12);
+  --overlay-grid-inset: calc(var(--overlay-container-offset) + var(--grid-margin) + var(--overlay-grid-col) + var(--grid-gutter) - var(--overlay-content-pad));
+  left: var(--overlay-grid-inset);
+  right: var(--overlay-grid-inset);
+
+  height: 92%;
   background-color: var(--color-bg);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  transition: right 0.35s cubic-bezier(0.8, -0.4, 0.5, 1), opacity 0.35s;
-  opacity: 0;
   z-index: 999;
   display: none;
-  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+  will-change: transform, opacity;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.15);
+
+  /* Pre-enter state. Exit timing lives here, on the base state. */
+  transform: translate3d(0, 4%, 0);
+  opacity: 0;
+  filter: blur(2px);
+  transition-property: transform, opacity, filter;
+  transition-duration: var(--overlay-exit-dur);
+  transition-timing-function: var(--overlay-exit-ease);
 }
 
 .overlay.active {
-  right: 0;
+  transform: translate3d(0, 0, 0);
   opacity: 1;
+  filter: blur(0px);
+  transition-duration: var(--overlay-enter-dur);
+  transition-timing-function: var(--overlay-enter-ease);
 }
 
-.overlay-content {
-  padding: var(--space-3);
+/* Exit target — added on close, removed on open. Without it the sheet would
+   leave through the same values it entered by, which is what made closing
+   feel as heavy as opening. */
+.overlay.closing {
+  transform: translate3d(0, 32%, 0);
+  opacity: 0;
+  filter: blur(6px);
 }
+
+.overlay-content article {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--grid-gutter);
+}
+  .overlay-content h1,
+  .overlay-content p {
+    border: 1px solid blue;
+    grid-column: 7 / -1;
+    /* padding: var(--space-3); */
+  }
 
 .overlay-header {
   display: flex;
@@ -231,31 +279,155 @@ body.overlay-open {
   opacity: 0.85;
 }
 
+/* ============================================================
+   Two-tone halftone dot effect
+   Uses two pseudo-elements, each drawing a repeating pattern
+   of small radial-gradient "dots". Each pattern is actually
+   TWO copies of the same gradient offset by half a tile, so
+   the dots interlock in a brick-like grid instead of a plain
+   one. Two different colors + offsets = layered halftone look.
+   ============================================================ */
+
+.halftone-card {
+  /* --- tweak these --- */
+  --dot-size: 4px;        /* size of one dot tile (smaller = finer halftone) */
+  --dot-color-a: #ffdde3; /* front layer dot color */
+  --dot-color-b: #b0e0e6; /* back layer dot color */
+  --shadow-offset: 6px;   /* how far the back layer peeks out */
+  --radius: 12px;
+
+  position: relative;
+  z-index: 1;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  background: #fff; /* base surface so front dots are visible */
+}
+
+/* Front dot layer, sits just behind the content */
+.halftone-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+
+  /* stack the same gradient twice, second copy offset by half
+     a tile (2px on a 4px tile) so dots stagger like bricks */
+  background-image:
+    radial-gradient(var(--dot-color-a) 30%, transparent 30%),
+    radial-gradient(var(--dot-color-a) 30%, transparent 30%);
+  background-size: var(--dot-size) var(--dot-size);
+  background-position:
+    0 0,
+    calc(var(--dot-size) / 2) calc(var(--dot-size) / 2);
+
+  /* optional inset "outline" ring, purely decorative */
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06) inset;
+}
+
+/* Back dot layer, offset outward so it peeks out from behind */
+.halftone-card::after {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  border-radius: calc(var(--radius) + var(--shadow-offset) / 2);
+
+  /* push this layer down/right relative to the front one */
+  inset: var(--shadow-offset) calc(-1 * var(--shadow-offset))
+         calc(-1 * var(--shadow-offset)) var(--shadow-offset);
+
+  background-image:
+    radial-gradient(var(--dot-color-b) 30%, transparent 30%),
+    radial-gradient(var(--dot-color-b) 30%, transparent 30%);
+  background-size: var(--dot-size) var(--dot-size);
+  background-position:
+    0 0,
+    calc(var(--dot-size) / 2) calc(var(--dot-size) / 2);
+}
+/* ============================================================
+   1) Halftone "backdrop" peeking out from behind a solid
+      color block or image — e.g. a photo or colored panel
+      with a dotted shadow offset behind it.
+   ============================================================ */
+
+.halftone-backdrop {
+  --dot-size: 4px;
+  --dot-color: #ffdde3;
+  --offset: 10px;      /* how far the dots peek out */
+  --radius: 12px;
+
+  position: relative;
+  z-index: 1;
+  border-radius: var(--radius);
+  overflow: hidden;     /* keeps a solid-color fill or <img> clipped to radius */
+}
+
+/* Put your solid color OR an <img> as the actual element/content.
+   For a solid color, just set background on .halftone-backdrop itself:
+   .halftone-backdrop { background: #2b2b2b; }
+   For an image, make sure the <img> fills the box (width/height: 100%,
+   object-fit: cover) so it sits on top of this pseudo-element. */
+
+.halftone-backdrop::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: var(--offset) calc(-1 * var(--offset)) calc(-1 * var(--offset)) var(--offset);
+  border-radius: calc(var(--radius) + var(--offset) / 2);
+
+  background-image:
+    radial-gradient(var(--dot-color) 30%, transparent 30%),
+    radial-gradient(var(--dot-color) 30%, transparent 30%);
+  background-size: var(--dot-size) var(--dot-size);
+  background-position:
+    0 0,
+    calc(var(--dot-size) / 2) calc(var(--dot-size) / 2);
+}
+
+
+/* ============================================================
+   2) Halftone as a plain background fill — apply directly to
+      any element's `background`, no pseudo-elements needed.
+      Good for section backgrounds, cards, banners, etc.
+   ============================================================ */
+
+.halftone-fill {
+  --dot-size: 6px;
+  --dot-color: #b0e0e6;
+  --bg-color: #ffffff; /* the "paper" color behind the dots */
+
+  background-color: var(--bg-color);
+  background-image:
+    radial-gradient(var(--dot-color) 30%, transparent 30%),
+    radial-gradient(var(--dot-color) 30%, transparent 30%);
+  background-size: var(--dot-size) var(--dot-size);
+  background-position:
+    0 0,
+    calc(var(--dot-size) / 2) calc(var(--dot-size) / 2);
+}
+
+
+/* =================================
+   R E S P O N S I V E · S T Y L E S
+   ================================= */
+
 @media (max-width: 640px) {
+  /* A bottom sheet is already full-width; leave the width alone and give
+     the page behind it a little more headroom on small screens. */
   .overlay {
-    width: 100%;
+    height: 88%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .overlay {
-    transition-duration: 0.01s;
+  /* Keep opacity as the static cue, drop the movement and the blur. */
+  .overlay,
+  .overlay.active,
+  .overlay.closing {
+    transform: none;
+    filter: none;
+    transition-property: opacity;
+    transition-duration: 120ms;
+    transition-delay: 0ms;
   }
-}
-
-/* FullBleed's viewport-relative breakout (width: 100vw) would spill past the
-   overlay panel's own edges, since vw units ignore ancestor bounds. Inside the
-   overlay, fill the panel's content width instead of breaking out past it. */
-.overlay .full-bleed {
-  width: 100%;
-  max-width: 100%;
-  margin-inline: 0;
-}
-
-/* @media (max-width: 640px) checks the browser viewport, not the overlay
-   panel's own width, so it never matches on a wide desktop screen even
-   though the ~592px-wide panel is too narrow for two comfortable columns.
-   Force single-column regardless of the true viewport width. */
-.overlay .side-by-side {
-  grid-template-columns: 1fr;
 }

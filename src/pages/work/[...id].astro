@@ -17,3 +17,35 @@ const { Content } = await render(entry);
     <Content />
   </article>
 </Layout>
+
+<style>
+  @reference "../../styles/global.css";
+  /* Standalone-only layout. Astro scopes this CSS to pages that render this
+     component — the overlay only ever transplants fetched HTML (via
+     fetch + innerHTML in overlay.js), never a page's <head>/stylesheets,
+     so none of this reaches the overlay even though the markup it targets
+     does. Tailwind classes and global.css rules don't have this property —
+     they're loaded on every page, overlay included. */
+  article {
+    grid-column: span 12;
+    background: var(--color-paper);
+    max-width: 1400px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+  }
+  /* :global() because <Content /> is MDX output — a separate component's
+     rendered markup, which never receives this file's scope attribute.
+     A plain `article p` selector compiles to `article p[data-astro-cid-*]`
+     and can never match it; :global(p) drops the attribute requirement on
+     just the child while the rule stays part of this page's own CSS. */
+  article :global(p:not(.caption)),
+  article :global(h1),
+  article :global(h2),
+  article :global(h3),
+  article :global(h4) {
+    grid-column: 7 / 12;
+    border: 1px solid greenyellow !important;
+  }
+</style>

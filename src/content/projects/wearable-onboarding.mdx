@@ -5,7 +5,7 @@ cover: ../../assets/projects/wearable-onboarding/cover.svg
 coverAlt: "Wearable device displaying the pairing confirmation screen"
 ---
 
-import FullBleed from '../../components/mdx/FullBleed.astro';
+import Span12 from '../../components/mdx/Span12.astro';
 import SideBySide from '../../components/mdx/SideBySide.astro';
 import Caption from '../../components/mdx/Caption.astro';
 import fullBleed from '../../assets/projects/wearable-onboarding/full-bleed.svg';
@@ -14,7 +14,7 @@ import sideRight from '../../assets/projects/wearable-onboarding/side-right.svg'
 
 The wearable's first-run flow had nine screens crammed onto a 24mm display with no keyboard, and it assumed a quiet, indoor setup. In practice people were pairing it on a couch with the TV on, in a store aisle, or outdoors in direct sunlight where the screen was barely readable — and setup completion sat at 61%, with most drop-off in the first three screens.
 
-<FullBleed src={fullBleed} alt="Wearable device showing step two of the redesigned pairing flow" />
+<Span12 src={fullBleed} alt="Wearable device showing step two of the redesigned pairing flow" />
 
 Most of what those nine screens asked for — timezone, units, notification preferences — was already sitting in the paired phone's settings. The redesign moved everything answerable from existing data onto the phone app, cutting the on-watch flow to three screens: pair, confirm on wrist, and one screen for anything the phone genuinely didn't know, like wrist placement for the heart-rate sensor.
 

@@ -10,7 +10,7 @@ interface Props {
 const { entry, why } = Astro.props;
 ---
 
-<a class="project-card col-start-2 col-span-10 items-center gap-4 border" href={`/work/${entry.id}`}>
+<a class="project-card col-start-2 col-span-10 items-center gap-6 border" href={`/work/${entry.id}`}>
   <Image class="project-card__cover" src={entry.data.cover} alt={entry.data.coverAlt} width={480} height={320} />
   <div class="project-card__body">
     <h2 class="project-card__title">{entry.data.title}</h2>
@@ -23,7 +23,6 @@ const { entry, why } = Astro.props;
   .project-card {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* display: flex; */
     color: inherit;
     text-decoration: none;
   }
@@ -36,7 +35,6 @@ const { entry, why } = Astro.props;
   }
   .project-card__body {
     grid-column: 2;
-    background-color: #f0f;
   }
   /* Alternate which side the image/text sit on for every other card.
      nth-of-type (not nth-child) so inserting non-.project-card content
@@ -47,6 +45,7 @@ const { entry, why } = Astro.props;
   }
   .project-card:nth-of-type(even) .project-card__cover {
     grid-column: 2;
+    grid-row: 1;
   }
   .project-card:nth-of-type(even) .project-card__body {
     grid-column: 1;

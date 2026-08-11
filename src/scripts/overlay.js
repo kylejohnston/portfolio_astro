@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const originalTitle = document.title;
 
   const OVERLAY_PATH_PREFIX = '/work/';
-  const TRANSITION_MS = 350;
+  // Must match --overlay-exit-dur (plus a small buffer), or display:none
+  // either cuts the exit short or leaves an invisible sheet over the page.
+  const EXIT_TRANSITION_MS = 160;
 
   const prefersReducedMotion = () =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -51,15 +53,29 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.scrollTop = 0;
     closeOverlayBtn.focus();
 
+    // Clear any exit state left over from a previous close, so the sheet
+    // enters from its pre-enter values rather than from where it exited.
+    overlay.classList.remove('closing');
+
     if (prefersReducedMotion()) {
       overlay.classList.add('active');
+      overlayBackground.classList.add('active');
     } else {
-      requestAnimationFrame(() => overlay.classList.add('active'));
+      // One frame's delay, so the browser has a computed "from" state to
+      // transition out of after display flipped to block.
+      requestAnimationFrame(() => {
+        overlay.classList.add('active');
+        overlayBackground.classList.add('active');
+      });
     }
   }
 
   function hideOverlay() {
+    // 'closing' carries the exit-only values — shorter travel, full fade, a
+    // touch more blur — so the sheet leaves faster than it arrived.
     overlay.classList.remove('active');
+    overlay.classList.add('closing');
+    overlayBackground.classList.remove('active');
     overlay.setAttribute('aria-hidden', 'true');
     overlayBackground.setAttribute('aria-hidden', 'true');
     setBackgroundInert(false);
@@ -67,12 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
     activeRequestUrl = null;
     closing = false;
 
-    const timeoutDuration = prefersReducedMotion() ? 0 : TRANSITION_MS;
+    const timeoutDuration = prefersReducedMotion() ? 0 : EXIT_TRANSITION_MS;
     hideTimeoutId = setTimeout(() => {
       overlay.style.display = 'none';
       overlayBackground.style.display = 'none';
       document.body.classList.remove('overlay-open');
       overlayContent.innerHTML = '';
+      overlay.classList.remove('closing');
       hideTimeoutId = null;
     }, timeoutDuration);
 

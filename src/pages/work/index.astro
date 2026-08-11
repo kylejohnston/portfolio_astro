@@ -7,8 +7,29 @@ const projects = await getCollection('projects');
 ---
 
 <Layout title="All work">
-  <h1>All work</h1>
+  <h1 class="col-start-7 col-span-5 text-paper my-12">All work</h1>
   <div class="card-grid">
     {projects.map((entry) => <ProjectCard entry={entry} />)}
   </div>
 </Layout>
+
+<style>
+  .card-grid {
+    grid-column: span 12;
+    background: var(--color-paper);
+    max-width: 1400px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    row-gap: 96px;
+    /* padding-inline: 24px; */
+    padding-block: 96px;
+  }
+  main h1, 
+  main :global(h1) {
+    color: var(--color-paper);
+    grid-column: 7 / 12;
+    border: 1px solid blue !important;
+  }
+</style>

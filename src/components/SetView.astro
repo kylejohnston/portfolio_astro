@@ -18,17 +18,19 @@ const picked = set.projects.map(({ id, why }) => {
 });
 ---
 
-<div id="hi" class="col-span-6 col-start-6 text-white">
-  <div class="hero py-24">
+<div id="hi" class="col-span-5 col-start-7 text-white">
+  <div class="hero py-24 halftone-backdrop">
     <h1 class="">{heading}</h1>
     <p class="">{set.intro}</p>
   </div>
 </div>
 <div id="work" class="border col-span-12">
-  <div class="card-grid grid grid-cols-12 gap-6">
+  <div class="card-grid grid grid-cols-12 gap-x-6 gap-y-24">
     {picked.map(({ entry, why }) => <ProjectCard entry={entry} why={why} />)}
+    <div class="col-span-10 col-start-2 mb-24">
+      <p class="see-all"><a href="/work">See all work</a></p>
+    </div>
   </div>
-  <p class="see-all"><a href="/work">See all work</a></p>
 </div>
 
 <style>

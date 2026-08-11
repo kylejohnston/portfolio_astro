@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  first: { src: ImageMetadata; alt: string };
+  second: { src: ImageMetadata; alt: string };
+  third: { src: ImageMetadata; alt: string };
+}
+
+const { first, second, third } = Astro.props;
+---
+
+<div class="col-span-12 grid grid-cols-3 gap-6">
+  <Image src={first.src} alt={first.alt} class="w-full h-auto" />
+  <Image src={second.src} alt={second.alt} class="w-full h-auto" />
+  <Image src={third.src} alt={third.alt} class="w-full h-auto" />
+</div>

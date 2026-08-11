@@ -19,12 +19,12 @@ const { title, noindex = false } = Astro.props;
     {noindex && <meta name="robots" content="noindex" />}
   </head>
   <body class="bg-paper my-12">
-    <header class="site-header border max-w-[1400] mx-6 grid grid-cols-12 gap-6">
-      <div class="col-span-5">
+    <header class="site-header border max-w-[var(--grid-max-width)] mx-auto px-[var(--grid-margin)] grid grid-cols-12 gap-[var(--grid-gutter)]">
+      <div class="col-span-5 col-start-2">
         <div><a class="site-title" href="/">Kyle Johnston</a></div>
         <div>Product Designer</div>
       </div>
-      <nav class="col-span-7 flex gap-6">
+      <nav class="col-span-6 flex gap-6">
         <div>
           <a href="/" class="flex gap-1 items-center">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,25 +51,26 @@ const { title, noindex = false } = Astro.props;
         </div>
       </nav>
     </header>
-    <main class="grid grid-cols-12 gap-6 mx-6 max-w-[1400]">
+    <main class="max-w-[var(--grid-max-width)] mx-auto px-[var(--grid-margin)] grid grid-cols-12 gap-[var(--grid-gutter)]">
       <slot />
     </main>
-    <footer class="grid grid-cols-12 gap-6 mx-6 max-w-[1400]">
+    <footer class="max-w-[var(--grid-max-width)] mx-auto px-[var(--grid-margin)] grid grid-cols-12 gap-[var(--grid-gutter)]">
       <p>boo</p>
     </footer>
       
     <div class="overlay-background" id="overlayBackground" aria-hidden="true"></div>
     <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-hidden="true">
-      <div class="overlay-content">
-        <div class="overlay-header">
+      <div class="overlay-content grid grid-cols-10 gap-6 px-[var(--overlay-content-pad)]">
+        <div class="overlay-header halftone-fill col-span-10">
           <button id="closeOverlay" aria-label="Close overlay">
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div id="overlayPageContent"></div>
+        <div id="overlayPageContent" class="col-start-1 col-span-10"></div>
       </div>
     </div>
 
     <script src="../scripts/overlay.js"></script>
+    {import.meta.env.DEV && <script src="../scripts/grid-jig.js"></script>}
   </body>
 </html>
