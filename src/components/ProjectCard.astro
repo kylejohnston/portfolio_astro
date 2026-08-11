@@ -10,38 +10,46 @@ interface Props {
 const { entry, why } = Astro.props;
 ---
 
-<a class="project-card" href={`/work/${entry.id}`}>
+<a class="project-card col-start-2 col-span-10 items-center gap-4 border" href={`/work/${entry.id}`}>
   <Image class="project-card__cover" src={entry.data.cover} alt={entry.data.coverAlt} width={480} height={320} />
-  <h2 class="project-card__title">{entry.data.title}</h2>
-  <p class="project-card__summary">{entry.data.summary}</p>
-  {why && <p class="project-card__why">{why}</p>}
+  <div class="project-card__body">
+    <h2 class="project-card__title">{entry.data.title}</h2>
+    <p class="project-card__summary">{entry.data.summary}</p>
+    {why && <p class="project-card__why">{why}</p>}
+  </div>
 </a>
 
 <style>
   .project-card {
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* display: flex; */
     color: inherit;
     text-decoration: none;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    overflow: hidden;
   }
   .project-card__cover {
-    display: block;
     width: 100%;
     height: auto;
     aspect-ratio: 3 / 2;
     object-fit: cover;
+    grid-column: 1;
   }
-  .project-card__title {
-    margin: var(--space-2) var(--space-2) 0;
+  .project-card__body {
+    grid-column: 2;
+    background-color: #f0f;
   }
-  .project-card__summary {
-    margin: var(--space-1) var(--space-2) 0;
-    color: var(--color-muted);
+  /* Alternate which side the image/text sit on for every other card.
+     nth-of-type (not nth-child) so inserting non-.project-card content
+     between cards later won't throw off the counting. */
+  .project-card:nth-of-type(even) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
-  .project-card__why {
-    margin: var(--space-1) var(--space-2) var(--space-2);
-    font-style: italic;
+  .project-card:nth-of-type(even) .project-card__cover {
+    grid-column: 2;
+  }
+  .project-card:nth-of-type(even) .project-card__body {
+    grid-column: 1;
+    grid-row: 1;
   }
 </style>

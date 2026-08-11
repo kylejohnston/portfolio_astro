@@ -12,6 +12,17 @@ import fullBleed from '../../assets/projects/design-system-migration/full-bleed.
 import sideLeft from '../../assets/projects/design-system-migration/side-left.svg';
 import sideRight from '../../assets/projects/design-system-migration/side-right.svg';
 
+<div class="grid grid-cols-3 gap-4">
+  <div class="...">01</div>
+  <div class="...">02</div>
+  <div class="...">03</div>
+  <div class="col-span-2 ...">04</div>
+  <div class="...">05</div>
+  <div class="...">06</div>
+  <div class="col-span-2 ...">07</div>
+</div>
+
+
 Forty product surfaces had each grown their own version of the same handful of components — five different button implementations, three date pickers, spacing values chosen by eye. None of it was wrong exactly, but every surface handled focus states, disabled states, and responsive behavior slightly differently, and every new feature meant re-deciding things that should have been settled once.
 
 <FullBleed src={fullBleed} alt="Token-based component library showing button, input, and card primitives" />

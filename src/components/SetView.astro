@@ -18,22 +18,45 @@ const picked = set.projects.map(({ id, why }) => {
 });
 ---
 
-<h1>{heading}</h1>
-<p class="intro">{set.intro}</p>
-<div class="card-grid">
-  {picked.map(({ entry, why }) => <ProjectCard entry={entry} why={why} />)}
+<div id="hi" class="col-span-6 col-start-6 text-white">
+  <div class="hero py-24">
+    <h1 class="">{heading}</h1>
+    <p class="">{set.intro}</p>
+  </div>
 </div>
-<p class="see-all"><a href="/work">See all work</a></p>
+<div id="work" class="border col-span-12">
+  <div class="card-grid grid grid-cols-12 gap-6">
+    {picked.map(({ entry, why }) => <ProjectCard entry={entry} why={why} />)}
+  </div>
+  <p class="see-all"><a href="/work">See all work</a></p>
+</div>
 
 <style>
+  .hero {
+    color: var(--white);
+  }
   .intro {
     max-width: 60ch;
     font-size: 1.125rem;
   }
-  .card-grid {
-    margin-block: var(--space-3);
+  #work {
+    /* margin-top: -80px; */
+    /* padding-top: 80px; */
+    position: relative;
+    z-index: 1;
+    /* background-color: var(--color-paper); */
+    /* clip-path: polygon(0 80px, 100% 0, 100% 100%, 0 100%); */
+  }
+  #work::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 1;
+    /* margin-top: -80px; */
+    /* padding-top: 80px; */
+    background-color: var(--color-paper);
+    clip-path: polygon(0 80px, 100% 0, 100% 100%, 0 100%);
   }
   .see-all {
-    margin-top: var(--space-3);
   }
 </style>
