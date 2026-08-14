@@ -20,7 +20,7 @@ const groups = workGroups.map(({ label, ids }) => ({
 ---
 
 <Layout title="All work">
-  <h1 class="col-start-7 col-span-5 text-paper my-12">All work</h1>
+  <h1 class="col-start-7 col-span-5 text-ink my-12">All work</h1>
   {groups.map(({ label, entries }) => (
     <>
       <h2 class="work-group-title col-start-7 col-span-5">{label}</h2>
@@ -51,7 +51,7 @@ const groups = workGroups.map(({ label, ids }) => ({
     border: 1px solid blue !important;
   }
   .work-group-title {
-    color: var(--color-paper);
+    color: var(--color-ink);
   }
   /* :global() because .project-card is rendered by ProjectCard.astro, a
      separate component — a plain `.project-card` selector here compiles to
