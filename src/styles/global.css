@@ -76,8 +76,8 @@ body {
 }
 
 .site-header {
-  color: var(--color-white);
-  background-color: var(--color-ink);
+  /* color: var(--color-white); */
+  /* background-color: var(--color-ink); */
 }
 
 .site-title {

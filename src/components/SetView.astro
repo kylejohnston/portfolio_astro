@@ -65,14 +65,14 @@ const HERO_V2 = true;
     /* clip-path: polygon(0 80px, 100% 0, 100% 100%, 0 100%); */
   }
   #work::before {
-    content: "";
+    /* content: "";
     position: absolute;
     z-index: -1;
-    inset: 1;
+    inset: 1; */
     /* margin-top: -80px; */
     /* padding-top: 80px; */
-    background-color: var(--color-paper);
-    clip-path: polygon(0 80px, 100% 0, 100% 100%, 0 100%);
+    /* background-color: var(--color-paper); */
+    /* clip-path: polygon(0 80px, 100% 0, 100% 100%, 0 100%); */
   }
   .see-all {
   }
@@ -84,6 +84,16 @@ const HERO_V2 = true;
      behind the (non-positioned) intro text without any extra
      stacking-context bookkeeping there.
 
+     Desktop: .hero-v2-wrap deliberately has no `position` set, so
+     the panels (position:absolute with no positioned ancestor
+     anywhere up to <html>) resolve against the true document root
+     instead of the wrapper's own box — that's what lets them start
+     at the actual top of the page and paint behind <header> and
+     <main> without living outside them in the DOM. Negative z-index
+     still means "behind everything non-positioned," now evaluated
+     against the whole page's stacking context rather than just this
+     component's box.
+
      --main-inset is "how far the grid's column 1 sits from the
      actual viewport edge" — the same math .overlay uses to align
      itself to <main>'s columns, but that version lives inside
@@ -91,7 +101,6 @@ const HERO_V2 = true;
      recomputed locally from the shared --grid-* :root tokens instead.
      ============================================================ */
   .hero-v2-wrap {
-    position: relative;
     grid-column: span 12;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -103,13 +112,14 @@ const HERO_V2 = true;
   }
   .hero-panel {
     position: absolute;
-    top: 0;
   }
   .hero-panel-a {
-    /* Starts at the literal viewport edge (bleeds past the grid margin
-       on the left) but its right edge lands exactly on the column
-       11/12 boundary, same as the rest of the grid. */
-    left: calc(-1 * var(--main-inset));
+    /* Literal top-left of the page — bleeds past the header on the
+       left and sits behind it vertically. Right edge still lands
+       exactly on the column 11/12 boundary, same as the rest of the
+       grid. */
+    top: 0;
+    left: 0;
     width: calc(var(--main-inset) + 11 * var(--hero-grid-col) + 10 * var(--grid-gutter));
     aspect-ratio: 16 / 7;
     --dot-color: #ffdde3; /* .dot-color-a */
@@ -117,10 +127,12 @@ const HERO_V2 = true;
     z-index: -2;
   }
   .hero-panel-b {
-    /* Fixed 48px from the viewport left (not grid-aligned) and bleeds
-       edge-to-edge on the right. */
-    left: calc(48px - var(--main-inset));
-    right: calc(-1 * var(--main-inset));
+    /* Left edge grid-aligned to the start of column 3; right edge
+       bleeds to the viewport edge. 48px down from the top of the
+       page — shorter than the header, so it overlaps it. */
+    top: 48px;
+    left: calc(var(--main-inset) + 2 * (var(--hero-grid-col) + var(--grid-gutter)));
+    right: 0;
     aspect-ratio: 16 / 9;
     background-color: var(--color-accent);
     mix-blend-mode: multiply;
@@ -129,6 +141,10 @@ const HERO_V2 = true;
 
   @media (max-width: 640px) {
     .hero-v2-wrap {
+      /* Mobile panels are scoped to this wrapper's own box (see the
+         padding-bottom trick below), not the document root, so this
+         needs to be a positioning context again here. */
+      position: relative;
       display: block;
       padding-bottom: 64px; /* background peeks out below the foreground block by this much */
     }
@@ -136,10 +152,13 @@ const HERO_V2 = true;
       padding-block: 32px 24px;
     }
     .hero-panel-a {
-      /* Background block: fills the whole wrap, including the 64px
-         padding-bottom above, so it always extends exactly that far
-         past the foreground block below regardless of copy length. */
-      inset: 0;
+      /* Background block: fills the whole wrap vertically (including
+         the 64px padding-bottom above, so it always extends exactly
+         that far past the foreground block below regardless of copy
+         length), but still bleeds past the wrap's own inset horizontally
+         to reach the true viewport edges. */
+      top: 0;
+      bottom: 0;
       left: calc(-1 * var(--main-inset));
       right: calc(-1 * var(--main-inset));
       width: auto;
@@ -150,6 +169,7 @@ const HERO_V2 = true;
          static position paints above the negative-z-index background
          with no extra z-index bookkeeping needed. */
       position: static;
+      top: auto;
       width: calc(100% - 2 * var(--grid-margin));
       margin-inline: auto;
       aspect-ratio: 1 / 1;
