@@ -1,0 +1,31 @@
+---
+title: "Wearable Onboarding"
+summary: "Designed the first-run experience for a health-tracking wearable, taking setup completion from 61% to 89% across a five-minute, screen-constrained flow."
+cover: ../../assets/projects/wearable-onboarding/cover.svg
+coverAlt: "Wearable device displaying the pairing confirmation screen"
+---
+import { Image } from 'astro:assets';
+import { globImages } from '../../lib/globImages';
+export const pics = globImages(
+  import.meta.glob('../../assets/projects/design-system-migration/*.svg', { eager: true })
+);
+
+import Span12 from '../../components/mdx/Span12.astro';
+import SideBySide from '../../components/mdx/SideBySide.astro';
+import Caption from '../../components/mdx/Caption.astro';
+
+The wearable's first-run flow had nine screens crammed onto a 24mm display with no keyboard, and it assumed a quiet, indoor setup. In practice people were pairing it on a couch with the TV on, in a store aisle, or outdoors in direct sunlight where the screen was barely readable — and setup completion sat at 61%, with most drop-off in the first three screens.
+
+<Span12 src={pics["full-bleed"]} alt="Wearable device showing step two of the redesigned pairing flow" />
+
+Most of what those nine screens asked for — timezone, units, notification preferences — was already sitting in the paired phone's settings. The redesign moved everything answerable from existing data onto the phone app, cutting the on-watch flow to three screens: pair, confirm on wrist, and one screen for anything the phone genuinely didn't know, like wrist placement for the heart-rate sensor.
+
+<SideBySide
+  left={{ src: pics["side-left"], alt: "Original nine-screen on-watch setup flow" }}
+  right={{ src: pics["side-right"], alt: "Redesigned three-screen flow with setup detail handled on the phone" }}
+/>
+<Caption>Before: nine on-watch screens. After: three, with setup detail handled on the paired phone.</Caption>
+
+Sunlight legibility got its own pass separate from the flow itself — a higher-contrast mode that triggered automatically above a brightness threshold, since no amount of flow simplification fixes a screen nobody can read outdoors. Error recovery mid-pairing (dropped Bluetooth, wrong phone selected) got explicit retry screens instead of silently restarting the whole sequence, which testing showed was the single biggest source of abandoned setups.
+
+Setup completion moved from 61% to 89% after the phone-assisted flow shipped, and average setup time dropped from just under six minutes to under two. The pattern of pushing configuration to whichever device could handle it best became the default approach for every wearable surface that followed.

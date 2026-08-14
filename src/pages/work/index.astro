@@ -2,15 +2,33 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import { workGroups } from '../../data/workGroups';
 
-const projects = await getCollection('projects');
+const all = await getCollection('projects');
+
+// A project id not listed in any group is silently omitted here — see the
+// comment in workGroups.ts. A listed id with no matching project is almost
+// certainly a typo, so that fails the build instead of disappearing quietly.
+const groups = workGroups.map(({ label, ids }) => ({
+  label,
+  entries: ids.map((id) => {
+    const entry = all.find((e) => e.id === id);
+    if (!entry) throw new Error(`Unknown project id "${id}" in workGroups.ts`);
+    return entry;
+  }),
+}));
 ---
 
 <Layout title="All work">
   <h1 class="col-start-7 col-span-5 text-paper my-12">All work</h1>
-  <div class="card-grid">
-    {projects.map((entry) => <ProjectCard entry={entry} />)}
-  </div>
+  {groups.map(({ label, entries }) => (
+    <>
+      <h2 class="work-group-title col-start-7 col-span-5">{label}</h2>
+      <div class="card-grid all-work">
+        {entries.map((entry) => <ProjectCard entry={entry} />)}
+      </div>
+    </>
+  ))}
 </Layout>
 
 <style>
@@ -26,10 +44,22 @@ const projects = await getCollection('projects');
     /* padding-inline: 24px; */
     padding-block: 96px;
   }
-  main h1, 
+  main h1,
   main :global(h1) {
     color: var(--color-paper);
     grid-column: 7 / 12;
     border: 1px solid blue !important;
+  }
+  .work-group-title {
+    color: var(--color-paper);
+  }
+  /* :global() because .project-card is rendered by ProjectCard.astro, a
+     separate component — a plain `.project-card` selector here compiles to
+     require *this* page's scope attribute on the card itself, which it can
+     never have. .all-work keeps the override specific to this page's grid
+     rather than any card-grid anywhere. */
+  .card-grid.all-work :global(.project-card) {
+    background-color: aqua;
+    border: 4px solid greenyellow !important;
   }
 </style>

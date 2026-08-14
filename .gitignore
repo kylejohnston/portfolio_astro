@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # untracked reference prototype with its own .git — must never be swept into a commit
 overlay-concept/
+
+# scratch working files (raw exports, sketches, thumbnails) — not for version control
+temp-assets/

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" fill="#000000"/>
+  <rect width="1200" height="800" fill="#ffffff" opacity="0.15"/>
+  <text x="50%" y="50%" fill="#ffffff" font-family="system-ui, sans-serif" font-size="34" text-anchor="middle" dominant-baseline="middle">Garmin Career Paths</text>
+</svg>
