@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const overlayBackground = document.getElementById('overlayBackground');
   const closeOverlayBtn = document.getElementById('closeOverlay');
   const overlayContent = document.getElementById('overlayPageContent');
-  const siteHeader = document.querySelector('.site-header');
+  const siteHeader = document.querySelector('.site-nav');
   const siteMain = document.querySelector('main');
   const originalTitle = document.title;
 
