@@ -16,14 +16,29 @@ const picked = set.projects.map(({ id, why }) => {
   if (!entry) throw new Error(`Unknown project id "${id}"`);
   return { entry, why };
 });
+
+// Flip to compare hero treatments. Build-time only — edit, save, Vite HMR
+// updates the page instantly, so this doesn't need to be a runtime toggle.
+const HERO_V2 = true;
 ---
 
-<div id="hi" class="col-span-5 col-start-7 text-white">
-  <div class="hero py-24 halftone-backdrop">
-    <h1 class="">{heading}</h1>
-    <p class="">{set.intro}</p>
+{HERO_V2 ? (
+  <div class="hero-v2-wrap">
+    <div class="hero-panel hero-panel-a halftone-fill" aria-hidden="true"></div>
+    <div class="hero-v2-intro col-start-2 col-span-7 py-16 text-ink">
+      <h1>{heading}</h1>
+      <p>{set.intro}</p>
+    </div>
+    <div class="hero-panel hero-panel-b" aria-hidden="true"></div>
   </div>
-</div>
+) : (
+  <div id="hi" class="col-span-5 col-start-7 text-white">
+    <div class="hero py-24 halftone-backdrop">
+      <h1 class="">{heading}</h1>
+      <p class="">{set.intro}</p>
+    </div>
+  </div>
+)}
 <div id="work" class="border col-span-12">
   <div class="card-grid grid grid-cols-12 gap-x-6 gap-y-24">
     {picked.map(({ entry, why }) => <ProjectCard entry={entry} why={why} />)}
@@ -60,5 +75,84 @@ const picked = set.projects.map(({ id, why }) => {
     clip-path: polygon(0 80px, 100% 0, 100% 100%, 0 100%);
   }
   .see-all {
+  }
+
+  /* ============================================================
+     Hero v2 — two decorative panels bleeding past the grid, with
+     the hero copy layered on top in normal flow. Both panels are
+     purely visual: position:absolute + negative z-index keeps them
+     behind the (non-positioned) intro text without any extra
+     stacking-context bookkeeping there.
+
+     --main-inset is "how far the grid's column 1 sits from the
+     actual viewport edge" — the same math .overlay uses to align
+     itself to <main>'s columns, but that version lives inside
+     .overlay's own rule (not :root), so it isn't reachable here;
+     recomputed locally from the shared --grid-* :root tokens instead.
+     ============================================================ */
+  .hero-v2-wrap {
+    position: relative;
+    grid-column: span 12;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--grid-gutter);
+    --container-width: min(100vw, var(--grid-max-width));
+    --container-offset: calc((100vw - var(--container-width)) / 2);
+    --hero-grid-col: calc((var(--container-width) - 2 * var(--grid-margin) - 11 * var(--grid-gutter)) / 12);
+    --main-inset: calc(var(--container-offset) + var(--grid-margin));
+  }
+  .hero-panel {
+    position: absolute;
+    top: 0;
+  }
+  .hero-panel-a {
+    /* Starts at the literal viewport edge (bleeds past the grid margin
+       on the left) but its right edge lands exactly on the column
+       11/12 boundary, same as the rest of the grid. */
+    left: calc(-1 * var(--main-inset));
+    width: calc(var(--main-inset) + 11 * var(--hero-grid-col) + 10 * var(--grid-gutter));
+    aspect-ratio: 16 / 7;
+    --dot-color: #ffdde3; /* .dot-color-a */
+    --bg-color: var(--color-paper);
+    z-index: -2;
+  }
+  .hero-panel-b {
+    /* Fixed 48px from the viewport left (not grid-aligned) and bleeds
+       edge-to-edge on the right. */
+    left: calc(48px - var(--main-inset));
+    right: calc(-1 * var(--main-inset));
+    aspect-ratio: 16 / 9;
+    background-color: var(--color-accent);
+    mix-blend-mode: multiply;
+    z-index: -1;
+  }
+
+  @media (max-width: 640px) {
+    .hero-v2-wrap {
+      display: block;
+      padding-bottom: 64px; /* background peeks out below the foreground block by this much */
+    }
+    .hero-v2-intro {
+      padding-block: 32px 24px;
+    }
+    .hero-panel-a {
+      /* Background block: fills the whole wrap, including the 64px
+         padding-bottom above, so it always extends exactly that far
+         past the foreground block below regardless of copy length. */
+      inset: 0;
+      left: calc(-1 * var(--main-inset));
+      right: calc(-1 * var(--main-inset));
+      width: auto;
+      aspect-ratio: auto;
+    }
+    .hero-panel-b {
+      /* Foreground block: back in normal flow, after the intro copy —
+         static position paints above the negative-z-index background
+         with no extra z-index bookkeeping needed. */
+      position: static;
+      width: calc(100% - 2 * var(--grid-margin));
+      margin-inline: auto;
+      aspect-ratio: 1 / 1;
+    }
   }
 </style>
