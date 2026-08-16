@@ -7,8 +7,8 @@ export const sets: Record<string, Set> = {
   default: {
     intro: "I'm a staff product designer working on complex, systems-heavy problems.",
     projects: [
-      { id: 'demo-marketplace-homepage-redesign' },
-      { id: 'demo-wearable-onboarding' },
+      { id: 'garmin-connect' },
+      { id: 'flow14-mental-health' },
       { id: 'demo-design-system-migration' },
     ],
   },

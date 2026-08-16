@@ -12,16 +12,16 @@
   --font-body: var(--at-textual);
   --font-host: var(--font-host);
 
-  --text-sm: 16px;
-  --text-sm--line-height: 1.4;
-  --text-base: 20px;
-  --text-base--line-height: 1.4;
-  --text-lg: 26px;
-  --text-lg--line-height: 1.4;
-  --text-xl: 34px;
-  --text-xl--line-height: 1.2;
-  --text-2xl: 52px;
-  --text-2xl--line-height: 1.1;
+  --text-sm: 14px;
+  --text-sm--lh: 1.4;
+  --text-base: 18px;
+  --text-base--lh: 1.4;
+  --text-lg: 25px;
+  --text-lg--lh: 1.4;
+  --text-xl: 34.7px;
+  --text-xl--lh: 1.2;
+  --text-2xl: 48.6px;
+  --text-2xl--lh: 1;
 }
 
 :root {
@@ -71,7 +71,7 @@ body {
   font-family: var(--font-body);
   font-weight: 80;
   font-size: var(--text-base);
-  line-height: var(--text-base--line-height);
+  line-height: var(--text-base--lh);
   overflow-x: clip;
 }
 
@@ -86,6 +86,43 @@ article {
   margin-inline: auto;
 }
 
+h1 { 
+  font-size: var(--text-2xl);
+  line-height: var(--text-2xl--lh);
+  text-wrap: balance;
+  font-weight: 120;
+  margin-block: 12px;
+}
+h2 {
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--lh);
+  text-wrap: balance;
+  font-weight: 120;
+  margin-block: 12px;
+}
+h3 {
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--lh);
+  text-wrap: balance;
+  font-weight: 120;
+  margin-block: 12px;
+}
+p {
+  font-size: var(--text-base);
+  line-height: var(--text-base--lh);
+  margin-block: 12px;
+  text-wrap: pretty;
+}
+ul {
+  margin-block: -4px !important;
+  padding: 12px;
+}
+li {
+  font-size: var(--text-base);
+  line-height: var(--text-base--lh);
+  text-wrap: pretty;
+  margin-block: 4px;
+}
 article img {
   max-width: 100%;
   height: auto;
@@ -99,11 +136,6 @@ footer {
 figure {
   margin: 0;
   padding: 0;
-}
-
-h1, h2, h3 {
-  line-height: 1.25;
-  font-weight: 80;
 }
 
 .card-grid {
@@ -199,13 +231,27 @@ body.overlay-open {
 .overlay-content article {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--grid-gutter);
+  column-gap: var(--grid-gutter);
 }
   .overlay-content h1,
+  .overlay-content h2,
+  .overlay-content h3,
+  .overlay-content h4,
   .overlay-content p {
-    border: 1px solid blue;
-    grid-column: 7 / -1;
-    /* padding: var(--space-3); */
+    grid-column: 2 / 8;
+    margin-left: 20px;
+  }
+  .overlay-content ul
+  {
+    grid-column: 2 / 8;
+    margin-left: 20px;
+  }
+  .overlay-content h1,
+  .overlay-content h2,
+  .overlay-content h3,
+  .overlay-content h4
+  {
+    text-wrap: balance;
   }
 
 .overlay-header {

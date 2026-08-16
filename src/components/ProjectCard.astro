@@ -11,7 +11,7 @@ const { entry, why } = Astro.props;
 ---
 
 <a class="project-card col-start-2 col-span-10 items-center gap-6" href={`/work/${entry.id}`}>
-  <Image class="project-card__cover" src={entry.data.cover} alt={entry.data.coverAlt} width={480} height={320} />
+  <Image class="project-card__cover" src={entry.data.cover} alt={entry.data.coverAlt} width={549} height={309} />
   <div class="project-card__body">
     <h2 class="project-card__title">{entry.data.title}</h2>
     <p class="project-card__summary">{entry.data.summary}</p>
@@ -25,18 +25,21 @@ const { entry, why } = Astro.props;
     grid-template-columns: 1fr 1fr;
     color: inherit;
     text-decoration: none;
-    border: 1px solid black;
   }
   .project-card__cover {
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 2;
+    aspect-ratio: 16 / 9
     object-fit: cover;
     grid-column: 1;
   }
   .project-card__title {
     font-size: var(--text-lg);
-    line-height: var(--text-lg--line-height);
+    line-height: var(--text-lg--lh);
+    text-wrap: balance;
+  }
+  .project-card__summary {
+    text-wrap: balance;
   }
   .project-card__body {
     grid-column: 2;

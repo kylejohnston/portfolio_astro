@@ -1,31 +1,58 @@
 ---
-title: "Mental Health App Product Design"
-summary: "Rebuilt a high-traffic marketplace homepage around intent-based navigation, cutting time-to-first-listing-view by 40% without touching backend search."
+title: "Mental Health Portal UX design"
+summary: "Designing a UX vision for the Member Portal of an online mental health service."
 cover: ../../assets/projects/flow14-mental-health/cover.svg
-coverAlt: "Homepage layout split into three intent-based entry zones"
+coverAlt: "Mental Health Portal UX design"
 ---
 import { Image } from 'astro:assets';
 import { globImages } from '../../lib/globImages';
 export const pics = globImages(
-  import.meta.glob('../../assets/projects/flow14-mental-health/*.svg', { eager: true })
+  import.meta.glob('../../assets/projects/flow14-mental-health/*.webp', { eager: true })
 );
 
-import Span12 from '../../components/mdx/Span12.astro';
-import SideBySide from '../../components/mdx/SideBySide.astro';
-import Caption from '../../components/mdx/Caption.astro';
 
-The marketplace homepage had one job for two very different visitors: browsers who wanted to be surprised, and searchers who already knew what they were looking for. It served both with the same three rows of trending listings, and session recordings showed the mismatch immediately — casual visitors scrolled once and bounced, while returning buyers repeated the same search from the homepage every time because there was no faster path back to it.
+Working with a digital agency in Los Angeles, I designed the user experience for the Member Portal of a new online mental health service.
 
-<Span12 src={pics["full-bleed"]} alt="Redesigned homepage showing three intent-based entry zones above the fold" />
+**My responsibilities:** wireframes, information architecture diagrams, and visual design for mobile and desktop web flows
 
-Card sorts and a round of contextual interviews split visitor intent into three groups: browsing with no target in mind, replacing something specific, and comparing a shortlist before buying. That mapped cleanly onto three homepage zones — a discovery feed, a jump-back-in strip keyed to recent searches, and a comparison shelf for saved listings — replacing the single generic feed with three that a visitor could self-select into within the first screen.
+**Timeline:** two weeks
 
-<SideBySide
-  left={{ src: pics["side-left"], alt: "Original homepage with a single trending-listings feed" }}
-  right={{ src: pics["side-right"], alt: "Redesigned homepage with discovery, jump-back-in, and comparison zones" }}
-/>
-<Caption>Before: one undifferentiated feed. After: three intent-led zones, ordered by how often each was used in testing.</Caption>
+<Spacer />
 
-The redesign shipped behind a 50/50 split test over six weeks. Time-to-first-listing-view dropped 40% in the treatment group, and the jump-back-in strip alone accounted for a third of homepage-originated searches within the first month — traffic that had previously gone through the search bar every single visit.
+## Area of Focus
+<Span08 src={pics["area-of-focus"]} alt="Focus area - member portal" />
 
-The three-zone pattern outlived the homepage. The comparison shelf became a shared component used on category pages six months later, and the zone-based layout was the first place engineering and design agreed on a shared token set for card spacing — the seed of the design system work that followed.
+### User Personas and Storymap
+<Span08 src={pics["personas-storymap"]} alt="User persona and storymap" />
+
+<Spacer />
+
+## Mobile Web Wireframes
+Based on existing user personas, storymaps, and other inputs, I created wireframes that demonstrated how users might interact with the mobile web portal. Throughout the process, I looked for opportunities to refine the steps and messaging and create new interactions and content to improve the overall experience.
+
+**User Experience Flows:** Onboarding, Portal Homepage, Chats, Calls, Scheduling, Groups
+
+*Note: Some text is obscured for client confidentiality.*
+
+<Span12 src={pics["mobile-wires-1960"]} alt="Mobile web wireframes" />
+
+<Spacer />
+
+## Mobile Web Information Architecture
+For client-facing presentations, I created IA diagrams, which incorporated insights from user interviews, UX expectations for different types of users, and other notes.
+
+**Pictured:** Onboarding Flow
+
+<Span12 src={pics["ia-mobile-web-1960"]} alt="Mobile web onboarding flow" />
+
+<Spacer />
+
+## Mobile Web Visual Design
+
+**User Experience Flows:** Onboarding, Portal Homepage, Chats, Calls, Scheduling, Groups
+
+**Pictured:** Onboarding and Portal Homepage screens
+
+<Span08 src={pics["area-of-focus"]} alt="Focus area - member portal" />
+
+<Spacer />

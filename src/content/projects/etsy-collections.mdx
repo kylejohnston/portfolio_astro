@@ -1,8 +1,8 @@
 ---
 title: "Etsy Collections"
-summary: "Rebuilt a high-traffic marketplace homepage around intent-based navigation, cutting time-to-first-listing-view by 40% without touching backend search."
+summary: "Proof that design-led thinking drives business outcomes."
 cover: ../../assets/projects/etsy-collections/cover.svg
-coverAlt: "Homepage layout split into three intent-based entry zones"
+coverAlt: "Etsy collection cards"
 ---
 import { Image } from 'astro:assets';
 import { globImages } from '../../lib/globImages';
@@ -10,22 +10,27 @@ export const pics = globImages(
   import.meta.glob('../../assets/projects/etsy-collections/*.svg', { eager: true })
 );
 
-import Span12 from '../../components/mdx/Span12.astro';
-import SideBySide from '../../components/mdx/SideBySide.astro';
-import Caption from '../../components/mdx/Caption.astro';
 
-The marketplace homepage had one job for two very different visitors: browsers who wanted to be surprised, and searchers who already knew what they were looking for. It served both with the same three rows of trending listings, and session recordings showed the mismatch immediately — casual visitors scrolled once and bounced, while returning buyers repeated the same search from the homepage every time because there was no faster path back to it.
+From 2022–2023, my squad focused on a single recommendations module—collections, which are user-generated groups of favorites.
+
+In 2022, we ran experiments that drove drove $46M in revenue through improvements to UX, UI, module placement, and ranking.
+
+By the end of the year, my squad had the highest experiment velocity at Etsy, and collections were the second most engaging recs module across Etsy.com.
+
+**My role:** Product Design
+
+<Spacer />
+
+## Experiment spotlight
+
+### Collections Sash
+
+I designed a novel feature to help buyers more easily shop collections. This resulted in a 1% lift in conversion, driving $650k in revenue.
+
+Prompted by the question – how can we make it easier for customers to seamlessly shop from collections? – I hypothesized that when people navigate to a listing page from a collection recommendation, allowing them to browse other listings from that collection would increase the likelihood of finding relevant items and lead to increases in conversion and revenue.
 
 <Span12 src={pics["full-bleed"]} alt="Redesigned homepage showing three intent-based entry zones above the fold" />
+<Span12 src={pics["full-bleed"]} alt="Redesigned homepage showing three intent-based entry zones above the fold" />
 
-Card sorts and a round of contextual interviews split visitor intent into three groups: browsing with no target in mind, replacing something specific, and comparing a shortlist before buying. That mapped cleanly onto three homepage zones — a discovery feed, a jump-back-in strip keyed to recent searches, and a comparison shelf for saved listings — replacing the single generic feed with three that a visitor could self-select into within the first screen.
+<Spacer />
 
-<SideBySide
-  left={{ src: pics["side-left"], alt: "Original homepage with a single trending-listings feed" }}
-  right={{ src: pics["side-right"], alt: "Redesigned homepage with discovery, jump-back-in, and comparison zones" }}
-/>
-<Caption>Before: one undifferentiated feed. After: three intent-led zones, ordered by how often each was used in testing.</Caption>
-
-The redesign shipped behind a 50/50 split test over six weeks. Time-to-first-listing-view dropped 40% in the treatment group, and the jump-back-in strip alone accounted for a third of homepage-originated searches within the first month — traffic that had previously gone through the search bar every single visit.
-
-The three-zone pattern outlived the homepage. The comparison shelf became a shared component used on category pages six months later, and the zone-based layout was the first place engineering and design agreed on a shared token set for card spacing — the seed of the design system work that followed.

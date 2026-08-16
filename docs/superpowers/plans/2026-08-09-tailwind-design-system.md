@@ -55,7 +55,7 @@ src/assets/fonts/AtTextualVAR.woff2 — already present, untracked; committed as
 **Interfaces:**
 - Consumes: nothing new.
 - Produces: `--color-ink`, `--color-muted`, `--color-paper`, `--color-accent`, `--text-sm`,
-  `--text-base`, `--text-lg`, `--text-xl`, `--text-2xl` (each with a paired `--text-*--line-height`),
+  `--text-base`, `--text-lg`, `--text-xl`, `--text-2xl` (each with a paired `--text-*--lh`),
   and `--font-primary` as theme tokens, plus their corresponding Tailwind utility classes
   (`bg-ink`/`text-ink`, `text-2xl`, `font-primary`, etc.) — available for any future page/component to
   use. No current file consumes any of these yet.
@@ -127,15 +127,15 @@ block (do not modify anything currently in the file — this is a pure prepend):
   --font-primary: "AtTextual", sans-serif;
 
   --text-sm: 16px;
-  --text-sm--line-height: 1.5;
+  --text-sm--lh: 1.5;
   --text-base: 20px;
-  --text-base--line-height: 1.6;
+  --text-base--lh: 1.6;
   --text-lg: 26px;
-  --text-lg--line-height: 1.4;
+  --text-lg--lh: 1.4;
   --text-xl: 34px;
-  --text-xl--line-height: 1.2;
+  --text-xl--lh: 1.2;
   --text-2xl: 52px;
-  --text-2xl--line-height: 1.1;
+  --text-2xl--lh: 1.1;
 }
 
 ```

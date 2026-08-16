@@ -10,22 +10,31 @@ export const pics = globImages(
   import.meta.glob('../../assets/projects/etsy-ios-faves/*.svg', { eager: true })
 );
 
-import Span12 from '../../components/mdx/Span12.astro';
-import SideBySide from '../../components/mdx/SideBySide.astro';
-import Caption from '../../components/mdx/Caption.astro';
 
-The marketplace homepage had one job for two very different visitors: browsers who wanted to be surprised, and searchers who already knew what they were looking for. It served both with the same three rows of trending listings, and session recordings showed the mismatch immediately — casual visitors scrolled once and bounced, while returning buyers repeated the same search from the homepage every time because there was no faster path back to it.
+I led the redesign of favorites on iOS which drove increases to conversion, ad revenue, and page performance.
+
+This redesign accomplished several goals, including:
+- Improved the buyer experience by rethinking wayfinding and surfacing relevant content
+- Simplified maintenance and debugging for engineers by eliminating complex UI states
+- Made the space more extensible for future product and design improvements
+
+**My role:** product design & strategy
+
+<Spacer />
+
+### Control, wireframe, and final design
 
 <Span12 src={pics["full-bleed"]} alt="Redesigned homepage showing three intent-based entry zones above the fold" />
 
-Card sorts and a round of contextual interviews split visitor intent into three groups: browsing with no target in mind, replacing something specific, and comparing a shortlist before buying. That mapped cleanly onto three homepage zones — a discovery feed, a jump-back-in strip keyed to recent searches, and a comparison shelf for saved listings — replacing the single generic feed with three that a visitor could self-select into within the first screen.
+<Spacer />
 
-<SideBySide
-  left={{ src: pics["side-left"], alt: "Original homepage with a single trending-listings feed" }}
-  right={{ src: pics["side-right"], alt: "Redesigned homepage with discovery, jump-back-in, and comparison zones" }}
-/>
-<Caption>Before: one undifferentiated feed. After: three intent-led zones, ordered by how often each was used in testing.</Caption>
+## User insights
+Through user research and experimentation, we found the tabbed UI of the control experience limited exploration. Internally, we called this 'tab blindless' — people simply didn't see the feature.
 
-The redesign shipped behind a 50/50 split test over six weeks. Time-to-first-listing-view dropped 40% in the treatment group, and the jump-back-in strip alone accounted for a third of homepage-originated searches within the first month — traffic that had previously gone through the search bar every single visit.
+## Design decisions
+- I removed tabs in favor of surfacing content on the screen where people expected to find content.
+- The four most recent favorites, rendered as a larger images, became the centerpiece of the screen.
+- This design approach aided feature discovery by surfacing more types of favorites and provided space for future product and design improvements. 
+- Removing tabs also simplified maintenance and debugging for engineers by eliminating complex UI states.
 
-The three-zone pattern outlived the homepage. The comparison shelf became a shared component used on category pages six months later, and the zone-based layout was the first place engineering and design agreed on a shared token set for card spacing — the seed of the design system work that followed.
+<Spacer />

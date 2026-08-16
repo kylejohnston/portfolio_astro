@@ -1,6 +1,19 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import Span12 from '../../components/mdx/Span12.astro';
+import Span10 from '../../components/mdx/Span10.astro';
+import Span08 from '../../components/mdx/Span08.astro';
+import SideBySide from '../../components/mdx/SideBySide.astro';
+import Thirds from '../../components/mdx/Thirds.astro';
+import Caption from '../../components/mdx/Caption.astro';
+import Spacer from '../../components/mdx/Spacer.astro';
+
+// Passed to every case study's MDX content below, so none of them need to
+// import these themselves — Astro's MDX <Content /> merges this into the
+// file's scope, with any import a specific .mdx file DOES declare taking
+// precedence over the same name here.
+const mdxComponents = { Span12, Span10, Span08, SideBySide, Thirds, Caption, Spacer };
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -14,7 +27,7 @@ const { Content } = await render(entry);
 <Layout title={entry.data.title}>
   <article>
     <h1>{entry.data.title}</h1>
-    <Content />
+    <Content components={mdxComponents} />
   </article>
 </Layout>
 
@@ -33,7 +46,7 @@ const { Content } = await render(entry);
     margin-inline: auto;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 24px;
+    column-gap: 24px;
   }
   /* :global() because <Content /> is MDX output — a separate component's
      rendered markup, which never receives this file's scope attribute.
@@ -44,8 +57,11 @@ const { Content } = await render(entry);
   article :global(h1),
   article :global(h2),
   article :global(h3),
-  article :global(h4) {
-    grid-column: 7 / 12;
-    border: 1px solid greenyellow !important;
+  article :global(h4),
+  article :global(ul)
+  {
+    grid-column: 3 / 9;
+    margin-block: 12px;
+    margin-right: 24px;
   }
 </style>

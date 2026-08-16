@@ -20,14 +20,12 @@ const groups = workGroups.map(({ label, ids }) => ({
 ---
 
 <Layout title="All work">
-  <h1 class="col-start-7 col-span-5 text-ink my-12">All work</h1>
+  <h1 class="col-start-3 col-span-6 text-ink my-12">All work</h1>
   {groups.map(({ label, entries }) => (
-    <>
-      <h2 class="work-group-title col-start-7 col-span-5">{label}</h2>
-      <div class="card-grid all-work">
+      <h2 class="work-group-title col-start-3 col-span-6">{label}</h2>
+      <div class="card-grid all-work mt-3 mb-15">
         {entries.map((entry) => <ProjectCard entry={entry} />)}
       </div>
-    </>
   ))}
 </Layout>
 
@@ -36,13 +34,10 @@ const groups = workGroups.map(({ label, ids }) => ({
     grid-column: span 12;
     background: var(--color-paper);
     max-width: 1400px;
-    margin-inline: auto;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 24px;
+    column-gap: 24px;
     row-gap: 96px;
-    /* padding-inline: 24px; */
-    padding-block: 96px;
   }
   main h1,
   main :global(h1) {
@@ -59,7 +54,5 @@ const groups = workGroups.map(({ label, ids }) => ({
      never have. .all-work keeps the override specific to this page's grid
      rather than any card-grid anywhere. */
   .card-grid.all-work :global(.project-card) {
-    background-color: aqua;
-    border: 4px solid greenyellow !important;
   }
 </style>

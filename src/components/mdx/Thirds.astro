@@ -11,8 +11,8 @@ interface Props {
 const { first, second, third } = Astro.props;
 ---
 
-<div class="col-span-12 grid grid-cols-3 gap-6">
-  <Image src={first.src} alt={first.alt} class="w-full h-auto" />
-  <Image src={second.src} alt={second.alt} class="w-full h-auto" />
-  <Image src={third.src} alt={third.alt} class="w-full h-auto" />
+<div class="col-span-12 grid grid-cols-3 gap-x-6">
+  <Image src={first.src} alt={first.alt} class="w-full h-auto my-3" />
+  <Image src={second.src} alt={second.alt} class="w-full h-auto my-3" />
+  <Image src={third.src} alt={third.alt} class="w-full h-auto my-3" />
 </div>

@@ -1,31 +1,112 @@
 ---
-title: "Garmin Connect Redesign"
-summary: "Rebuilt a high-traffic marketplace homepage around intent-based navigation, cutting time-to-first-listing-view by 40% without touching backend search."
-cover: ../../assets/projects/garmin-connect/cover.svg
-coverAlt: "Homepage layout split into three intent-based entry zones"
+title: "Garmin Connect"
+summary: "Strengthening the Connect platform with a new UX, UI, branding and marketing to drive growth."
+cover: ../../assets/projects/garmin-connect/cover.webp
+coverAlt: "Garmin Connect"
 ---
 import { Image } from 'astro:assets';
 import { globImages } from '../../lib/globImages';
 export const pics = globImages(
-  import.meta.glob('../../assets/projects/garmin-connect/*.svg', { eager: true })
+  import.meta.glob('../../assets/projects/garmin-connect/*.webp', { eager: true })
 );
 
-import Span12 from '../../components/mdx/Span12.astro';
-import SideBySide from '../../components/mdx/SideBySide.astro';
-import Caption from '../../components/mdx/Caption.astro';
 
-The marketplace homepage had one job for two very different visitors: browsers who wanted to be surprised, and searchers who already knew what they were looking for. It served both with the same three rows of trending listings, and session recordings showed the mismatch immediately — casual visitors scrolled once and bounced, while returning buyers repeated the same search from the homepage every time because there was no faster path back to it.
+In 2014, we relaunched Connect, Garmin's activity tracking and analysis platform. We rethought every aspect of the platform—from the UX and UI to brand and marketing.
 
-<Span12 src={pics["full-bleed"]} alt="Redesigned homepage showing three intent-based entry zones above the fold" />
+**My contributions:** Creative Direction, Design, Brand Development
 
-Card sorts and a round of contextual interviews split visitor intent into three groups: browsing with no target in mind, replacing something specific, and comparing a shortlist before buying. That mapped cleanly onto three homepage zones — a discovery feed, a jump-back-in strip keyed to recent searches, and a comparison shelf for saved listings — replacing the single generic feed with three that a visitor could self-select into within the first screen.
+<Spacer />
 
+## UX and UI
+A key challenge of this project was figuring out how to support a wide range of devices and activities without overwhelming customers. After many rounds of research and prototyping, we launched with a card-based design that addressed our critical use cases:
+
+- **New customers** could be onboarded quickly and easily find activities, set goals, and manage devices.
+- **Power-users** had easy access to advanced data and activity analysis
+- **The platform** could evolve support future devices with variable features and data
+
+<Spacer />
+
+### Dashboard
+<Span08 src={pics["connect-desktop-home"]} alt="Redesigned Dashboard" />
+
+<Spacer />
+
+### Activities & Activity Details
 <SideBySide
-  left={{ src: pics["side-left"], alt: "Original homepage with a single trending-listings feed" }}
-  right={{ src: pics["side-right"], alt: "Redesigned homepage with discovery, jump-back-in, and comparison zones" }}
+  left={{ src: pics["connect-desktop-activities_full"], alt: "List of activities for power users" }}
+  right={{ src: pics["connect-desktop-activity-detail_full"], alt: "Activity detail page" }}
 />
-<Caption>Before: one undifferentiated feed. After: three intent-led zones, ordered by how often each was used in testing.</Caption>
 
-The redesign shipped behind a 50/50 split test over six weeks. Time-to-first-listing-view dropped 40% in the treatment group, and the jump-back-in strip alone accounted for a third of homepage-originated searches within the first month — traffic that had previously gone through the search bar every single visit.
+<Spacer />
 
-The three-zone pattern outlived the homepage. The comparison shelf became a shared component used on category pages six months later, and the zone-based layout was the first place engineering and design agreed on a shared token set for card spacing — the seed of the design system work that followed.
+## UI Style Guide
+Multiple design teams contributed to different aspects of the platform and marketing. To ensure consistent application of our design patterns, we developed a comprehensive style guide. It included elements like color, typography, interface elements, and more.
+
+<Spacer />
+
+### Color & Buttons
+<SideBySide
+  left={{ src: pics["ui-guide_color_2000"], alt: "UI: color guidelines" }}
+  right={{ src: pics["ui-guide_buttons_2000"], alt: "UI: button guidelines" }}
+/>
+
+<Spacer />
+
+### Widgets
+<Span12 src={pics["ui-widgets_2000"]} alt="Redesigned Dashboard" />
+
+<Spacer />
+
+### Navigation & Menus
+<SideBySide
+  left={{ src: pics["ui-guide_navigation_2000"], alt: "UI: navigation guidelines" }}
+  right={{ src: pics["ui-guide_navigation-menu_2000"], alt: "UI: menu guidelines" }}
+/>
+
+<Spacer />
+
+## Brand Development
+Before the relaunch, Connect lacked any kind of distinct visual brand. We created a clean and simple typographic identity that could both stand on its own and complement the Garmin logo when they appeared together.
+
+<Spacer />
+
+### Concepts
+<Thirds
+  first={{ src: pics["logo-concept-01"], alt: "Logo concept" }}
+  second={{ src: pics["logo-concept-02"], alt: "Logo concept" }}
+  third={{ src: pics["logo-concept-03"], alt: "Logo concept" }}
+/>
+
+<Spacer />
+
+### Final Logo
+<Thirds
+  first={{ src: pics["logo-full-color"], alt: "Final logo, full color" }}
+  second={{ src: pics["logo-1-color"], alt: "Final logo, one color" }}
+  third={{ src: pics["logo-app-icon"], alt: "App icon" }}
+/>
+
+<Spacer />
+
+### Branded Elements
+<SideBySide
+  left={{ src: pics["logo-brand-elements-01"], alt: "Brand elements, apparel" }}
+  right={{ src: pics["logo-brand-elements-02"], alt: "Brand elements, packaging and events" }}
+/>
+
+<Spacer />
+
+## Marketing
+For the launch, we developed a standalone site to promote the redesigned platform and features and drive new customer registrations.
+
+<Spacer />
+
+### Homepage
+<Span08 src={pics["connect-site-home"]} alt="Landing page, home" />
+
+<Spacer />
+
+### Features
+<Span08 src={pics["connect-site-features"]} alt="Landing page, features" />
+
+<Spacer />
