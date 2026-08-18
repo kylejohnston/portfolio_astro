@@ -1,28 +1,60 @@
 ---
 title: "Etsy Homepage Redesign"
-summary: "Rebuilt a high-traffic marketplace homepage around intent-based navigation, cutting time-to-first-listing-view by 40% without touching backend search."
-cover: ../../assets/projects/etsy-home/cover.svg
-coverAlt: "Homepage layout split into three intent-based entry zones"
+summary: "Prototyped, tested, and shipped: redesigning Etsy's homepage in under three months"
+cover: ../../assets/projects/etsy-home/cover_.webp
+coverAlt: "Etsy Homepage Redesign case study"
 ---
 import { Image } from 'astro:assets';
 import { globImages } from '../../lib/globImages';
 export const pics = globImages(
-  import.meta.glob('../../assets/projects/etsy-home/*.svg', { eager: true })
+  import.meta.glob('../../assets/projects/etsy-home/*', { eager: true })
 );
 
+## Design challenge
 
-The marketplace homepage had one job for two very different visitors: browsers who wanted to be surprised, and searchers who already knew what they were looking for. It served both with the same three rows of trending listings, and session recordings showed the mismatch immediately — casual visitors scrolled once and bounced, while returning buyers repeated the same search from the homepage every time because there was no faster path back to it.
+We wanted to personalize Etsy’s homepage using a new LLM-powered content library, but the existing homepage design couldn't adapt to support the scale of new content. 
 
-<Span12 src={pics["full-bleed"]} alt="Redesigned homepage showing three intent-based entry zones above the fold" />
+Each module operated independently with different layouts and different content sources, resulting in a discordant design. In research, we consistently heard the page was “cluttered” and “overwhelming”.
 
-Card sorts and a round of contextual interviews split visitor intent into three groups: browsing with no target in mind, replacing something specific, and comparing a shortlist before buying. That mapped cleanly onto three homepage zones — a discovery feed, a jump-back-in strip keyed to recent searches, and a comparison shelf for saved listings — replacing the single generic feed with three that a visitor could self-select into within the first screen.
+## My solution
+I redesigned Etsy’s homepage by creating a scalable system that flexes to support any type of content, all personalized for millions of daily visitors.
 
-<SideBySide
-  left={{ src: pics["side-left"], alt: "Original homepage with a single trending-listings feed" }}
-  right={{ src: pics["side-right"], alt: "Redesigned homepage with discovery, jump-back-in, and comparison zones" }}
-/>
-<Caption>Before: one undifferentiated feed. After: three intent-led zones, ordered by how often each was used in testing.</Caption>
+### Approach
+Beyond the design itself, I created web-based prototypes for user research, used Claude Code to create eng-ready frontend code to speed development, and iterated as we learned how people used the page at scale.
 
-The redesign shipped behind a 50/50 split test over six weeks. Time-to-first-listing-view dropped 40% in the treatment group, and the jump-back-in strip alone accounted for a third of homepage-originated searches within the first month — traffic that had previously gone through the search bar every single visit.
+### Impact
 
-The three-zone pattern outlived the homepage. The comparison shelf became a shared component used on category pages six months later, and the zone-based layout was the first place engineering and design agreed on a shared token set for card spacing — the seed of the design system work that followed.
+<Outcome value1="$13M" label1="Revenue growth" value2="< 3 months" label2="Project timeline" />
+
+<Spacer />
+
+## Prototyping for research
+<Span10 src={pics["prototype"]} alt="Research prototype" border rounded />
+
+To test the new design concept, I created a web-based prototype for user research.
+
+Research feedback was definitive: 10 out of 10 participants described the new design as “easy to use, organized, and clearly laid out”.
+
+<Spacer />
+
+## Experiment results · v1 design
+
+In a two-week A/B test, we saw strong results from the combination of the new design and personalized content:
+
+<Outcome value1="+10%" label1="CTR, home → listing page" value2="+1%" label2="Conversion rate" />
+<OutcomeOne value1="$9.4M" label1="Annual revenue growth" />
+
+<Spacer />
+
+<Span12 src={pics["experiment"]} alt="v1 design" shadow />
+
+<Spacer />
+
+### Improvements through iteration
+
+After the launch of the V1 redesign, we continued to iterate through experimentation: 
+
+- Refining design details, copy, and personalization resulted in an additional $3.1M GMS win
+- We added 50,000 content groups and extended the new experience to signed out visitors, proving the design system could support a huge variety of users and content
+
+<Spacer />

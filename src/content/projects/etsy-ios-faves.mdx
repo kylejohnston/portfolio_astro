@@ -1,40 +1,45 @@
 ---
 title: "Etsy Favorites on iOS"
-summary: "Rebuilt a high-traffic marketplace homepage around intent-based navigation, cutting time-to-first-listing-view by 40% without touching backend search."
-cover: ../../assets/projects/etsy-ios-faves/cover.svg
-coverAlt: "Homepage layout split into three intent-based entry zones"
+summary: "I redesigned the favorites screen, making it easier for users to browse and navigate."
+cover: ../../assets/projects/etsy-ios-faves/cover.webp
+coverAlt: "Etsy Favorites on iOS project summary"
 ---
 import { Image } from 'astro:assets';
 import { globImages } from '../../lib/globImages';
 export const pics = globImages(
-  import.meta.glob('../../assets/projects/etsy-ios-faves/*.svg', { eager: true })
+  import.meta.glob('../../assets/projects/etsy-ios-faves/*', { eager: true })
 );
 
 
 I led the redesign of favorites on iOS which drove increases to conversion, ad revenue, and page performance.
 
-This redesign accomplished several goals, including:
-- Improved the buyer experience by rethinking wayfinding and surfacing relevant content
-- Simplified maintenance and debugging for engineers by eliminating complex UI states
-- Made the space more extensible for future product and design improvements
-
 **My role:** product design & strategy
 
 <Spacer />
 
-### Control, wireframe, and final design
+This redesign accomplished several goals:
+- Improved the buyer experience by rethinking wayfinding and surfacing relevant content
+- Simplified maintenance and debugging for engineers by eliminating complex UI states
+- Made the space more extensible for future product and design improvements
 
-<Span12 src={pics["full-bleed"]} alt="Redesigned homepage showing three intent-based entry zones above the fold" />
+
+<Spacer />
+
+### Control and treatment
+<Span10 src={pics["control-treatment"]} alt="Screen states: empty, some faves, many faves" />
 
 <Spacer />
 
 ## User insights
-Through user research and experimentation, we found the tabbed UI of the control experience limited exploration. Internally, we called this 'tab blindless' — people simply didn't see the feature.
+Through user research and experimentation, we found the tabbed UI of the control experience limited exploration. Internally, we called this 'tab blindless' — people simply didn't see the feature and left the screen without engaging.
 
 ## Design decisions
-- I removed tabs in favor of surfacing content on the screen where people expected to find content.
+- I removed tabs in favor of surfacing content on the landing screen, where people expected to find content.
 - The four most recent favorites, rendered as a larger images, became the centerpiece of the screen.
-- This design approach aided feature discovery by surfacing more types of favorites and provided space for future product and design improvements. 
-- Removing tabs also simplified maintenance and debugging for engineers by eliminating complex UI states.
+- This approach aided feature discovery by surfacing other types of favorites and provided space for future product and design improvements. 
+- Removing tabs also eliminated complex UI states, simplifying maintenance and debugging for engineers.
+
+### Screen states
+<Span12 src={pics["states"]} alt="Screen states: empty, some faves, many faves" />
 
 <Spacer />

@@ -144,6 +144,15 @@ figure {
   gap: var(--space-3); */
 }
 
+.scroll-desktop,
+.scroll-mobile
+{
+  height: 90vh;
+  overflow: scroll;
+  border: 1px solid var(--color-muted-brand);
+}
+
+
 body.overlay-open {
   overflow: hidden;
 }
@@ -194,7 +203,7 @@ body.overlay-open {
   right: var(--overlay-grid-inset);
 
   height: 92%;
-  background-color: var(--color-bg);
+  background-color: var(--color-paper);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   z-index: 999;
@@ -253,6 +262,40 @@ body.overlay-open {
   {
     text-wrap: balance;
   }
+  /* Same -1 column shift as the h1-h4/p/ul rules above, and for the same
+     reason: .overlay-content article re-establishes its own 12-column grid
+     scaled to the overlay's narrower (10-of-12-column) width, so a class
+     written for the standalone page's real 12-column grid (col-start-3
+     col-span-6) lands one column too far right here. */
+  .overlay-content .outcome {
+    grid-column: 2 / 9;
+    gap: 48px;
+    margin-left: 20px;
+  }
+
+/* Shared by Outcome.astro and OutcomeOne.astro (both use these class names
+   for an identical value/label stat block) — kept here instead of each
+   component's own scoped <style> so it reaches the overlay: a component
+   passed via <Content components={...}> only gets its scoped CSS bundled
+   into pages that import it directly, and the overlay never loads the
+   underlying page's <head>/stylesheets (see .overlay-content article
+   above) — the homepage that's open behind the overlay never imports
+   Outcome/OutcomeOne itself, so their scoped styles were simply never on
+   the page to begin with. */
+.outcome {
+  margin-block: 12px;
+}
+.outcome__value {
+  font-size: var(--text-2xl);
+  line-height: var(--text-2xl--lh);
+  font-weight: 120;
+  margin: 0;
+}
+.outcome__label {
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  margin: 4px 0 0;
+}
 
 .overlay-header {
   display: flex;
@@ -435,7 +478,6 @@ body.overlay-open {
     0 0,
     calc(var(--dot-size) / 2) calc(var(--dot-size) / 2);
 }
-
 
 /* =================================
    R E S P O N S I V E · S T Y L E S

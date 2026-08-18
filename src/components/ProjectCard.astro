@@ -32,7 +32,15 @@ const { entry, why } = Astro.props;
     aspect-ratio: 16 / 9
     object-fit: cover;
     grid-column: 1;
+    border-radius: 4px;
+    --webkit-box-shadow: 0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
+    box-shadow: 0 4px 6px -1px #0000001a,0 2px 4px -1px #0000000f;
+    transition: all .25s ease;
   }
+    .project-card__cover:hover {
+      --webkit-box-shadow: 0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);
+      box-shadow: 0 20px 25px -5px #0000001a,0 10px 10px -5px #0000000a;
+    }
   .project-card__title {
     font-size: var(--text-lg);
     line-height: var(--text-lg--lh);
@@ -43,6 +51,8 @@ const { entry, why } = Astro.props;
   }
   .project-card__body {
     grid-column: 2;
+    padding-left:  24px;
+    padding-right: 48px;
   }
   /* Alternate which side the image/text sit on for every other card.
      nth-of-type (not nth-child) so inserting non-.project-card content
@@ -58,5 +68,7 @@ const { entry, why } = Astro.props;
   .project-card:nth-of-type(even) .project-card__body {
     grid-column: 1;
     grid-row: 1;
+    padding-left:  48px;
+    padding-right: 24px;
   }
 </style>

@@ -6,13 +6,22 @@ interface Props {
   first: { src: ImageMetadata; alt: string };
   second: { src: ImageMetadata; alt: string };
   third: { src: ImageMetadata; alt: string };
+  rounded?: boolean;
+  shadow?: boolean;
+  border?: boolean;
 }
 
-const { first, second, third } = Astro.props;
+const { first, second, third, rounded = false, shadow = false, border = false } = Astro.props;
+const imgClass = [
+  'w-full h-auto my-3',
+  rounded && 'rounded',
+  shadow && 'shadow-[0_0_16px_0_rgba(35,26,26,0.08)]',
+  border && 'border border-[var(--color-border)]',
+];
 ---
 
 <div class="col-span-12 grid grid-cols-3 gap-x-6">
-  <Image src={first.src} alt={first.alt} class="w-full h-auto my-3" />
-  <Image src={second.src} alt={second.alt} class="w-full h-auto my-3" />
-  <Image src={third.src} alt={third.alt} class="w-full h-auto my-3" />
+  <Image src={first.src} alt={first.alt} quality="max" densities={[1, 2]} class:list={imgClass} />
+  <Image src={second.src} alt={second.alt} quality="max" densities={[1, 2]} class:list={imgClass} />
+  <Image src={third.src} alt={third.alt} quality="max" densities={[1, 2]} class:list={imgClass} />
 </div>

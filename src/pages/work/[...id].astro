@@ -8,12 +8,15 @@ import SideBySide from '../../components/mdx/SideBySide.astro';
 import Thirds from '../../components/mdx/Thirds.astro';
 import Caption from '../../components/mdx/Caption.astro';
 import Spacer from '../../components/mdx/Spacer.astro';
+import Scroller from '../../components/mdx/Scroller.astro';
+import Outcome from '../../components/mdx/Outcome.astro';
+import OutcomeOne from '../../components/mdx/OutcomeOne.astro';
 
 // Passed to every case study's MDX content below, so none of them need to
 // import these themselves — Astro's MDX <Content /> merges this into the
 // file's scope, with any import a specific .mdx file DOES declare taking
 // precedence over the same name here.
-const mdxComponents = { Span12, Span10, Span08, SideBySide, Thirds, Caption, Spacer };
+const mdxComponents = { Span12, Span10, Span08, SideBySide, Thirds, Caption, Spacer, Scroller, Outcome, OutcomeOne };
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');

@@ -1,28 +1,80 @@
 ---
 title: "VMC Group Website Redesign"
-summary: "Rebuilt a high-traffic marketplace homepage around intent-based navigation, cutting time-to-first-listing-view by 40% without touching backend search."
-cover: ../../assets/projects/flow14-vmc-group/cover.svg
-coverAlt: "Homepage layout split into three intent-based entry zones"
+summary: "Modernizing a website for an industry leader."
+cover: ../../assets/projects/flow14-vmc-group/cover.webp
+coverAlt: "VMC Group Website Redesign"
 ---
 import { Image } from 'astro:assets';
 import { globImages } from '../../lib/globImages';
 export const pics = globImages(
-  import.meta.glob('../../assets/projects/flow14-vmc-group/*.svg', { eager: true })
+  import.meta.glob('../../assets/projects/flow14-vmc-group/*', { eager: true })
 );
 
+As a 120-year-old brand, VMC Group is a recognized world leader in the design and manufacture of vibration isolation, seismic control and shock protection products.
 
-The marketplace homepage had one job for two very different visitors: browsers who wanted to be surprised, and searchers who already knew what they were looking for. It served both with the same three rows of trending listings, and session recordings showed the mismatch immediately — casual visitors scrolled once and bounced, while returning buyers repeated the same search from the homepage every time because there was no faster path back to it.
+They wanted to redesign their website to better reflect the growth and maturity of the company and provide a more well-rounded and engaging experience for prospective and existing customers.
 
-<Span12 src={pics["full-bleed"]} alt="Redesigned homepage showing three intent-based entry zones above the fold" />
+**My role:** IA, UX, Visual Design  
+**InQuest Marketing:** Development and copywriting
 
-Card sorts and a round of contextual interviews split visitor intent into three groups: browsing with no target in mind, replacing something specific, and comparing a shortlist before buying. That mapped cleanly onto three homepage zones — a discovery feed, a jump-back-in strip keyed to recent searches, and a comparison shelf for saved listings — replacing the single generic feed with three that a visitor could self-select into within the first screen.
+<Spacer />
+
+### Redesigned Homepage, Desktop and Mobile
+
+<Scroller
+  desktop={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
+  mobile={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
+/>
+
+<Spacer />
+
+## Process
+Working with the team at InQuest Marketing, I was responsible for the IA, UX, and design of the new website.
+
+### Information Architecture
+Facing a tight deadline for presenting concepts to the CEO, I started by analyzing the information architecture of the existing website and developed a plan for the new IA
 
 <SideBySide
-  left={{ src: pics["side-left"], alt: "Original homepage with a single trending-listings feed" }}
-  right={{ src: pics["side-right"], alt: "Redesigned homepage with discovery, jump-back-in, and comparison zones" }}
+  left={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
+  right={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
 />
-<Caption>Before: one undifferentiated feed. After: three intent-led zones, ordered by how often each was used in testing.</Caption>
+<Caption>IA, before and after</Caption>
 
-The redesign shipped behind a 50/50 split test over six weeks. Time-to-first-listing-view dropped 40% in the treatment group, and the jump-back-in strip alone accounted for a third of homepage-originated searches within the first month — traffic that had previously gone through the search bar every single visit.
+<Spacer />
 
-The three-zone pattern outlived the homepage. The comparison shelf became a shared component used on category pages six months later, and the zone-based layout was the first place engineering and design agreed on a shared token set for card spacing — the seed of the design system work that followed.
+### Design concepts and wireframes
+With a solid foundation for the structure of the site, I designed a range of homepage concepts and page wireframes, which I presented to the CEO.
+<Thirds
+  first={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
+  second={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
+  third={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
+/>
+
+<Spacer />
+
+### Visual Design
+Once a visual direction was selected, I designed desktop and mobile-optimized versions for each page of the website. I also designed a style guide which allowed the developer to start building the site while pages were being reviewed and approved by the client.
+
+#### Product page
+<Scroller
+  desktop={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
+  mobile={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
+/>
+
+<Spacer />
+
+#### Services
+<Scroller
+  desktop={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
+  mobile={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
+/>
+
+<Spacer />
+
+#### Company
+<Scroller
+  desktop={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
+  mobile={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
+/>
+
+<Spacer />
