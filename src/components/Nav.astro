@@ -69,7 +69,7 @@ const isAboutActive = path.startsWith('/about');
     box-shadow: 0 0 16px 0 rgba(35, 26, 26, 0.08);
     color: var(--color-ink);
     text-decoration: none;
-    transition: padding 0.2s ease;
+    transition: padding 300ms linear;
   }
 
   .nav-pill__icon {
@@ -78,6 +78,7 @@ const isAboutActive = path.startsWith('/about');
     flex-shrink: 0;
     display: block;
     fill: var(--color-ink);
+    transition: fill 200ms linear;
   }
 
   /* Whichever pill matches the current page gets the accent-colored icon;
