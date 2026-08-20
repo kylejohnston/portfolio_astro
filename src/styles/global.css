@@ -561,15 +561,24 @@ body.overlay-open {
   :root {
     --grid-margin: 16px;
     --overlay-content-pad: 16px;
+    --text-lg:  calc(25px * .85);
+    --text-xl:  calc(34.7px * .8);
+    --text-2xl: calc(48.6px * .8);
   }
+
 
   /* A bottom sheet is already full-width; leave the width alone and give
      the page behind it a little more headroom on small screens. */
   .overlay {
-    height: 88%;
+    height: 92%;
+    margin-inline: -20px;
   }
   .nudger {
     display: none;
+  }
+  #closeOverlay {
+    top: 0;
+    right: 0;
   }
 
   /* Same reasoning as the desktop -1 column shift a few rules up: no room
