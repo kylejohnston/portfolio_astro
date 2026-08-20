@@ -3,6 +3,7 @@ title: "Etsy Favorites on iOS"
 summary: "I redesigned the favorites screen, making it easier for users to browse and navigate."
 cover: ../../assets/projects/etsy-ios-faves/cover.webp
 coverAlt: "Etsy Favorites on iOS project summary"
+overlayColor: "#F1641D"
 ---
 import { Image } from 'astro:assets';
 import { globImages } from '../../lib/globImages';
@@ -26,16 +27,16 @@ This redesign accomplished several goals:
 <Spacer />
 
 ### Control and treatment
-<Span10 src={pics["control-treatment"]} alt="Screen states: empty, some faves, many faves" />
+<Span10 src={pics["control-treatment"]} alt="Design: control and treatment" />
 
 <Spacer />
 
 ## User insights
-Through user research and experimentation, we found the tabbed UI of the control experience limited exploration. Internally, we called this 'tab blindless' — people simply didn't see the feature and left the screen without engaging.
+Through user research and experimentation, we found the tabbed UI of the control experience limited exploration. Internally, we called this 'tab blindness' — people simply didn't see the feature and left the screen without engaging.
 
 ## Design decisions
 - I removed tabs in favor of surfacing content on the landing screen, where people expected to find content.
-- The four most recent favorites, rendered as a larger images, became the centerpiece of the screen.
+- The four most recent favorites, rendered as larger images, became the centerpiece of the screen.
 - This approach aided feature discovery by surfacing other types of favorites and provided space for future product and design improvements. 
 - Removing tabs also eliminated complex UI states, simplifying maintenance and debugging for engineers.
 

@@ -19,7 +19,7 @@ const imgClass = [
 ];
 ---
 
-<div class="side-by-side col-span-12 grid grid-cols-2 gap-x-6">
+<div class="side-by-side col-span-12 grid grid-cols-1 sm:grid-cols-2 gap-6">
   <Image src={left.src} alt={left.alt} quality="max" densities={[1, 2]} class:list={imgClass} />
   <Image src={right.src} alt={right.alt} quality="max" densities={[1, 2]} class:list={imgClass} />
 </div>

@@ -1,28 +1,104 @@
 ---
-title: "Qwally Product Design"
-summary: "Rebuilt a high-traffic marketplace homepage around intent-based navigation, cutting time-to-first-listing-view by 40% without touching backend search."
-cover: ../../assets/projects/flow14-qwally/cover.svg
-coverAlt: "Homepage layout split into three intent-based entry zones"
+title: "Qwally UX and Product Design"
+summary: "Defining a zero to one approach for a startup working with local governments."
+cover: ../../assets/projects/flow14-qwally/cover.webp
+coverAlt: "Qwally UX and Product Design"
+overlayColor: "#A370FF"
 ---
 import { Image } from 'astro:assets';
 import { globImages } from '../../lib/globImages';
 export const pics = globImages(
-  import.meta.glob('../../assets/projects/flow14-qwally/*.svg', { eager: true })
+  import.meta.glob('../../assets/projects/flow14-qwally/*', { eager: true })
 );
 
+Qwally is a cloud-based software startup delivering a SaaS platform for local governments, starting with the City of Mobile, Alabama. 
 
-The marketplace homepage had one job for two very different visitors: browsers who wanted to be surprised, and searchers who already knew what they were looking for. It served both with the same three rows of trending listings, and session recordings showed the mismatch immediately — casual visitors scrolled once and bounced, while returning buyers repeated the same search from the homepage every time because there was no faster path back to it.
+I worked with them to define and design their user experience, including the user journey, information architecture, wireframes, and visual design.
 
-<Span12 src={pics["full-bleed"]} alt="Redesigned homepage showing three intent-based entry zones above the fold" />
+**My role:** UX, Visual Design, Frontend Development  
+**Qwally:** Platform Development
 
-Card sorts and a round of contextual interviews split visitor intent into three groups: browsing with no target in mind, replacing something specific, and comparing a shortlist before buying. That mapped cleanly onto three homepage zones — a discovery feed, a jump-back-in strip keyed to recent searches, and a comparison shelf for saved listings — replacing the single generic feed with three that a visitor could self-select into within the first screen.
+<Spacer />
+
+## Visualizing the User Journey
+
+I started by creating a detailed user journey diagram to visualize the steps that could be required of a business owner seeking to work with the city.
+
+The user journey diagram was key in Qwally's conversations with city officials in Mobile, uncovering insights that informed user flows and information architecture, improving the experience for both businesses and the city.
+
+<SideBySide border
+  left={{ src: pics["user-flow-story"], alt: "User story" }}
+  right={{ src: pics["user-journey-01"], alt: "User journey map" }}
+/>
+<Span10 shadow src={pics["user-journey-02.lg"]} alt="Qwally meeting with Mobile, AL City Officials" />
+<Caption>Qwally meeting with Mobile, AL City Officials</Caption>
+
+<Spacer />
+
+## User Flows
+For Qwally's presentations to city officials in Mobile, I created sample user flows and wireframes that demonstrated how Qwally's software could improve the flow of communication between key stakeholders across the city.
+
+<Span08 border shadow src={pics["user-flow-01.lg"]} alt="User flow" />
+<SideBySide
+  left={{ src: pics["user-flow-02"], alt: "Use flow wireframe, referrals" }}
+  right={{ src: pics["user-flow-03"], alt: "Use flow wireframes, emails" }}
+/>
+
+<Spacer />
+
+## Wireframes: Dashboard and Frontend Concepts
+Informed by the user journeys and insights from Qwally's meetings with city officials, I created a range of wireframes to define the user experience. These included concepts for a dashboard used by city officials, details of key user flows, and public-facing pages.
 
 <SideBySide
-  left={{ src: pics["side-left"], alt: "Original homepage with a single trending-listings feed" }}
-  right={{ src: pics["side-right"], alt: "Redesigned homepage with discovery, jump-back-in, and comparison zones" }}
+  left={{ src:  pics["quick-start-wire-01"], alt: "Quick start onboarding wireframe" }}
+  right={{ src: pics["quick-start-wire-02"], alt: "Quick start onboarding wireframe" }}
 />
-<Caption>Before: one undifferentiated feed. After: three intent-led zones, ordered by how often each was used in testing.</Caption>
+<SideBySide
+  left={{ src:  pics["quick-start-01"], alt: "Quick start onboarding UI" }}
+  right={{ src: pics["quick-start-02"], alt: "Quick start onboarding UI" }}
+/>
 
-The redesign shipped behind a 50/50 split test over six weeks. Time-to-first-listing-view dropped 40% in the treatment group, and the jump-back-in strip alone accounted for a third of homepage-originated searches within the first month — traffic that had previously gone through the search bar every single visit.
+<Spacer />
 
-The three-zone pattern outlived the homepage. The comparison shelf became a shared component used on category pages six months later, and the zone-based layout was the first place engineering and design agreed on a shared token set for card spacing — the seed of the design system work that followed.
+### Wireframe: Public-Facing Page
+
+<Span08 border shadow src={pics["wireframe-page"]} alt="Wireframe, public-facing page" />
+
+<Spacer />
+
+## UX: Quick Start Plan
+Based on the user flow mapping, feedback from city officials, and Qwally's user testing, we created a quiz-like experience for business owners that quickly leads them through a series of relevant questions.
+
+After completing the quiz, users receive a personalized checklist they can use to ensure they have everything they need to be eligible to work with the city.
+
+The final UX and design present a series of simple questions that business owners can complete in minutes, a huge improvement over the previous process, which required lengthy in-person meetings.
+
+<SideBySide border
+  left={{ src: pics["wireframe-dashboard-01"], alt: "Dashboard concept wireframe" }}
+  right={{ src: pics["wireframe-dashboard-02"], alt: "Dashboard concept wireframe" }}
+/>
+<SideBySide border
+  left={{ src: pics["wireframe-dashboard-03"], alt: "Dashboard concept wireframe, kanban" }}
+  right={{ src: pics["wireframe-dashboard-04"], alt: "Dashboard concept wireframe" }}
+/>
+
+<Spacer />
+
+## Work with Mobile Portal
+When Qwally was ready to launch their solution for the City of Mobile, I designed a portal that features the Quick Start Questionnaire and a range of SEO-optimized educational resources.
+
+Today, I continue to work with Qwally to iterate and improve on their platform as they bring their innovative tools to a growing list of cities.
+
+<Span10 border shadow src={pics["portal"]} alt="Work with Mobile, AL homepage" />
+
+<Spacer />
+
+## Testimonial
+> “We were looking to turn some loose ideas and research into a software platform for city governments. What made Kyle the easy choice for us was his focus on fundamentally understanding the problem to be solved and shepherding our team (and our clients) through that process to arrive at a solution that truly helped users accomplish their goals.”  
+
+> “As we’ve grown and encountered new challenges and opportunities, we’ve been grateful to consider Kyle as a trusted advisor and direct extension of our team.”
+
+**Chris Offensend**  
+Qwally Co-Founder & CEO
+
+<Spacer />

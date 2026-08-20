@@ -1,0 +1,145 @@
+---
+// Two decorative panels bleeding past the grid, with slotted content
+// layered on top in normal flow. Both panels are purely visual:
+// position:absolute + negative z-index keeps them behind the
+// (non-positioned) slotted content without any extra stacking-context
+// bookkeeping there. Extracted from SetView.astro's original hero-v2
+// treatment so every page that wants this look (currently the homepage
+// and /about) shares one implementation instead of copy-pasting it.
+interface Props {
+  panelAColor?: string;
+  panelARatio?: string;
+  /** Mobile-only — hero-panel-a switches from a fixed desktop ratio to
+   *  this one below 640px instead of stretching to fill the slotted
+   *  content's height. Tune by hand alongside panelBRatio if you change
+   *  it; see the mobile hero-panel-a rule for why this can't just be
+   *  derived from panelBRatio automatically. */
+  panelAMobileRatio?: string;
+  panelBColor?: string;
+  panelBRatio?: string;
+}
+
+const {
+  panelAColor = '#FFCDCD',
+  panelARatio = '16 / 7',
+  panelAMobileRatio = '5 / 7',
+  panelBColor = 'var(--color-accent)',
+  panelBRatio = '16 / 9',
+} = Astro.props;
+---
+
+<div class="hero-panels-wrap">
+  <div class="hero-panel hero-panel-a halftone-fill" aria-hidden="true"></div>
+  <slot />
+  <div class="hero-panel hero-panel-b" aria-hidden="true"></div>
+</div>
+
+<style define:vars={{ panelAColor, panelARatio, panelAMobileRatio, panelBColor, panelBRatio }}>
+  /* Desktop: .hero-panels-wrap deliberately has no `position` set, so the
+     panels (position:absolute with no positioned ancestor anywhere up to
+     <html>) resolve against the true document root instead of the
+     wrapper's own box — that's what lets them start at the actual top of
+     the page and paint behind <header> and slotted content without living
+     outside them in the DOM. Negative z-index still means "behind
+     everything non-positioned," evaluated against the whole page's
+     stacking context rather than just this component's box.
+
+     --main-inset is "how far the grid's column 1 sits from the actual
+     viewport edge" — the same math .overlay uses to align itself to
+     <main>'s columns, recomputed locally from the shared --grid-* :root
+     tokens since it's pure viewport math, not dependent on this
+     component's own box size. */
+  .hero-panels-wrap {
+    grid-column: span 12;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--grid-gutter);
+    --container-width: min(100vw, var(--grid-max-width));
+    --container-offset: calc((100vw - var(--container-width)) / 2);
+    --hero-grid-col: calc((var(--container-width) - 2 * var(--grid-margin) - 11 * var(--grid-gutter)) / 12);
+    --main-inset: calc(var(--container-offset) + var(--grid-margin));
+  }
+  .hero-panel {
+    position: absolute;
+  }
+  .hero-panel-a {
+    /* Literal top-left of the page — bleeds past the header on the left
+       and sits behind it vertically. Right edge lands on the column
+       10/11 boundary. */
+    top: 0;
+    left: 0;
+    width: calc(var(--main-inset) + 10 * var(--hero-grid-col) + 9 * var(--grid-gutter));
+    aspect-ratio: var(--panelARatio);
+    --dot-color: var(--panelAColor);
+    --bg-color: var(--color-paper);
+    z-index: -2;
+  }
+  .hero-panel-b {
+    /* Left edge grid-aligned to the start of column 3 — the same reading
+       column every page's text content starts from — right edge bleeds
+       to the viewport edge. 48px down from the top of the page. */
+    top: 48px;
+    left: calc(var(--main-inset) + 2 * (var(--hero-grid-col) + var(--grid-gutter) - 12px));
+    right: 0;
+    aspect-ratio: var(--panelBRatio);
+    background-color: var(--panelBColor);
+    mix-blend-mode: multiply;
+    z-index: -1;
+  }
+
+  @media (max-width: 640px) {
+    .hero-panels-wrap {
+      /* Mobile panels are scoped to this wrapper's own box (see the
+         padding-bottom trick below), not the document root, so this
+         needs to be a positioning context again here — which on its own
+         would leave `top: 0` / `top: 48px` resolving 96px lower than on
+         desktop, since <main> (Layout.astro) has its own pt-24 (96px)
+         pushing this wrap down before it even starts. margin-top: -96px
+         pulls the wrap's own box back up to <main>'s true top edge —
+         matching desktop's document-root-relative behavior — and
+         padding-top: 96px puts that same space back inside the box, so
+         slotted content (the actual visible text) still starts exactly
+         where it did before; only the invisible positioning-context
+         origin moves. Assumes HeroPanels is <main>'s first child — a page
+         that puts other content before it would need its own adjustment,
+         since that content's height isn't something this component can
+         see. */
+      position: relative;
+      display: block;
+      margin-top: -96px;
+      padding-top: 96px;
+      padding-bottom: 64px; /* background peeks out below the foreground block by this much */
+    }
+    .hero-panel-a {
+      /* Capped to panelAMobileRatio instead of stretching to fill the
+         wrap — positioned from the true top of the viewport (see the
+         wrap's margin-top/padding-top trick above) and sized to extend
+         slightly past hero-panel-b's own bottom edge (top: 48px + its
+         aspect-ratio-derived height). Still bleeds past the wrap's own
+         inset horizontally to reach the true viewport edges, same as
+         hero-panel-b. */
+      top: 0;
+      bottom: auto;
+      left: calc(-1 * var(--main-inset));
+      right: calc(-1 * var(--main-inset));
+      width: auto;
+      aspect-ratio: var(--panelAMobileRatio);
+    }
+    .hero-panel-b {
+      /* Back behind the slotted content, like desktop — negative z-index
+         inside .hero-panels-wrap's own stacking context (position:relative
+         above) paints it behind the normal-flow content. 48px down from the
+         top, same as desktop, and full-bleed horizontally like
+         hero-panel-a's mobile treatment (left/right bleed past the wrap's
+         own inset to reach the true viewport edges) rather than inset and
+         centered. */
+      position: absolute;
+      top: 48px;
+      bottom: auto;
+      left: calc(-1 * var(--main-inset));
+      right: calc(-1 * var(--main-inset));
+      width: auto;
+      aspect-ratio: 1 / 1;
+    }
+  }
+</style>

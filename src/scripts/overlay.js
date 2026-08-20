@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const overlay = document.getElementById('overlay');
   const overlayBackground = document.getElementById('overlayBackground');
   const closeOverlayBtn = document.getElementById('closeOverlay');
+  const overlayPanel = document.querySelector('.overlay-panel');
   const overlayContent = document.getElementById('overlayPageContent');
   const siteHeader = document.querySelector('.site-nav');
   const siteMain = document.querySelector('main');
@@ -146,6 +147,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (title) {
       document.title = title;
       overlay.setAttribute('aria-label', title);
+    }
+
+    // Per-project override for .overlay-panel's color (falls back to the
+    // CSS default when a project's frontmatter doesn't set one) — read off
+    // the just-injected <article>, since .overlay-panel itself lives outside
+    // #overlayPageContent and never gets replaced by loadOverlayContent.
+    const color = overlayContent.querySelector('article')?.dataset.overlayColor;
+    if (color) {
+      overlayPanel.style.setProperty('--overlay-panel-color', color);
+    } else {
+      overlayPanel.style.removeProperty('--overlay-panel-color');
     }
   }
 

@@ -28,7 +28,8 @@ const { Content } = await render(entry);
 ---
 
 <Layout title={entry.data.title}>
-  <article>
+  <div class="nudger">&nbsp;</div>
+  <article data-overlay-color={entry.data.overlayColor}>
     <h1>{entry.data.title}</h1>
     <Content components={mdxComponents} />
   </article>
@@ -51,6 +52,11 @@ const { Content } = await render(entry);
     grid-template-columns: repeat(12, 1fr);
     column-gap: 24px;
   }
+  .nudger
+  {
+    height: 16px;
+  }
+
   /* :global() because <Content /> is MDX output — a separate component's
      rendered markup, which never receives this file's scope attribute.
      A plain `article p` selector compiles to `article p[data-astro-cid-*]`
@@ -66,5 +72,31 @@ const { Content } = await render(entry);
     grid-column: 3 / 9;
     margin-block: 12px;
     margin-right: 24px;
+  }
+  article :global(blockquote) {
+    grid-column: 3 / 9;
+    margin: 0;
+    text-indent: -.65em;
+    font-style: italic;
+  }
+
+
+  @media (max-width: 640px) {
+    /* Reading-column inset only makes sense once there's width to spare —
+       full width here, same call as every other col-start-N component. */
+    article :global(p:not(.caption)),
+    article :global(h1),
+    article :global(h2),
+    article :global(h3),
+    article :global(h4),
+    article :global(ul),
+    article :global(blockquote)
+    {
+      grid-column: 1 / -1;
+      margin-right: 0;
+    }
+    .nudger {
+      display: none;
+    }
   }
 </style>

@@ -3,6 +3,7 @@ title: "Etsy Homepage Redesign"
 summary: "Prototyped, tested, and shipped: redesigning Etsy's homepage in under three months"
 cover: ../../assets/projects/etsy-home/cover_.webp
 coverAlt: "Etsy Homepage Redesign case study"
+overlayColor: "#F1641D"
 ---
 import { Image } from 'astro:assets';
 import { globImages } from '../../lib/globImages';
@@ -10,17 +11,14 @@ export const pics = globImages(
   import.meta.glob('../../assets/projects/etsy-home/*', { eager: true })
 );
 
-## Design challenge
+**My role:** product design, prototypes
 
-We wanted to personalize Etsy’s homepage using a new LLM-powered content library, but the existing homepage design couldn't adapt to support the scale of new content. 
+## The design challenge
 
-Each module operated independently with different layouts and different content sources, resulting in a discordant design. In research, we consistently heard the page was “cluttered” and “overwhelming”.
+We wanted to personalize Etsy’s homepage using a new LLM-powered dataset, but we knew the existing homepage design wouldn't scale to support the new content. Each module operated independently with different layouts and content sources. And people noticed; in research, we consistently heard the page was “cluttered” and “overwhelming”.
 
 ## My solution
 I redesigned Etsy’s homepage by creating a scalable system that flexes to support any type of content, all personalized for millions of daily visitors.
-
-### Approach
-Beyond the design itself, I created web-based prototypes for user research, used Claude Code to create eng-ready frontend code to speed development, and iterated as we learned how people used the page at scale.
 
 ### Impact
 
@@ -29,15 +27,15 @@ Beyond the design itself, I created web-based prototypes for user research, used
 <Spacer />
 
 ## Prototyping for research
-<Span10 src={pics["prototype"]} alt="Research prototype" border rounded />
-
 To test the new design concept, I created a web-based prototype for user research.
 
 Research feedback was definitive: 10 out of 10 participants described the new design as “easy to use, organized, and clearly laid out”.
 
+<Span10 src={pics["prototype"]} alt="Research prototype" border rounded />
+
 <Spacer />
 
-## Experiment results · v1 design
+## Experiment results, v1 design
 
 In a two-week A/B test, we saw strong results from the combination of the new design and personalized content:
 

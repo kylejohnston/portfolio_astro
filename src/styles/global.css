@@ -73,6 +73,32 @@ body {
   font-size: var(--text-base);
   line-height: var(--text-base--lh);
   overflow-x: clip;
+  /* A single long unbroken token (a URL, a long compound word) in body copy
+     would otherwise force its box wider than the viewport on narrow
+     screens — text-wrap: balance/pretty elsewhere only changes where
+     normal line breaks fall, it doesn't create new ones inside a word with
+     no break opportunity. overflow-x: clip above only contains body's own
+     descendants; it has no effect on position:fixed elements (.site-nav,
+     .overlay, grid-jig), since their containing block is the viewport, not
+     body's box — worth remembering if something fixed-positioned is ever
+     the actual cause instead. */
+  overflow-wrap: break-word;
+}
+
+a:link, a:visited {
+  color: #DC6666;
+  text-decoration: none;
+  padding: 2px;
+  margin: -2px;
+  transition: 0.25s;
+}
+
+a:hover, a:active {
+  color: #f55;
+  background: #FDD;
+}
+a.project-card:hover, a.project-card:active {
+  background: none; 
 }
 
 main {
@@ -152,6 +178,10 @@ figure {
   border: 1px solid var(--color-muted-brand);
 }
 
+.nudger
+{
+  height: 30px;
+}
 
 body.overlay-open {
   overflow: hidden;
@@ -220,6 +250,35 @@ body.overlay-open {
   transition-timing-function: var(--overlay-exit-ease);
 }
 
+/* Decorative backdrop, echoing SetView's hero-panel-a — bleeds to .overlay's
+   own top-left corner (left/top: 0 against .overlay itself, not
+   .overlay-content's padded grid) and spans 8 of .overlay-content's 10
+   columns, reusing the column math .overlay already computes above rather
+   than redefining it. Negative z-index still paints above .overlay's own
+   opaque background (that's how stacking order works for a box that
+   establishes its own context) but behind .overlay-content's normal-flow
+   children. --overlay-panel-color is set per-project by overlay.js from the
+   loaded article's data-overlay-color attribute; the var()'s fallback below
+   is what renders when a project doesn't define one. */
+/* .halftone-fill also gets applied in markup, for the dot pattern itself —
+   the compound selector here (rather than plain .overlay-panel) is what
+   lets --dot-color/--bg-color win over .halftone-fill's own defaults
+   regardless of which rule comes first in this file, since both are
+   otherwise equal-specificity single-class selectors. */
+.overlay-panel.halftone-fill {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(var(--overlay-content-pad) + 9 * var(--overlay-grid-col) + 9 * var(--grid-gutter));
+  /* height: 324px; */
+  aspect-ratio: 16 / 6;
+  --dot-color: var(--overlay-panel-color, #f88);
+  --bg-color: var(--color-paper);
+  opacity: 0.25;
+  z-index: -1;
+  pointer-events: none;
+}
+
 .overlay.active {
   transform: translate3d(0, 0, 0);
   opacity: 1;
@@ -254,6 +313,13 @@ body.overlay-open {
   {
     grid-column: 2 / 8;
     margin-left: 20px;
+  }
+  .overlay-content blockquote
+  {
+    grid-column: 2 / 8;
+    margin: 0;
+    text-indent: -.65em;
+    font-style: italic;
   }
   .overlay-content h1,
   .overlay-content h2,
@@ -297,13 +363,14 @@ body.overlay-open {
   margin: 4px 0 0;
 }
 
-.overlay-header {
-  display: flex;
-  justify-content: flex-end;
-  padding-bottom: var(--space-1);
-}
-
+/* Anchored to .overlay's own box (its nearest positioned ancestor) rather
+   than living inside .overlay-content's padded/scrollable grid, so it stays
+   put in the corner while the content underneath scrolls. */
 #closeOverlay {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
   background: none;
   border: none;
   color: var(--color-text);
@@ -484,10 +551,60 @@ body.overlay-open {
    ================================= */
 
 @media (max-width: 640px) {
+  /* Page margins: 24px → 16px. --overlay-content-pad follows --grid-margin
+     for the same reason it's kept in step with it above — .overlay's
+     alignment calc reads both, and the pixel-exact match to <main>'s
+     columns only holds if they move together. Every place that reads
+     --grid-margin (Layout.astro's header/main/footer padding, .overlay's
+     inset calc, SetView.astro's hero panel calc) picks this up automatically
+     since custom properties resolve live, not at build time. */
+  :root {
+    --grid-margin: 16px;
+    --overlay-content-pad: 16px;
+  }
+
   /* A bottom sheet is already full-width; leave the width alone and give
      the page behind it a little more headroom on small screens. */
   .overlay {
     height: 88%;
+  }
+  .nudger {
+    display: none;
+  }
+
+  /* Same reasoning as the desktop -1 column shift a few rules up: no room
+     left for a reading-column inset once .overlay-content's already-narrow
+     grid also loses margin, so these go full width instead of shifting. */
+  .overlay-content h1,
+  .overlay-content h2,
+  .overlay-content h3,
+  .overlay-content h4,
+  .overlay-content p,
+  .overlay-content ul {
+    grid-column: 1 / -1;
+    margin-left: 0;
+  }
+  .overlay-content blockquote {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+  .overlay-content .outcome {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-left: 0;
+  }
+
+  /* Standalone-page .outcome (Outcome/OutcomeOne's col-start-3 col-span-6
+     and, for Outcome, grid-cols-2 are Tailwind utility classes on the
+     component markup — layered, so this plain rule overrides them without
+     needing !important). Two stats side by side reads fine on a wide
+     column; stacked is the safer default once the reading column itself
+     goes full width — worth a look once there's real content in place. */
+  .outcome {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 }
 

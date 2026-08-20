@@ -9,6 +9,7 @@ const projects = defineCollection({
       summary: z.string(),
       cover: image(),
       coverAlt: z.string(),
+      overlayColor: z.string().optional(),
     }),
 });
 

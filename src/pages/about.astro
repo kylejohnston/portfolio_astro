@@ -1,10 +1,170 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HeroPanels from '../components/HeroPanels.astro';
 ---
 
 <Layout title="About">
-  <article>
-    <h1>About</h1>
-    <p>Placeholder content — replace with the real bio.</p>
-  </article>
+  <HeroPanels>
+    <article>
+      <div class="col-span-12 sm:col-start-3 sm:col-span-6 lg:pt-7">
+        <h1>About me</h1>
+        <p>I'm a passionate and unflappable designer and creative leader with twenty years of broad-ranging experience, including design practice and leadership, creative strategy, and team development. I've drawn on communication design, UX, and team leadership to build, manage, and mentor diverse teams across in-house and agency environments.</p>
+        <p>Most recently I was a Staff Product Designer at Etsy, where I collaborated with cross-functional product partners in engineering, research, analytics, and product management to define product strategy and priorities and run experiments to optimize buyer experiences across Etsy's website and native apps.</p>
+        <p>Previous to Etsy, my experience includes:</p>
+        <ul>
+          <li>Owner and principal designer at <a href="https://www.flow14.com">flow14</a>, an independent branding and design studio that specializes in delivering results-driven design.</li>
+          <li>Senior Designer at <strong>Stay Alfred</strong>, offering upscale travel apartments in the best downtown neighborhoods.</li>
+          <li>Director of Creative Services at <strong>Vista Outdoor</strong>, a leader in the outdoor sports and recreation markets.</li>
+          <li>Creative Director at <strong>DEG</strong>, one of the fastest-growing digital agencies in the country.</li>
+          <li>Creative Director at <a href="https://www.garmin.com">Garmin</a>, the global leader in GPS navigation and wearable technology.</li>
+        </ul>
+        <p><a href="/kyle-johnston-product-designer-2026.pdf">Download my complete resume</a> and learn more about my career.</p>
+      </div>
+      <div class="col-span-12 sm:col-start-9 sm:col-span-3">
+        <h1 class="sidebar-spacer" aria-hidden="true">&nbsp;</h1>
+        <p>
+          <strong>Email:</strong><br>
+          <button type="button" class="copy-to-clipboard" data-copy-value="kyle@flow14.com" aria-label="Copy email address">
+            kyle@flow14.com
+            <svg class="copy-to-clipboard__icon copy-to-clipboard__icon--copy" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M192,72V216a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8H184A8,8,0,0,1,192,72Zm24-40H72a8,8,0,0,0,0,16H208V184a8,8,0,0,0,16,0V40A8,8,0,0,0,216,32Z"></path>
+            </svg>
+            <svg class="copy-to-clipboard__icon copy-to-clipboard__icon--check" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M243.31,90.91l-128.4,128.4a16,16,0,0,1-22.62,0l-71.62-72a16,16,0,0,1,0-22.61l20-20a16,16,0,0,1,22.58,0L104,144.22l96.76-95.57a16,16,0,0,1,22.59,0l19.95,19.54A16,16,0,0,1,243.31,90.91Z"></path>
+            </svg>
+          </button>
+        </p>
+        <p><strong>Elsewhere:</strong><br>
+          <a href="https://www.linkedin.com/in/kylejohnston/">LinkedIn</a><br>
+          <a href="https://github.com/kylejohnston?tab=repositories">GitHub</a><br>
+          <a href="https://codepen.io/kwjohnston/">Codepen</a><br>
+          <a href="https://kyleio.com/">Creative Journal</a>
+        </p>
+      </div>
+    </article>
+  </HeroPanels>
 </Layout>
+
+<style>
+  /* Standalone-only layout. Astro scopes this CSS to pages that render this
+     component — the overlay only ever transplants fetched HTML (via
+     fetch + innerHTML in overlay.js), never a page's <head>/stylesheets,
+     so none of this reaches the overlay even though the markup it targets
+     does. Tailwind classes and global.css rules don't have this property —
+     they're loaded on every page, overlay included. */
+  article {
+    grid-column: span 12;
+    background: var(--color-paper);
+    max-width: 1400px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 24px;
+  }
+  /* :global() because <Content /> is MDX output — a separate component's
+     rendered markup, which never receives this file's scope attribute.
+     A plain `article p` selector compiles to `article p[data-astro-cid-*]`
+     and can never match it; :global(p) drops the attribute requirement on
+     just the child while the rule stays part of this page's own CSS. */
+  article :global(p:not(.caption)),
+  article :global(h1),
+  article :global(h2),
+  article :global(h3),
+  article :global(h4),
+  article :global(ul)
+  {
+    grid-column: 3 / 9;
+    margin-block: 24px;
+    margin-right: 24px;
+  }
+  article :global(blockquote) {
+    grid-column: 3 / 9;
+    margin: 0;
+    text-indent: -.65em;
+    font-style: italic;
+  }
+
+
+  @media (max-width: 640px) {
+    /* Reading-column inset only makes sense once there's width to spare —
+       full width here, same call as every other col-start-N component. */
+    article :global(p:not(.caption)),
+    article :global(h1),
+    article :global(h2),
+    article :global(h3),
+    article :global(h4),
+    article :global(ul),
+    article :global(blockquote)
+    {
+      grid-column: 1 / -1;
+      margin-right: 0;
+    }
+
+    /* The two columns stack (both col-span-12 in the markup above) instead
+       of sitting side by side, so they need their own row spacing — grid's
+       column-gap only ever applied horizontally, and there's no row-gap
+       set for the desktop side-by-side case since it never needed one. */
+    article {
+      row-gap: 48px;
+    }
+
+    /* Exists purely to vertically align the sidebar's content with the
+       first column's h1 when both columns sit side by side. Once they
+       stack, it's just dead space above "Email:". */
+    .sidebar-spacer {
+      display: none;
+    }
+  }
+
+  .copy-to-clipboard {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+  .copy-to-clipboard:hover {
+    text-decoration: underline;
+  }
+  .copy-to-clipboard__icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    fill: currentColor;
+  }
+  .copy-to-clipboard__icon--check {
+    display: none;
+  }
+  /* .is-copied is toggled by the script below, swapping which of the two
+     icons is visible rather than swapping their markup — cheaper than a
+     re-render and keeps both icons preloaded so there's no flash. */
+  .copy-to-clipboard.is-copied .copy-to-clipboard__icon--copy {
+    display: none;
+  }
+  .copy-to-clipboard.is-copied .copy-to-clipboard__icon--check {
+    display: block;
+  }
+</style>
+
+<script>
+  const COPIED_DURATION_MS = 2000;
+
+  document.querySelectorAll<HTMLButtonElement>('.copy-to-clipboard').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const value = button.dataset.copyValue;
+      if (!value) return;
+      try {
+        await navigator.clipboard.writeText(value);
+        button.classList.add('is-copied');
+        setTimeout(() => button.classList.remove('is-copied'), COPIED_DURATION_MS);
+      } catch {
+        // Clipboard write failed (permissions, insecure context, etc.) — no feedback to show.
+      }
+    });
+  });
+</script>

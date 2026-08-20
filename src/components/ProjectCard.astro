@@ -5,12 +5,19 @@ import type { CollectionEntry } from 'astro:content';
 interface Props {
   entry: CollectionEntry<'projects'>;
   why?: string;
+  /** 'row': staggered, alternating-side layout (homepage). 'grid': stacked
+   *  image-over-text card meant for a 3-up grid (/work). */
+  layout?: 'row' | 'grid';
 }
 
-const { entry, why } = Astro.props;
+const { entry, why, layout = 'row' } = Astro.props;
+const rootClass =
+  layout === 'grid'
+    ? 'project-card project-card--grid col-span-12 sm:col-span-4'
+    : 'project-card col-span-12 sm:col-start-2 sm:col-span-10 items-center gap-6';
 ---
 
-<a class="project-card col-start-2 col-span-10 items-center gap-6" href={`/work/${entry.id}`}>
+<a class={rootClass} href={`/work/${entry.id}`}>
   <Image class="project-card__cover" src={entry.data.cover} alt={entry.data.coverAlt} width={549} height={309} />
   <div class="project-card__body">
     <h2 class="project-card__title">{entry.data.title}</h2>
@@ -29,7 +36,7 @@ const { entry, why } = Astro.props;
   .project-card__cover {
     width: 100%;
     height: auto;
-    aspect-ratio: 16 / 9
+    aspect-ratio: 16 / 9;
     object-fit: cover;
     grid-column: 1;
     border-radius: 4px;
@@ -54,21 +61,74 @@ const { entry, why } = Astro.props;
     padding-left:  24px;
     padding-right: 48px;
   }
-  /* Alternate which side the image/text sit on for every other card.
-     nth-of-type (not nth-child) so inserting non-.project-card content
-     between cards later won't throw off the counting. */
-  .project-card:nth-of-type(even) {
+  /* Alternate which side the image/text sit on for every other card — the
+     staggered homepage layout only. :not(.project-card--grid) keeps this
+     from also landing on /work's 3-up grid cards, which nth-of-type(even)
+     would otherwise match too (it counts <a> siblings regardless of which
+     layout variant they're using). */
+  .project-card:not(.project-card--grid):nth-of-type(even) {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
-  .project-card:nth-of-type(even) .project-card__cover {
+  .project-card:not(.project-card--grid):nth-of-type(even) .project-card__cover {
     grid-column: 2;
     grid-row: 1;
   }
-  .project-card:nth-of-type(even) .project-card__body {
+  .project-card:not(.project-card--grid):nth-of-type(even) .project-card__body {
     grid-column: 1;
     grid-row: 1;
     padding-left:  48px;
     padding-right: 24px;
+  }
+
+  /* Grid variant: image-over-text, no alternating side, same stacked shape
+     at every width — the row layout's mobile fallback further down just so
+     happens to be this same shape, but that block is width-gated and this
+     one isn't, so they stay separate rules rather than one shared selector. */
+  .project-card--grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .project-card--grid .project-card__cover {
+    grid-column: auto;
+    grid-row: auto;
+    margin-bottom: 8px;
+  }
+  .project-card--grid .project-card__body {
+    grid-column: auto;
+    grid-row: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media (max-width: 640px) {
+    /* Alternating left/right only makes sense side by side — on mobile
+       every card stacks image-then-body in natural document order,
+       regardless of odd/even, so the nth-of-type overrides above need to
+       be reset back to auto rather than just letting grid-template-columns
+       change: with only one explicit column left, an unreset grid-column:2
+       would create a new implicit column instead of stacking.
+
+       :not(.project-card--grid) here isn't about scoping variants — it's
+       needed to MATCH the desktop alternating rule's specificity (three
+       class-level selectors each). Without it, this block's even-card
+       selectors were only two classes deep, so the always-on desktop
+       alternating rule (higher specificity, present at every width, not
+       just >640px) kept winning here despite this media query being
+       active — the even row-layout card silently stayed two-column. */
+    .project-card,
+    .project-card:not(.project-card--grid):nth-of-type(even) {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .project-card__cover,
+    .project-card:not(.project-card--grid):nth-of-type(even) .project-card__cover,
+    .project-card__body,
+    .project-card:not(.project-card--grid):nth-of-type(even) .project-card__body {
+      grid-column: auto;
+      grid-row: auto;
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 </style>

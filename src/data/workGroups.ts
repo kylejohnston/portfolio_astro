@@ -14,10 +14,10 @@ export const workGroups: WorkGroup[] = [
   },
   {
     label: 'flow14',
-    ids: ['flow14-qwally', 'flow14-get-konnected', 'flow14-terramac', 'flow14-vmc-group', 'flow14-right-triangle', 'flow14-mental-health', 'flow14-grocery-buddy'],
+    ids: ['flow14-qwally', 'flow14-mental-health', 'flow14-vmc-group'],
   },
   {
     label: 'Garmin',
-    ids: ['garmin-connect', 'garmin-mobile-web', 'garmin-career-paths'],
+    ids: ['garmin-connect', 'garmin-mobile-web'],
   },
 ];

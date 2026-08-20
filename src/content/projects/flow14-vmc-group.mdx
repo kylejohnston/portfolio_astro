@@ -3,6 +3,7 @@ title: "VMC Group Website Redesign"
 summary: "Modernizing a website for an industry leader."
 cover: ../../assets/projects/flow14-vmc-group/cover.webp
 coverAlt: "VMC Group Website Redesign"
+overlayColor: "#FFD100"
 ---
 import { Image } from 'astro:assets';
 import { globImages } from '../../lib/globImages';
@@ -10,33 +11,33 @@ export const pics = globImages(
   import.meta.glob('../../assets/projects/flow14-vmc-group/*', { eager: true })
 );
 
+**My role:** IA, UX, Visual Design  
+**InQuest Marketing:** Development and copywriting
+
+## Overview
 As a 120-year-old brand, VMC Group is a recognized world leader in the design and manufacture of vibration isolation, seismic control and shock protection products.
 
 They wanted to redesign their website to better reflect the growth and maturity of the company and provide a more well-rounded and engaging experience for prospective and existing customers.
 
-**My role:** IA, UX, Visual Design  
-**InQuest Marketing:** Development and copywriting
+Working with the team at InQuest Marketing, I was responsible for the IA, UX, and design of the new website.
 
 <Spacer />
 
 ### Redesigned Homepage, Desktop and Mobile
 
 <Scroller
-  desktop={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
-  mobile={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
+  desktop={{ src: pics["site-homepage"], alt: "Homepage design, desktop" }}
+  mobile={{ src: pics["site-homepage-mobile"], alt: "Homepage design, mobile" }}
 />
 
 <Spacer />
 
-## Process
-Working with the team at InQuest Marketing, I was responsible for the IA, UX, and design of the new website.
-
 ### Information Architecture
-Facing a tight deadline for presenting concepts to the CEO, I started by analyzing the information architecture of the existing website and developed a plan for the new IA
+Facing a tight deadline for presenting concepts to the CEO, I started by analyzing the information architecture of the existing website and developed a plan for the new IA.
 
 <SideBySide
-  left={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
-  right={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
+  left={{ src: pics["sitemap-960"], alt: "Original information architecture" }}
+  right={{ src: pics["sitemap-new-960"], alt: "New information architecture" }}
 />
 <Caption>IA, before and after</Caption>
 
@@ -44,11 +45,7 @@ Facing a tight deadline for presenting concepts to the CEO, I started by analyzi
 
 ### Design concepts and wireframes
 With a solid foundation for the structure of the site, I designed a range of homepage concepts and page wireframes, which I presented to the CEO.
-<Thirds
-  first={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
-  second={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
-  third={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
-/>
+<Span12 src={pics["mockups-1440"]} alt="Design concepts" />
 
 <Spacer />
 
@@ -57,24 +54,24 @@ Once a visual direction was selected, I designed desktop and mobile-optimized ve
 
 #### Product page
 <Scroller
-  desktop={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
-  mobile={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
+  desktop={{ src: pics["site-product"], alt: "Product page, desktop" }}
+  mobile={{  src: pics["site-product-mobile"], alt: "Product page, mobile" }}
 />
 
 <Spacer />
 
 #### Services
 <Scroller
-  desktop={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
-  mobile={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
+  desktop={{ src: pics["site-services"], alt: "Service page, desktop" }}
+  mobile={{  src: pics["site-services-mobile"], alt: "Service page, mobile" }}
 />
 
 <Spacer />
 
 #### Company
 <Scroller
-  desktop={{ src: pics["side-left"], alt: "Settings surface before migrating off one-off components" }}
-  mobile={{ src: pics["side-right"], alt: "Settings surface after migrating to native design system components" }}
+  desktop={{ src: pics["site-company"], alt: "Company page, desktop" }}
+  mobile={{  src: pics["site-company-mobile"], alt: "Company page, mobile" }}
 />
 
 <Spacer />

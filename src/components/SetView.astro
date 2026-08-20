@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import ProjectCard from './ProjectCard.astro';
+import HeroPanels from './HeroPanels.astro';
 import type { Set } from '../data/sets';
 
 interface Props {
@@ -16,46 +17,31 @@ const picked = set.projects.map(({ id, why }) => {
   if (!entry) throw new Error(`Unknown project id "${id}"`);
   return { entry, why };
 });
-
-// Flip to compare hero treatments. Build-time only — edit, save, Vite HMR
-// updates the page instantly, so this doesn't need to be a runtime toggle.
-const HERO_V2 = true;
 ---
 
-{HERO_V2 ? (
-  <div class="hero-v2-wrap">
-    <div class="hero-panel hero-panel-a halftone-fill" aria-hidden="true"></div>
-    <div class="hero-v2-intro col-start-3 col-span-7 px-12 py-16 text-ink">
-      <h1>{heading}</h1>
-      <p>{set.intro}</p>
-    </div>
-    <div class="hero-panel hero-panel-b" aria-hidden="true"></div>
+<HeroPanels>
+  <div class="hero-v2-intro text-ink">
+    <div class="text-lg"><strong>{heading}</strong> {set.intro}</div>
+    <svg class="intro-signature" viewBox="0 0 140 47" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M10.7872 2.00049L2.01163 35.1684C2.00872 35.1794 2.00727 35.1848 2.00631 35.1907C2.00536 35.1965 2.00498 35.202 2.00422 35.2131C1.93927 36.1667 2.63363 35.5312 3.37401 33.9563C5.22113 30.0273 13.9456 17.179 18.423 17.179C22.9004 17.179 16.5574 29.5153 18.423 29.5153C20.6617 29.5153 25.7609 20.6332 27.3778 20.6332C29.632 20.6332 23.0207 31.1105 19.5278 37.0733C19.3347 37.4028 19.2382 37.5675 19.3064 37.635C19.3745 37.7024 19.5397 37.6037 19.87 37.4064C28.078 32.5023 45.1196 23.5939 53.869 23.5939C64.4542 23.5939 55.9066 35.5415 49.8685 43.3811C49.0814 44.4029 48.6878 44.914 48.7616 44.9907C48.8354 45.0673 49.3632 44.6932 50.4188 43.9449C56.9279 39.3307 76.6056 28.1248 115.865 26.5546C141.216 25.5406 142.978 33.2161 130.292 34.6965" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
   </div>
-) : (
-  <div id="hi" class="col-span-5 col-start-7 text-white">
-    <div class="hero py-24 halftone-backdrop">
-      <h1 class="">{heading}</h1>
-      <p class="">{set.intro}</p>
-    </div>
-  </div>
-)}
+</HeroPanels>
 <div id="work" class="col-span-12">
-  <div class="card-grid grid grid-cols-12 gap-x-6 gap-y-24">
+  <div class="card-grid grid grid-cols-12 gap-x-6 gap-y-16 sm:gap-y-24">
     {picked.map(({ entry, why }) => <ProjectCard entry={entry} why={why} />)}
-    <div class="col-span-10 col-start-2 mb-24">
-      <p class="see-all"><a href="/work">See all work</a></p>
+    <div class="col-span-12 sm:col-start-2 sm:col-span-10 mb-16 sm:mb-24">
+      <a href="/work" class="all-work-link">
+        <svg class="all-work-link__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M11.8736 17.4992H7.89465C4.28527 17.4992 1.28918 14.6203 1.24933 11.0148C1.23753 10.1398 1.40148 9.27125 1.73147 8.4607C2.06146 7.65015 2.55078 6.91408 3.17043 6.29609C4.97277 4.59219 9.37355 2.66719 9.37355 2.66719C9.5201 2.58251 9.68232 2.52848 9.85037 2.50837C10.0184 2.48826 10.1888 2.50248 10.3512 2.55018C10.5136 2.59789 10.6646 2.67807 10.7951 2.78588C10.9256 2.89368 11.0328 3.02686 11.1103 3.17734C11.4228 3.77578 11.1759 4.51328 10.5931 4.84922L7.74621 6.48984C7.66424 6.53547 7.59759 6.60432 7.55463 6.68772C7.51168 6.77112 7.49434 6.86536 7.5048 6.95859V6.96797C7.53064 7.1181 7.6092 7.25408 7.72635 7.35146C7.84349 7.44885 7.99154 7.50124 8.14386 7.49922L17.4986 7.49922C17.6679 7.49902 17.8355 7.53323 17.9912 7.59978C18.1469 7.66633 18.2875 7.76382 18.4044 7.88634C18.5213 8.00886 18.6121 8.15386 18.6712 8.31253C18.7304 8.4712 18.7567 8.64023 18.7486 8.80937C18.7173 9.48203 18.1376 9.99922 17.465 9.99922H11.8736C11.7879 9.99903 11.7031 10.0165 11.6244 10.0504C11.5457 10.0844 11.4749 10.1342 11.4163 10.1967C11.3577 10.2592 11.3126 10.333 11.2837 10.4137C11.2548 10.4944 11.2429 10.5801 11.2486 10.6656C11.2624 10.8263 11.3365 10.9759 11.4561 11.0841C11.5757 11.1924 11.7318 11.2514 11.8931 11.2492H13.1236C13.2929 11.249 13.4605 11.2832 13.6162 11.3498C13.7719 11.4163 13.9125 11.5138 14.0294 11.6363C14.1463 11.7589 14.2371 11.9039 14.2962 12.0625C14.3554 12.2212 14.3817 12.3902 14.3736 12.5594C14.3423 13.232 13.7626 13.7492 13.09 13.7492H11.2486C11.1629 13.749 11.0781 13.7665 10.9994 13.8004C10.9207 13.8344 10.8499 13.8842 10.7913 13.9467C10.7327 14.0092 10.6876 14.083 10.6587 14.1637C10.6298 14.2444 10.6179 14.3301 10.6236 14.4156C10.6374 14.5763 10.7115 14.7259 10.8311 14.8341C10.9507 14.9424 11.1068 15.0014 11.2681 14.9992H11.8368C12.5095 14.9992 13.0868 15.5164 13.1204 16.1891C13.1286 16.3579 13.1024 16.5267 13.0434 16.6852C12.9844 16.8436 12.8939 16.9885 12.7774 17.111C12.6608 17.2334 12.5206 17.331 12.3652 17.3977C12.2099 17.4645 12.0426 17.499 11.8736 17.4992Z" />
+        </svg>
+        <span class="all-work-link__label">All work</span>
+      </a>
     </div>
   </div>
 </div>
 
 <style>
-  .hero {
-    color: var(--white);
-  }
-  .intro {
-    max-width: 60ch;
-    font-size: 1.125rem;
-  }
   #work {
     /* margin-top: -80px; */
     /* padding-top: 80px; */
@@ -74,105 +60,66 @@ const HERO_V2 = true;
     /* background-color: var(--color-paper); */
     /* clip-path: polygon(0 80px, 100% 0, 100% 100%, 0 100%); */
   }
-  .see-all {
+  /* Matches .nav-pill's look (Nav.astro) — same white pill, radius, shadow,
+     ink color, and 20px icon — but always shows its label; it's a
+     standalone CTA, not a persistent nav item, so the pill's hover/active
+     label-collapse animation doesn't apply here. */
+  .all-work-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px 10px 12px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 0 16px 0 rgba(35, 26, 26, 0.08);
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  .all-work-link__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    display: block;
+    fill: var(--color-ink);
+  }
+  .all-work-link__label {
+    font-family: var(--at-textual);
+    font-size: 17px;
   }
 
-  /* ============================================================
-     Hero v2 — two decorative panels bleeding past the grid, with
-     the hero copy layered on top in normal flow. Both panels are
-     purely visual: position:absolute + negative z-index keeps them
-     behind the (non-positioned) intro text without any extra
-     stacking-context bookkeeping there.
+  /* stroke="currentColor" — inherits .hero-v2-intro's text-ink instead of
+     hardcoding it a second time here. */
+  .intro-signature {
+    display: block;
+    width: 144px;
+    height: auto;
+    margin-top: -28px;
+    margin-left: auto;
+  }
 
-     Desktop: .hero-v2-wrap deliberately has no `position` set, so
-     the panels (position:absolute with no positioned ancestor
-     anywhere up to <html>) resolve against the true document root
-     instead of the wrapper's own box — that's what lets them start
-     at the actual top of the page and paint behind <header> and
-     <main> without living outside them in the DOM. Negative z-index
-     still means "behind everything non-positioned," now evaluated
-     against the whole page's stacking context rather than just this
-     component's box.
-
-     --main-inset is "how far the grid's column 1 sits from the
-     actual viewport edge" — the same math .overlay uses to align
-     itself to <main>'s columns, but that version lives inside
-     .overlay's own rule (not :root), so it isn't reachable here;
-     recomputed locally from the shared --grid-* :root tokens instead.
-     ============================================================ */
-  .hero-v2-wrap {
-    grid-column: span 12;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: var(--grid-gutter);
-    --container-width: min(100vw, var(--grid-max-width));
-    --container-offset: calc((100vw - var(--container-width)) / 2);
-    --hero-grid-col: calc((var(--container-width) - 2 * var(--grid-margin) - 11 * var(--grid-gutter)) / 12);
-    --main-inset: calc(var(--container-offset) + var(--grid-margin));
-  }
-  .hero-panel {
-    position: absolute;
-  }
-  .hero-panel-a {
-    /* Literal top-left of the page — bleeds past the header on the
-       left and sits behind it vertically. Right edge still lands
-       exactly on the column 11/12 boundary, same as the rest of the
-       grid. */
-    top: 0;
-    left: 0;
-    width: calc(var(--main-inset) + 10 * var(--hero-grid-col) + 9 * var(--grid-gutter));
-    aspect-ratio: 16 / 7;
-    --dot-color: #FFCDCD; /* .dot-color-a */
-    --bg-color: var(--color-paper);
-    z-index: -2;
-  }
-  .hero-panel-b {
-    /* Left edge grid-aligned to the start of column 3; right edge
-       bleeds to the viewport edge. 48px down from the top of the
-       page — shorter than the header, so it overlaps it. */
-    top: 48px;
-    left: calc(var(--main-inset) + 2 * (var(--hero-grid-col) + var(--grid-gutter)));
-    right: 0;
-    aspect-ratio: 16 / 9;
-    background-color: var(--color-accent);
-    mix-blend-mode: multiply;
-    z-index: -1;
+  /* Panel positioning/coloring itself now lives in HeroPanels.astro —
+     .hero-v2-intro only needs its own column placement and spacing, since
+     it's slotted content inside that component's grid. */
+  .hero-v2-intro {
+    grid-column: 3 / 10;
+    padding-inline: 48px;
+    padding-block: 64px;
   }
 
   @media (max-width: 640px) {
-    .hero-v2-wrap {
-      /* Mobile panels are scoped to this wrapper's own box (see the
-         padding-bottom trick below), not the document root, so this
-         needs to be a positioning context again here. */
-      position: relative;
-      display: block;
-      padding-bottom: 64px; /* background peeks out below the foreground block by this much */
-    }
+    /* HeroPanels.astro's own mobile query switches its wrapper to
+       display:block, so .hero-v2-intro just needs its own spacing here —
+       grid-column above naturally goes inert once the parent isn't a grid. */
     .hero-v2-intro {
-      padding-block: 32px 24px;
+      padding-inline: 8px;
+      padding-block: 16px 12px;
     }
-    .hero-panel-a {
-      /* Background block: fills the whole wrap vertically (including
-         the 64px padding-bottom above, so it always extends exactly
-         that far past the foreground block below regardless of copy
-         length), but still bleeds past the wrap's own inset horizontally
-         to reach the true viewport edges. */
-      top: 0;
-      bottom: 0;
-      left: calc(-1 * var(--main-inset));
-      right: calc(-1 * var(--main-inset));
-      width: auto;
-      aspect-ratio: auto;
-    }
-    .hero-panel-b {
-      /* Foreground block: back in normal flow, after the intro copy —
-         static position paints above the negative-z-index background
-         with no extra z-index bookkeeping needed. */
-      position: static;
-      top: auto;
-      width: calc(100% - 2 * var(--grid-margin));
-      margin-inline: auto;
-      aspect-ratio: 1 / 1;
+      .intro-signature {
+      display: block;
+      width: 144px;
+      height: auto;
+      margin-top: 4px;
+      margin-left: auto;
     }
   }
 </style>

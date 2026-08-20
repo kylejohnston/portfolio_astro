@@ -5,11 +5,11 @@ export interface Set {
 
 export const sets: Record<string, Set> = {
   default: {
-    intro: "I'm a staff product designer working on complex, systems-heavy problems.",
+    intro: "a staff product designer with deep experience in UI/UX design, visual design, and branding. My sweet spot is solving for complex design challenges—keeping end-users at the center of every step in the journey.",
     projects: [
       { id: 'garmin-connect' },
       { id: 'flow14-mental-health' },
-      { id: 'demo-design-system-migration' },
+      { id: 'etsy-homepage' },
     ],
   },
   acme: {

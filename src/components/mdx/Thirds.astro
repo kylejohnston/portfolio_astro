@@ -20,7 +20,7 @@ const imgClass = [
 ];
 ---
 
-<div class="col-span-12 grid grid-cols-3 gap-x-6">
+<div class="col-span-12 grid grid-cols-1 sm:grid-cols-3 gap-6">
   <Image src={first.src} alt={first.alt} quality="max" densities={[1, 2]} class:list={imgClass} />
   <Image src={second.src} alt={second.alt} quality="max" densities={[1, 2]} class:list={imgClass} />
   <Image src={third.src} alt={third.alt} quality="max" densities={[1, 2]} class:list={imgClass} />

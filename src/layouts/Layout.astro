@@ -34,12 +34,11 @@ const { title, noindex = false } = Astro.props;
       
     <div class="overlay-background" id="overlayBackground" aria-hidden="true"></div>
     <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-hidden="true">
-      <div class="overlay-content grid grid-cols-10 gap-6 px-[var(--overlay-content-pad)]">
-        <div class="overlay-header halftone-fill col-span-10">
-          <button id="closeOverlay" aria-label="Close overlay">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
+      <div class="overlay-panel halftone-fill" aria-hidden="true"></div>
+      <button id="closeOverlay" aria-label="Close overlay">
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="overlay-content grid grid-cols-10 gap-6 px-[var(--overlay-content-pad)] pt-9">
         <div id="overlayPageContent" class="col-start-1 col-span-10"></div>
       </div>
     </div>
