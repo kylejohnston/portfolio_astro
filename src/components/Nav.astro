@@ -81,8 +81,10 @@ const isAboutActive = path.startsWith('/about');
   }
 
   /* Whichever pill matches the current page gets the accent-colored icon;
-     every other pill's icon stays ink. */
-  .nav-pill.is-active .nav-pill__icon {
+     every other pill's icon stays ink. Hovering any pill previews the
+     same accent color regardless of active state. */
+  .nav-pill.is-active .nav-pill__icon,
+  .nav-pill:hover .nav-pill__icon {
     fill: var(--color-accent);
   }
 
