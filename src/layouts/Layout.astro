@@ -9,6 +9,10 @@ interface Props {
 }
 
 const { title, noindex = false } = Astro.props;
+
+const description = "Kyle Johnston is a product designer with deep experience in UI/UX design, visual design, and branding";
+const ogImage = new URL('/og-image.png', Astro.site);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
@@ -18,7 +22,22 @@ const { title, noindex = false } = Astro.props;
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
     {noindex && <meta name="robots" content="noindex" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kyle Johnston" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalURL} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <Font cssVariable="--font-mono" preload />
     <Font cssVariable="--font-host" preload />
     <Font cssVariable="--at-textual" preload />
@@ -28,10 +47,7 @@ const { title, noindex = false } = Astro.props;
     <main class="max-w-[var(--grid-max-width)] mx-auto px-[var(--grid-margin)] pt-24 grid grid-cols-12 gap-[var(--grid-gutter)]">
       <slot />
     </main>
-    <footer class="max-w-[var(--grid-max-width)] mx-auto px-[var(--grid-margin)] grid grid-cols-12 gap-[var(--grid-gutter)]">
-      <p>boo</p>
-    </footer>
-      
+
     <div class="overlay-background" id="overlayBackground" aria-hidden="true"></div>
     <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-hidden="true">
       <div class="overlay-panel halftone-fill" aria-hidden="true"></div>

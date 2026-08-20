@@ -35,10 +35,10 @@
   --space-4: 2.5rem;
   --content-width: 70ch;
 
-  /* Shared 12-column grid — read by <header>/<main>/<footer> (via
-     Tailwind's max-w-[var(...)]/px-[var(...)]/gap-[var(...)] arbitrary
-     values in Layout.astro) and by .overlay's column-matching calc below.
-     Change the value once here rather than in both places. */
+  /* Shared 12-column grid — read by <main> (via Tailwind's
+     max-w-[var(...)]/px-[var(...)]/gap-[var(...)] arbitrary values in
+     Layout.astro) and by .overlay's column-matching calc below. Change the
+     value once here rather than in both places. */
   --grid-margin: 24px;
   --grid-gutter: 24px;
   --grid-max-width: 1400px;
@@ -153,10 +153,6 @@ article img {
   max-width: 100%;
   height: auto;
   border-radius: 4px;
-}
-
-footer { 
-  color: var(--color-white);
 }
 
 figure {
