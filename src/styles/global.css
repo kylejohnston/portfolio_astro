@@ -13,11 +13,11 @@
   --font-host: var(--font-host);
 
   --text-sm: 14px;
-  --text-sm--lh: 1.4;
+  --text-sm--lh: 1.5;
   --text-base: 18px;
-  --text-base--lh: 1.4;
+  --text-base--lh: 1.5;
   --text-lg: 25px;
-  --text-lg--lh: 1.4;
+  --text-lg--lh: 1.5;
   --text-xl: 34.7px;
   --text-xl--lh: 1.2;
   --text-2xl: 48.6px;
