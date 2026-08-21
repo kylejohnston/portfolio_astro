@@ -5,7 +5,7 @@ export interface Set {
 
 export const sets: Record<string, Set> = {
   default: {
-    intro: "a product designer with deep experience in UI/UX design, visual design, and branding. My sweet spot is solving for complex design challenges—keeping end-users at the center of every step in the journey.",
+    intro: "a product designer with a creative director’s background. I design and test consumer and marketplace experiences where craft and proof carry equal weight.",
     projects: [
       { id: 'etsy-homepage' },
       { id: 'flow14-mental-health' },
