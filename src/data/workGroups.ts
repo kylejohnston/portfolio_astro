@@ -10,7 +10,7 @@ export interface WorkGroup {
 export const workGroups: WorkGroup[] = [
   {
     label: 'Etsy',
-    ids: ['etsy-homepage', 'etsy-global-nav', 'etsy-collections', 'etsy-ios-faves'],
+    ids: ['etsy-homepage', 'etsy-landings', 'etsy-global-nav', 'etsy-collections', 'etsy-ios-faves'],
   },
   {
     label: 'flow14',

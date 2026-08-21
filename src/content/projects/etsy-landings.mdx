@@ -1,0 +1,61 @@
+---
+title: "Etsy Recs Landing Pages"
+summary: "Creating a content strategy and flexible system for a new type of landing page."
+cover: ../../assets/projects/etsy-landings/cover.webp
+coverAlt: "Etsy Recs Landing Pages"
+overlayColor: "#F1641D"
+---
+import { Image } from 'astro:assets';
+import { globImages } from '../../lib/globImages';
+export const pics = globImages(
+  import.meta.glob('../../assets/projects/etsy-landings/*', { eager: true })
+);
+
+As we developed personalized recommendations on [Etsy’s homepage](/work/etsy-homepage), we learned landings were a weak spot in the user experience—there were no pages on Etsy that supported browsing groups of personalized content.
+
+**My role:** Product Design
+
+<Spacer />
+
+## My solution
+I defined a content strategy and designed a flexible system of landing pages to support a range of recommendation-led shopping journeys. 
+
+<Spacer />
+
+## V1 experiment
+For a V1 experiment, I designed pages to showcase 48 thematic listings, ranked for relevance.
+
+<Span08 src={pics["recs-landing-v1"]} alt="v1 design" border rounded />
+
+The page featured related themes and searches (‘speed bumps’) that I hypothesized would help people explore thematically-related content.
+
+Experiment results showed strong engagement, prompting us to launch the page to all users.
+
+<OutcomeOne value1="42% CTR" label1="Landing → listing view" />
+
+<Spacer />
+
+## V2 experiment
+
+Data from our V1 experiment suggested (1) speed bumps were distracting and (2) many buyers were scrolling to the bottom of the page.
+
+In our V2 experiment, I removed speed bumps, added more listings for each group, and introduced endless scrolling, which improved CTR by 20%.
+
+<OutcomeOne value1="62% CTR" label1="Landing → listing view" />
+
+<Span08 src={pics["recs-landing-v2"]} alt="v2 design" border rounded />
+
+<Spacer /> 
+
+## Scaling the experience
+
+Because I designed recs landings with flexibility in mind, we quickly launched landing pages to support more content types, including active shopping missions, similar items, and campaign pages for email and merchandising.
+
+All pages feature full translations, cross-platform support, custom filters, and personalized rankings. Browsing data is fed back into recommendation systems to continually improve the quality of the experience.
+
+<SideBySide border rounded
+  left={{ src:  pics["recs-landing-picks"], alt: "Picks based on your activity" }}
+  right={{ src: pics["recs-landing-merch"], alt: "Picks curated by the merchandising team" }}
+/>
+
+<Spacer />
