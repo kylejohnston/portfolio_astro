@@ -6,12 +6,12 @@ import HeroPanels from '../components/HeroPanels.astro';
 <Layout title="About">
   <HeroPanels>
     <article>
-      <div class="col-span-12 sm:col-start-3 sm:col-span-6 lg:pt-7">
+      <div class="col-span-12 sm:col-start-3 sm:col-span-6 lg:pt-7 grid">
         <h1>About me</h1>
         <p>I’m a product designer with a creative director’s background. I have twenty years of experience across brand, communication design, UX, and team leadership, in both in-house and agency settings. That range shapes how I work. I care about craft and strategy, and about whether the work moves the numbers.</p>
         <p>Most recently, I spent five years as a Staff Product Designer at Etsy, designing and testing consumer experiences for buyers and sellers across web and native. Partnering with engineering, research, analytics, and product management, the experiments I ran and the launches I shipped with my squads contributed to more than $81M in revenue.</p>
         <p>Before Etsy:</p>
-        <ul>
+        <ul class="py-0">
           <li>Owner and principal designer at <a href="https://www.flow14.com"><strong>flow14</strong></a>, an independent branding and design studio focused on results-driven work.</li>
           <li>Senior Designer at <strong>Stay Alfred</strong>, offering upscale travel apartments in prime downtown neighborhoods.</li>
           <li>Director of Creative Services at <strong>Vista Outdoor</strong>, a leader in outdoor sports and recreation.</li>
@@ -62,45 +62,11 @@ import HeroPanels from '../components/HeroPanels.astro';
     grid-template-columns: repeat(12, 1fr);
     column-gap: 24px;
   }
-  /* :global() because <Content /> is MDX output — a separate component's
-     rendered markup, which never receives this file's scope attribute.
-     A plain `article p` selector compiles to `article p[data-astro-cid-*]`
-     and can never match it; :global(p) drops the attribute requirement on
-     just the child while the rule stays part of this page's own CSS. */
-  article :global(p:not(.caption)),
-  article :global(h1),
-  article :global(h2),
-  article :global(h3),
-  article :global(h4),
-  article :global(ul)
-  {
-    grid-column: 3 / 9;
-    margin-block: 24px;
-    margin-right: 24px;
+  .sidebar-spacer {
+    margin-top: 52px;
   }
-  article :global(blockquote) {
-    grid-column: 3 / 9;
-    margin: 0;
-    text-indent: -.65em;
-    font-style: italic;
-  }
-
 
   @media (max-width: 640px) {
-    /* Reading-column inset only makes sense once there's width to spare —
-       full width here, same call as every other col-start-N component. */
-    article :global(p:not(.caption)),
-    article :global(h1),
-    article :global(h2),
-    article :global(h3),
-    article :global(h4),
-    article :global(ul),
-    article :global(blockquote)
-    {
-      grid-column: 1 / -1;
-      margin-right: 0;
-    }
-
     /* The two columns stack (both col-span-12 in the markup above) instead
        of sitting side by side, so they need their own row spacing — grid's
        column-gap only ever applied horizontally, and there's no row-gap
