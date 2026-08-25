@@ -7,9 +7,11 @@ import type { Set } from '../data/sets';
 interface Props {
   set: Set;
   heading: string;
+  /** Vertical alignment override for the first project card only. */
+  firstCardAlign?: 'center' | 'start';
 }
 
-const { set, heading } = Astro.props;
+const { set, heading, firstCardAlign = 'center' } = Astro.props;
 const all = await getCollection('projects');
 
 const picked = set.projects.map(({ id, why }) => {
@@ -29,7 +31,9 @@ const picked = set.projects.map(({ id, why }) => {
 </HeroPanels>
 <div id="work" class="col-span-12">
   <div class="card-grid grid grid-cols-12 gap-x-6 gap-y-16 sm:gap-y-24">
-    {picked.map(({ entry, why }) => <ProjectCard entry={entry} why={why} />)}
+    {picked.map(({ entry, why }, index) => (
+      <ProjectCard entry={entry} why={why} align={index === 0 ? firstCardAlign : 'center'} />
+    ))}
     <div class="col-span-12 text-center sm:col-start-2 sm:col-span-10 mb-16 sm:mb-24">
       <a href="/work" class="all-work-link">
         <svg class="all-work-link__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

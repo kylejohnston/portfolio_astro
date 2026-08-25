@@ -8,13 +8,17 @@ interface Props {
   /** 'row': staggered, alternating-side layout (homepage). 'grid': stacked
    *  image-over-text card meant for a 3-up grid (/work). */
   layout?: 'row' | 'grid';
+  /** Row layout only — vertical alignment of the image/body pair. */
+  align?: 'center' | 'start';
 }
 
-const { entry, why, layout = 'row' } = Astro.props;
+const { entry, why, layout = 'row', align = 'center' } = Astro.props;
 const rootClass =
   layout === 'grid'
     ? 'project-card project-card--grid col-span-12 sm:col-span-4'
-    : 'project-card col-span-12 sm:col-start-2 sm:col-span-10 items-center gap-2 lg:gap-6';
+    : align === 'start'
+      ? 'project-card col-span-12 sm:col-start-2 sm:col-span-10 items-start gap-2 lg:gap-6'
+      : 'project-card col-span-12 sm:col-start-2 sm:col-span-10 items-center gap-2 lg:gap-6';
 ---
 
 <a class={rootClass} href={`/work/${entry.id}`}>
@@ -53,7 +57,9 @@ const rootClass =
     line-height: var(--text-lg--lh);
     text-wrap: balance;
   }
-  .project-card__summary {
+  .project-card__summary,
+  .project-card__why
+  {
     text-wrap: balance;
   }
   .project-card__body {
