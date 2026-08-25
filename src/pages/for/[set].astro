@@ -7,8 +7,10 @@ export const getStaticPaths = () =>
   Object.keys(sets)
     .filter((s) => s !== 'default')
     .map((set) => ({ params: { set } }));
+
+const set = sets[Astro.params.set!];
 ---
 
 <Layout title="Selected work" noindex>
-  <SetView set={sets[Astro.params.set!]} heading="Hello Babylist!" firstCardAlign="start" />
+  <SetView set={set} heading={set.heading ?? 'Hello!'} firstCardAlign="start" />
 </Layout>
