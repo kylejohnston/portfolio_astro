@@ -14,7 +14,7 @@ export const workGroups: WorkGroup[] = [
   },
   {
     label: 'flow14',
-    ids: ['flow14-qwally', 'flow14-mental-health', 'flow14-vmc-group'],
+    ids: ['flow14-qwally', 'flow14-mental-health', 'flow14-medtronic-ux-ia', 'flow14-vmc-group'],
   },
   {
     label: 'Garmin',
