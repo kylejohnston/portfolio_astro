@@ -22,7 +22,7 @@ const rootClass =
 ---
 
 <a class={rootClass} href={`/work/${entry.id}`}>
-  <Image class="project-card__cover" src={entry.data.cover} alt={entry.data.coverAlt} width={549} height={309} />
+  <Image class="project-card__cover" src={entry.data.cover} alt={entry.data.coverAlt} quality="max" densities={[1, 2]} width={549} height={309} />
   <div class="project-card__body">
     <h2 class="project-card__title">{entry.data.title}</h2>
     <p class="project-card__summary">{entry.data.summary}</p>
