@@ -12,16 +12,22 @@
   --font-body: var(--at-textual);
   --font-host: var(--font-host);
 
-  --text-sm: 14px;
-  --text-sm--lh: 1.5;
-  --text-base: 18px;
+  --text-xs:   0.875rem;
+  --text-sm:   1rem;
+  --text-base: 1.125rem; /* 18px */
   --text-base--lh: 1.5;
-  --text-lg: 25px;
-  --text-lg--lh: 1.5;
-  --text-xl: 34.7px;
-  --text-xl--lh: 1.2;
-  --text-2xl: 48.6px;
-  --text-2xl--lh: 1;
+  --text-lg:   1.25rem;
+  --text-xl:   1.5rem;
+  --text-xl--lh: 1.5;
+  --text-2xl:  1.75rem;
+  --text-3xl:  2rem;
+  --text-3xl--lh: 1.2;
+  --text-4xl:  2.5rem;
+  --text-5xl:  3rem;
+  --text-5xl--lh: 1;
+  --text-6xl:  3.5rem;
+  --text-7xl:  4rem;
+  --text-8xl:  4.5rem;
 }
 
 :root {
@@ -112,23 +118,23 @@ article {
   margin-inline: auto;
 }
 
-h1 { 
-  font-size: var(--text-2xl);
-  line-height: var(--text-2xl--lh);
+h1 {
+  font-size: var(--text-5xl);
+  line-height: var(--text-5xl--lh);
   text-wrap: balance;
   font-weight: 120;
   margin-block: 12px;
 }
 h2 {
-  font-size: var(--text-xl);
-  line-height: var(--text-xl--lh);
+  font-size: var(--text-3xl);
+  line-height: var(--text-3xl--lh);
   text-wrap: balance;
   font-weight: 120;
   margin-block: 12px;
 }
 h3 {
-  font-size: var(--text-lg);
-  line-height: var(--text-lg--lh);
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--lh);
   text-wrap: balance;
   font-weight: 120;
   margin-block: 12px;
@@ -348,8 +354,8 @@ body.overlay-open {
   margin-block: 12px;
 }
 .outcome__value {
-  font-size: var(--text-2xl);
-  line-height: var(--text-2xl--lh);
+  font-size: var(--text-5xl);
+  line-height: var(--text-5xl--lh);
   font-weight: 120;
   margin: 0;
 }
@@ -370,7 +376,7 @@ body.overlay-open {
   background: none;
   border: none;
   color: var(--color-text);
-  font-size: 1.5rem;
+  font-size: var(--text-xl);
   line-height: 1;
   cursor: pointer;
   padding: var(--space-1);
@@ -557,9 +563,9 @@ body.overlay-open {
   :root {
     --grid-margin: 16px;
     --overlay-content-pad: 16px;
-    --text-lg:  calc(25px * .85);
-    --text-xl:  calc(34.7px * .8);
-    --text-2xl: calc(48.6px * .8);
+    --text-xl:  var(--text-lg);
+    --text-3xl: var(--text-2xl);
+    --text-5xl: var(--text-4xl);
   }
 
 
