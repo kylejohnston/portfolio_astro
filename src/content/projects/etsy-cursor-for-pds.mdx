@@ -1,0 +1,46 @@
+---
+title: "Cursor Onboarding for Designers"
+summary: "One markdown file took product designers from blank Cursor window to prototype."
+cover: ../../assets/projects/etsy-cursor-onboarding/cover.webp
+coverAlt: "Cursor for Product Design onboarding steps"
+overlayColor: "#F88"
+---
+import { Image } from 'astro:assets';
+import { globImages } from '../../lib/globImages';
+export const pics = globImages(
+  import.meta.glob('../../assets/projects/etsy-cursor-onboarding/*', { eager: true })
+);
+
+In March 2026, I was part of a small group of product designers selected to join [Maven's AI for Product Designers cohort](https://maven.com/xinran/ai-for-product-designers). The course asked each of us to build something with Cursor and present it back to the cohort at the end.
+
+I'd been building agentic workflows into my own design practice since 2023, so the assignment felt like a chance to bring that experience to a wider audience: the rest of Etsy's product design org. Most of them worked exclusively in Figma with no path into agentic tools like Cursor, even though plenty were curious. For my final project, I wrote a self-guided onboarding document that took designers from a blank Cursor window to a working prototype.
+
+**My role:** product design, prompt engineering
+
+<Spacer />
+
+<Span12 src={pics["onboarding-flow"]} alt="Five-step onboarding flow: clone the repo, open in Cursor, answer setup questions, connect Figma and BigQuery, ship a prototype" />
+
+<Spacer />
+
+## An Onboarding Tool That Was Just a Prompt
+
+Rather than build a separate app or wiki page, I wrote the whole onboarding flow as a single structured markdown file, designed to be read and acted on by the agent itself. A designer would clone the file from GitHub, open it in Cursor, and type one line to begin: "help me get started."
+
+From there, the document worked like a guided conversation. It first asked for the designer's name, role, team, and focus area, context the agent could reuse later when suggesting prototypes relevant to their actual work. Then it walked through connecting to Etsy's internal tools one at a time. For steps the agent could complete on its own, it just did the work and confirmed. For steps it couldn't, usually authentication, it handed the designer an exact code snippet to run and explained what it was for.
+
+<Span10 src={pics["onboarding-chat"]} alt="Recreated Cursor chat panel walking a designer through the onboarding steps" shadow />
+
+<Spacer />
+
+## Connecting to Real Tools, Not a Sandbox
+
+The onboarding walked designers through connecting to the Figma MCP, so the agent could read and reference real design files, and to BigQuery, Etsy's internal data warehouse, so early prototypes could reflect real product data instead of placeholder content. Getting these connections working reliably, especially for people who'd never opened a terminal, was most of the actual work behind the project. The prompt had to anticipate where the agent would get stuck and give someone with zero IDE experience exactly enough information to get unstuck, without needing to understand what an API key or an environment variable was.
+
+<Spacer />
+
+## Outcome
+
+I shipped this as a proof of concept, not a polished product, and I didn't track adoption metrics formally. What it did prove was that a text-based, agent-guided onboarding could get design-only employees to a working Cursor prototype without a dedicated trainer in the room. Etsy later staffed a small team to own this kind of tooling and enablement work full time, which is the outcome I actually care about: the model held up well enough that someone decided it was worth doing properly.
+
+<Spacer />
