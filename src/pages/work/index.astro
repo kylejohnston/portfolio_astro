@@ -54,7 +54,7 @@ const groups = workGroups.map(({ label, ids }) => ({
     font-size: var(--text-5xl);
     line-height: var(--text-5xl--lh);
   }
-  :global(.project-card__title) { font-size: var(--text-lg) !important; }
+  :global(.project-card__title) { font-size: var(--text-base) !important; }
   /* :global() because .project-card is rendered by ProjectCard.astro, a
      separate component — a plain `.project-card` selector here compiles to
      require *this* page's scope attribute on the card itself, which it can
