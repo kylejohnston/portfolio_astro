@@ -151,6 +151,9 @@ li {
   text-wrap: pretty;
   margin-block: 4px;
 }
+
+strong { font-weight: 120; }
+
 article img {
   max-width: 100%;
   height: auto;
@@ -198,7 +201,7 @@ figure {
 
 .nudger
 {
-  height: 30px;
+  height: 20px;
 }
 
 body.overlay-open {
@@ -228,6 +231,7 @@ body.overlay-open {
 .overlay {
   position: fixed;
   bottom: 0;
+  border-radius: 12px 12px 0 0;
 
   /* Pin left/right so that, after .overlay-content's own inner padding
      (--overlay-content-pad) is subtracted back out, its grid-cols-10
@@ -250,7 +254,7 @@ body.overlay-open {
   left: var(--overlay-grid-inset);
   right: var(--overlay-grid-inset);
 
-  height: 92%;
+  height: 91%;
   background-color: var(--color-paper);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;

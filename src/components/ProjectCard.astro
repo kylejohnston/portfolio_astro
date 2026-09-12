@@ -13,8 +13,8 @@ const { entry, why } = Astro.props;
 <a class="project-card" href={`/work/${entry.id}`}>
   <Image class="project-card__cover" src={entry.data.cover} alt={entry.data.coverAlt} quality="max" densities={[1, 2]} width={549} height={309} />
   <div class="project-card__body">
-    <h2 class="project-card__title">{entry.data.title}</h2>
-    <p class="project-card__summary">{entry.data.summary}</p>
+    <h2 class="project-card__title">Client: {entry.data.client}</h2>
+    <p class="project-card__summary"><strong>Project:</strong> {entry.data.summary}</p>
     {why && <p class="project-card__why">{why}</p>}
   </div>
 </a>
@@ -46,13 +46,17 @@ const { entry, why } = Astro.props;
     object-fit: cover;
     border-radius: 12px;
     margin-bottom: 8px;
+    box-shadow:
+    0px 0px 0px 1px rgba(35, 26, 26, 0.02),
+    0px 1px 2px -1px rgba(35, 26, 26, 0.02),
+    0px 2px 4px 0px rgba(35, 26, 26, 0.04);
   }
   .project-card__body {
     padding: 6px 12px;
   }
   .project-card__title {
-    font-size: var(--text-lg);
-    line-height: var(--text-lg--lh);
+    font-size: var(--text-base);
+    line-height: var(--text-base--lh);
     text-wrap: balance;
     margin-block: 0;
   }
