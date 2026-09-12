@@ -21,12 +21,14 @@ const groups = workGroups.map(({ label, ids }) => ({
 ---
 
 <Layout title="All work">
-  <div class="h-4 hidden lg:block">&nbsp;</div>
+  <div class="h-3 hidden lg:block">&nbsp;</div>
   <HeroPanels panelBColor="var(--color-paper)" panelARatio="16 / 4" panelBRatio="16 / 4">
   {groups.map(({ label, entries }) => (
       <h2 class="work-group-title col-span-12 sm:col-start-3 sm:col-span-6">{label}</h2>
       <div class="card-grid all-work mt-3 mb-15">
-        {entries.map((entry) => <ProjectCard entry={entry} layout="grid" />)}
+        <div class="project-cards">
+          {entries.map((entry) => <ProjectCard entry={entry} />)}
+        </div>
       </div>
   ))}
   </HeroPanels>
@@ -40,8 +42,6 @@ const groups = workGroups.map(({ label, ids }) => ({
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     align-items: start;
-    column-gap: 24px;
-    row-gap: 96px;
   }
   main h1,
   main :global(h1) {
@@ -54,7 +54,7 @@ const groups = workGroups.map(({ label, ids }) => ({
     font-size: var(--text-5xl);
     line-height: var(--text-5xl--lh);
   }
-  :global(.project-card__title) { font-size: var(--text-base) !important; }
+  :global(.project-card__title) { font-size: var(--text-lg) !important; }
   /* :global() because .project-card is rendered by ProjectCard.astro, a
      separate component — a plain `.project-card` selector here compiles to
      require *this* page's scope attribute on the card itself, which it can
@@ -64,9 +64,6 @@ const groups = workGroups.map(({ label, ids }) => ({
   }
 
   @media (max-width: 640px) {
-    .card-grid {
-      row-gap: 64px;
-    }
     .work-group-title {
       margin-block: 24px;
     }

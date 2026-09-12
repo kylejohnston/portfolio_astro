@@ -6,6 +6,7 @@ const projects = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      client: z.string().optional(),
       summary: z.string(),
       cover: image(),
       coverAlt: z.string(),

@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       background: rgba(20, 20, 20, 0.92);
       color: #fff;
       border-radius: 8px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 4px 16px rgba(35, 26, 26, 0.35);
       user-select: none;
     }
     #grid-jig-toggle {

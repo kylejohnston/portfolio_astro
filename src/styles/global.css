@@ -103,10 +103,6 @@ a:hover, a:active {
   color: #f55;
   background: #FDD;
 }
-a.project-card:hover, a.project-card:active {
-  background: none; 
-}
-
 main {
   /* max-width: 960px; */
   /* margin-inline: auto;
@@ -155,6 +151,9 @@ li {
   text-wrap: pretty;
   margin-block: 4px;
 }
+
+strong { font-weight: 120; }
+
 article img {
   max-width: 100%;
   height: auto;
@@ -172,6 +171,26 @@ figure {
   gap: var(--space-3); */
 }
 
+/* Shared 2-up card grid for the homepage (SetView.astro) and /work
+   (work/index.astro) — both parents are 12-column grids, so the inset
+   (columns 2-11) and the 5-of-10 card width are expressed directly here
+   instead of repeating Tailwind col-start/col-span utilities at each
+   call site. */
+.project-cards {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 24px;
+  row-gap: 32px;
+}
+@media (min-width: 640px) {
+  .project-cards {
+    grid-column: 2 / span 10;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 72px;
+  }
+}
+
 .scroll-desktop,
 .scroll-mobile
 {
@@ -182,7 +201,7 @@ figure {
 
 .nudger
 {
-  height: 30px;
+  height: 20px;
 }
 
 body.overlay-open {
@@ -192,7 +211,7 @@ body.overlay-open {
 .overlay-background {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(35, 26, 26, 0.6);
   opacity: 0;
   display: none;
   z-index: 998;
@@ -212,6 +231,7 @@ body.overlay-open {
 .overlay {
   position: fixed;
   bottom: 0;
+  border-radius: 12px 12px 0 0;
 
   /* Pin left/right so that, after .overlay-content's own inner padding
      (--overlay-content-pad) is subtracted back out, its grid-cols-10
@@ -234,14 +254,14 @@ body.overlay-open {
   left: var(--overlay-grid-inset);
   right: var(--overlay-grid-inset);
 
-  height: 92%;
+  height: 91%;
   background-color: var(--color-paper);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   z-index: 999;
   display: none;
   will-change: transform, opacity;
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -8px 24px rgba(35, 26, 26, 0.15);
 
   /* Pre-enter state. Exit timing lives here, on the base state. */
   transform: translate3d(0, 4%, 0);
@@ -464,7 +484,7 @@ body.overlay-open {
     calc(var(--dot-size) / 2) calc(var(--dot-size) / 2);
 
   /* optional inset "outline" ring, purely decorative */
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06) inset;
+  box-shadow: 0 0 0 2px rgba(35, 26, 26, 0.06) inset;
 }
 
 /* Back dot layer, offset outward so it peeks out from behind */
