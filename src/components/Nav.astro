@@ -65,11 +65,12 @@ const isAboutActive = path.startsWith('/about');
     align-items: center;
     padding: 10px 12px;
     background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 0 16px 0 rgba(35, 26, 26, 0.08);
+    border-radius: 12px;
+    border: 1px solid #E6E3E37F;
+    /* box-shadow: 0 0 16px 0 rgba(35, 26, 26, 0.08); */
     color: var(--color-ink);
     text-decoration: none;
-    transition: padding 300ms linear;
+    transition: padding 220ms ease;
   }
 
   .nav-pill__icon {
@@ -78,7 +79,7 @@ const isAboutActive = path.startsWith('/about');
     flex-shrink: 0;
     display: block;
     fill: var(--color-ink);
-    transition: fill 200ms linear;
+    transition: fill 220ms ease;
   }
 
   /* Whichever pill matches the current page gets the accent-colored icon;
@@ -100,7 +101,7 @@ const isAboutActive = path.startsWith('/about');
     font-size: var(--text-sm);
     text-box-trim: trim-both;
     text-box-edge: cap alphabetic;
-    transition: max-width 0.25s ease, margin-left 0.25s ease, opacity 0.15s ease;
+    transition: max-width 220ms ease, margin-left 220ms ease, opacity 220ms ease;
   }
 
   .nav-pill.is-active,

@@ -7,11 +7,9 @@ import type { Set } from '../data/sets';
 interface Props {
   set: Set;
   heading: string;
-  /** Vertical alignment override for the first project card only. */
-  firstCardAlign?: 'center' | 'start';
 }
 
-const { set, heading, firstCardAlign = 'center' } = Astro.props;
+const { set, heading } = Astro.props;
 const all = await getCollection('projects');
 
 const picked = set.projects.map(({ id, why }) => {
@@ -31,9 +29,11 @@ const picked = set.projects.map(({ id, why }) => {
 </HeroPanels>
 <div id="work" class="col-span-12">
   <div class="card-grid grid grid-cols-12 gap-x-6 gap-y-16 sm:gap-y-24">
-    {picked.map(({ entry, why }, index) => (
-      <ProjectCard entry={entry} why={why} align={index === 0 ? firstCardAlign : 'center'} />
-    ))}
+    <div class="project-cards">
+      {picked.map(({ entry, why }) => (
+        <ProjectCard entry={entry} why={why} />
+      ))}
+    </div>
     <div class="col-span-12 text-center sm:col-start-2 sm:col-span-10 mb-16 sm:mb-24">
       <a href="/work" class="all-work-link">
         <svg class="all-work-link__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -74,8 +74,12 @@ const picked = set.projects.map(({ id, why }) => {
     gap: 8px;
     padding: 10px 14px 10px 12px;
     background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 0 16px 0 rgba(35, 26, 26, 0.08);
+    border-radius: 12px;
+    box-shadow:
+    0px 0px 0px 1px rgba(35, 26, 26, 0.06),
+    0px 1px 2px -1px rgba(35, 26, 26, 0.06),
+    0px 2px 4px 0px rgba(35, 26, 26, 0.04),
+    0 0 16px 0 rgba(35, 26, 26, 0.08);
     color: var(--color-ink);
     text-decoration: none;
   }
@@ -85,6 +89,14 @@ const picked = set.projects.map(({ id, why }) => {
     flex-shrink: 0;
     display: block;
     fill: var(--color-ink);
+  }
+  .all-work-link:hover {
+    box-shadow: 
+      0px 0px 0px 1px rgba(35, 26, 26, 0.06),
+      0px 1px 2px -1px rgba(35, 26, 26, 0.06),
+      0px 2px 4px 0px rgba(35, 26, 26, 0.04),
+      0 20px 25px -5px #231A1A1a,
+      0 10px 10px -5px #231A1A0a; 
   }
   .all-work-link:hover .all-work-link__icon {
     fill: var(--color-accent);
