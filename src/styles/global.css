@@ -22,7 +22,7 @@
   --text-2xl:  1.75rem;
   --text-3xl:  2rem;
   --text-3xl--lh: 1.2;
-  --text-4xl:  2.5rem;
+  --text-4xl:  2.125rem;
   --text-5xl:  3rem;
   --text-5xl--lh: 1;
   --text-6xl:  3.5rem;
@@ -583,9 +583,9 @@ body.overlay-open {
   :root {
     --grid-margin: 16px;
     --overlay-content-pad: 16px;
-    --text-xl:  var(--text-lg);
-    --text-3xl: var(--text-2xl);
-    --text-5xl: var(--text-4xl);
+    --text-xl:  1.375rem;
+    --text-3xl: 1.625rem;
+    --text-5xl: 1.875rem;
   }
 
 
