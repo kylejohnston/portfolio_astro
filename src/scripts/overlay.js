@@ -149,6 +149,13 @@ document.addEventListener('DOMContentLoaded', () => {
       overlay.setAttribute('aria-label', title);
     }
 
+    // Same fade-up-on-load treatment as a standalone page (see Layout.astro)
+    // — bounded by the overlay sheet's own visible area, not the full
+    // window, since it's a partial-height bottom sheet.
+    if (window.__classifyReveal) {
+      window.__classifyReveal(overlayContent, overlay.getBoundingClientRect().bottom);
+    }
+
     // Per-project override for .overlay-panel's color (falls back to the
     // CSS default when a project's frontmatter doesn't set one) — read off
     // the just-injected <article>, since .overlay-panel itself lives outside

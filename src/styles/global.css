@@ -191,6 +191,35 @@ figure {
   }
 }
 
+/* Shared fade-up reveal — project cards (ProjectCard.astro) and case-study
+   images (Span12/10/8, SideBySide, Thirds) opt in with `.reveal`.
+   Elements below the fold get a scroll-linked animation with no JS/FOUC —
+   `both` holds the from-state before entry and the (implicit,
+   current-style) to-state after. Elements already in the viewport at load
+   instead get `.reveal-onload` (added by the inline script in
+   Layout.astro) — a real one-shot, staggered entrance instead of a
+   part-way-played scroll animation. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    --reveal-distance: 64px;
+    animation: reveal-fade-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+  .reveal.reveal-onload {
+    --reveal-distance: 24px;
+    animation: reveal-fade-up 600ms cubic-bezier(0.2, 0, 0, 1) both;
+    animation-timeline: auto;
+    animation-delay: var(--reveal-delay, 0ms);
+  }
+}
+@keyframes reveal-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+}
+
 .scroll-desktop,
 .scroll-mobile
 {

@@ -48,6 +48,36 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
 
+    <script is:inline>
+      // Runs synchronously (is:inline, no defer) right after `.reveal`
+      // elements exist in the DOM and before first paint, so there's no
+      // flash between the default scroll-linked state and this
+      // reclassification. Elements already in view get `.reveal-onload` +
+      // a staggered delay for a real page-load entrance (see the `.reveal`
+      // rules in global.css); elements below the fold are left on the
+      // default scroll-driven reveal.
+      //
+      // Exposed as window.__classifyReveal so overlay.js can re-run it
+      // against freshly injected content — a project's case-study images
+      // load via `innerHTML` when opened in the overlay, which never
+      // re-triggers a page-load script on its own, so without this the
+      // overlay would leave every image on the scroll-linked path even
+      // ones visible the instant the overlay opens.
+      window.__classifyReveal = function (root, viewportBottom) {
+        var els = (root || document).querySelectorAll('.reveal:not(.reveal-onload)');
+        var bottom = viewportBottom == null ? window.innerHeight : viewportBottom;
+        var delay = 0;
+        for (var i = 0; i < els.length; i++) {
+          if (els[i].getBoundingClientRect().top < bottom) {
+            els[i].style.setProperty('--reveal-delay', delay + 'ms');
+            els[i].classList.add('reveal-onload');
+            delay += 80;
+          }
+        }
+      };
+      window.__classifyReveal();
+    </script>
+
     <div class="overlay-background" id="overlayBackground" aria-hidden="true"></div>
     <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-hidden="true">
       <div class="overlay-panel halftone-fill" aria-hidden="true"></div>
