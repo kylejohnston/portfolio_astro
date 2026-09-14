@@ -35,6 +35,16 @@ export const sets: Record<string, Set> = {
       { id: 'flow14-qwally', why: 'no existing product to react to—direct partnership with city stakeholders through launch' },
     ],
   },
+  'vanta': {
+    heading: "Hi Vanta — I design for complex, interconnected systems, and I've led design teams before.",
+    intro: "I'm Kyle Johnston. Five years deep as a Staff Product Designer at Etsy sharpened systems thinking and AI-native workflows; before that, I founded and grew Garmin's Web UX team to 10+ people. These four projects show both halves of that story.",
+    projects: [
+      { id: 'etsy-global-nav', why: 'a north star vision for a whole product area, with exec buy-in to back it' },
+      { id: 'etsy-homepage', why: 'a carousel design that scaled to support 65,000 personalized, ranked items' },
+      { id: 'etsy-cursor-for-pds', why: "a proof of concept—AI-native onboarding that got designers to a working prototype without a trainer" },
+      { id: 'flow14-qwally', why: 'zero-to-one for a process-heavy public-sector buyer—no existing product to react to, direct partnership through launch' },
+    ],
+  },
   'eli-lilly': {
     heading: "I’m Kyle Johnston,",
     intro: "a product designer with a creative director’s background. I design and test consumer and marketplace experiences where craft and results carry equal weight.",
