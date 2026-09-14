@@ -32,7 +32,7 @@ export const sets: Record<string, Set> = {
       { id: 'etsy-homepage', why: 'personalized the funnel entry point, validated with research and live A/B testing' },
       { id: 'etsy-landings', why: 'a literal shopping funnel—discovery-to-listing conversion, built as a flexible system' },
       { id: 'etsy-collections', why: 'highest experiment velocity at Etsy—UX, ranking, and placement tuned through rapid testing' },
-      { id: 'flow14-qwally', why: '0-1 product design in ambiguity, direct stakeholder partnership' },
+      { id: 'flow14-qwally', why: 'no existing product to react to—direct partnership with city stakeholders through launch' },
     ],
   },
   'eli-lilly': {
