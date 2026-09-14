@@ -19,10 +19,10 @@ export const sets: Record<string, Set> = {
     heading: "Hello Babylist!",
     intro: "I’m Kyle Johnston, a product designer with a creative director’s background. I design and test consumer and marketplace experiences where craft and results carry equal weight.",
     projects: [
-      { id: 'etsy-homepage', why:'Why: demonstrates impact at scale + an AI-enabled workflow' },
-      { id: 'etsy-landings', why:'Why: demonstrates systems thinking + product strategy' },
-      { id: 'etsy-ios-faves', why:'Why: cross-platform design + product strategy' },
-      { id: 'etsy-collections', why:'Why: this feature is similar to registries' },
+      { id: 'etsy-homepage', why:'demonstrates impact at scale + an AI-enabled workflow' },
+      { id: 'etsy-landings', why:'demonstrates systems thinking + product strategy' },
+      { id: 'etsy-ios-faves', why:'cross-platform design + product strategy' },
+      { id: 'etsy-collections', why:'this feature is similar to registries' },
     ],
   },
   'eli-lilly': {

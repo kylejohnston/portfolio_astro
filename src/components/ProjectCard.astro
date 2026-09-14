@@ -15,7 +15,7 @@ const { entry, why } = Astro.props;
   <div class="project-card__body">
     <h2 class="project-card__title">Client: {entry.data.client}</h2>
     <p class="project-card__summary"><strong>Project:</strong> {entry.data.summary}</p>
-    {why && <p class="project-card__why">{why}</p>}
+    {why && <p class="project-card__why"><strong>Why:</strong> {why}</p>}
   </div>
 </a>
 
