@@ -9,8 +9,8 @@
   --color-accent: #FF8888;
 
   --font-mono: var(--font-mono);
-  --font-body: var(--at-textual);
-  --font-host: var(--font-host);
+  --font-style: var(--at-textual);
+  --font-text: var(--font-untitled);
 
   --text-xs:   0.875rem;
   --text-sm:   1rem;
@@ -74,10 +74,11 @@ body {
   /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; */
   color: var(--color-text);
   background: var(--color-paper);
-  font-family: var(--font-body);
+  font-family: var(--font-text);
   font-weight: 80;
   font-size: var(--text-base);
   line-height: var(--text-base--lh);
+  font-variant-numeric: tabular-nums;
   overflow-x: clip;
   /* A single long unbroken token (a URL, a long compound word) in body copy
      would otherwise force its box wider than the viewport on narrow
@@ -114,6 +115,11 @@ article {
   margin-inline: auto;
 }
 
+h1, h2, h3 {
+  font-family: var(--font-style);
+  font-variant-numeric: normal !important;
+}
+
 h1 {
   font-size: var(--text-5xl);
   line-height: var(--text-5xl--lh);
@@ -140,6 +146,7 @@ p {
   line-height: var(--text-base--lh);
   margin-block: 12px;
   text-wrap: pretty;
+  font-family: var(--font-text);
 }
 ul {
   margin-block: -4px !important;
@@ -150,6 +157,7 @@ li {
   line-height: var(--text-base--lh);
   text-wrap: pretty;
   margin-block: 4px;
+  font-family: var(--font-text);
 }
 
 strong { font-weight: 120; }
@@ -370,7 +378,6 @@ body.overlay-open {
     grid-column: 2 / 8;
     margin: 0;
     text-indent: -.65em;
-    font-style: italic;
   }
   .overlay-content h1,
   .overlay-content h2,
@@ -407,11 +414,15 @@ body.overlay-open {
   line-height: var(--text-5xl--lh);
   font-weight: 120;
   margin: 0;
+  font-family: var(--font-style);
+  font-variant-numeric: normal;
 }
 .outcome__label {
   font-size: var(--text-base);
   color: var(--color-ink);
   margin: 4px 0 0;
+  font-family: var(--font-style);
+  font-variant-numeric: normal;
 }
 
 /* Anchored to .overlay's own box (its nearest positioned ancestor) rather
