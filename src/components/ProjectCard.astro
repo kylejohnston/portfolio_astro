@@ -13,9 +13,9 @@ const { entry, why } = Astro.props;
 <a class="project-card reveal" href={`/work/${entry.id}`}>
   <Image class="project-card__cover" src={entry.data.cover} alt={entry.data.coverAlt} quality="max" densities={[1, 2]} width={549} height={309} />
   <div class="project-card__body">
-    <h2 class="project-card__title">Role: {entry.data.client}</h2>
-    <p class="project-card__summary"><strong>Project:</strong> {entry.data.summary}</p>
+    <p class="project-card__summary">{entry.data.summary}</p>
     {why && <p class="project-card__why"><strong>Why:</strong> {why}</p>}
+    <p class="project-card__title"><strong>Role:</strong> {entry.data.client}</p>
   </div>
 </a>
 
@@ -45,7 +45,7 @@ const { entry, why } = Astro.props;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: 12px;
-    margin-bottom: 8px;
+    margin-bottom: 0;
     box-shadow:
     0px 0px 0px 1px rgba(35, 26, 26, 0.02),
     0px 1px 2px -1px rgba(35, 26, 26, 0.02),
@@ -55,16 +55,18 @@ const { entry, why } = Astro.props;
     padding: 6px 12px;
   }
   .project-card__title {
-    font-size: var(--text-base);
-    line-height: var(--text-base--lh);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--lh);
     text-wrap: balance;
-    margin-block: 0;
+    margin-block: 4px;
+    font-family: var(--font-text);
   }
   .project-card__summary,
   .project-card__why
   {
     text-wrap: balance;
     margin-block: 4px;
+    font-family: var(--font-text);
   }
 @media (min-width: 640px) {
   .project-card__body {
