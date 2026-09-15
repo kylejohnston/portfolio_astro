@@ -23,6 +23,30 @@ export default defineConfig({
       },
     },
     {
+      provider: fontProviders.local(),
+      name: "Untitled Sans",
+      cssVariable: "--font-untitled",
+      options: {
+        variants: [
+          {
+          weight: '60',
+          style: 'normal',
+          src: ['./src/assets/fonts/UntitledSans-Regular.woff2'],
+          },
+          {
+          weight: '120',
+          style: 'normal',
+          src: ['./src/assets/fonts/UntitledSans-Medium.woff2'],
+          },
+          {
+          weight: '700',
+          style: 'normal',
+          src: ['./src/assets/fonts/UntitledSans-Bold.woff2'],
+          }
+        ],
+      },
+    },
+    {
       provider: fontProviders.google(),
       name: "IBM Plex Mono",
       cssVariable: "--font-mono",
@@ -33,12 +57,6 @@ export default defineConfig({
       weights: [400, 500],
       cssVariable: "--at-sans",
     },
-    {
-      provider: fontProviders.google(),
-      name: "Host Grotesk",
-      weights: [400, 500],
-      cssVariable: "--font-host",
-    }
   ],
   vite: {
     plugins: [tailwindcss()]
