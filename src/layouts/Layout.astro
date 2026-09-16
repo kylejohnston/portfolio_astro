@@ -63,6 +63,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       // re-triggers a page-load script on its own, so without this the
       // overlay would leave every image on the scroll-linked path even
       // ones visible the instant the overlay opens.
+      //
+      // Also sets --reveal-onload-total, the moment the last onload
+      // element finishes its own fade-up (600ms) — SetView.astro's
+      // signature draw-on reads this to start only once the work cards
+      // above the fold are done animating in, instead of a guessed delay.
       window.__classifyReveal = function (root, viewportBottom) {
         var els = (root || document).querySelectorAll('.reveal:not(.reveal-onload)');
         var bottom = viewportBottom == null ? window.innerHeight : viewportBottom;
@@ -73,6 +78,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             els[i].classList.add('reveal-onload');
             delay += 80;
           }
+        }
+        if (delay > 0) {
+          document.documentElement.style.setProperty('--reveal-onload-total', (delay - 80 + 600) + 'ms');
         }
       };
       window.__classifyReveal();
