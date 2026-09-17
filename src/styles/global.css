@@ -195,7 +195,7 @@ figure {
   .project-cards {
     grid-column: 2 / span 10;
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 72px;
+    row-gap: 48px;
   }
 }
 

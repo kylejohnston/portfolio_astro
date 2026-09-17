@@ -22,6 +22,7 @@ const { entry, why } = Astro.props;
 <style>
   .project-card {
     display: block;
+    corner-shape: superellipse(1.6);
     border-radius: 20px;
     padding: 8px;
     background: hsla(0, 24%, 100%, 1);
@@ -44,12 +45,10 @@ const { entry, why } = Astro.props;
     height: auto; 
     aspect-ratio: 16 / 9;
     object-fit: cover;
+    corner-shape: superellipse(1.6);
     border-radius: 12px;
     margin-bottom: 0;
-    box-shadow:
-    0px 0px 0px 1px rgba(35, 26, 26, 0.02),
-    0px 1px 2px -1px rgba(35, 26, 26, 0.02),
-    0px 2px 4px 0px rgba(35, 26, 26, 0.04);
+    border: 1px solid hsla(0, 14.75%, 11.96%, 0.06);
   }
   .project-card__body {
     padding: 6px 12px;
