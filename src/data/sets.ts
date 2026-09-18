@@ -10,7 +10,9 @@ export const sets: Record<string, Set> = {
     intro: "a product designer with a creative director’s background. I design and test consumer and marketplace experiences where craft and results carry equal weight.",
     projects: [
       { id: 'etsy-homepage' },
+      { id: 'etsy-cursor-for-pds' },
       { id: 'etsy-collections' },
+      { id: 'etsy-global-nav' },
       { id: 'flow14-mental-health' },
       { id: 'flow14-qwally' },
     ],
