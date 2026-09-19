@@ -63,6 +63,16 @@
   --overlay-enter-ease: cubic-bezier(0.32, 0.72, 0, 1);
   --overlay-exit-dur: 128ms;
   --overlay-exit-ease: cubic-bezier(0, 0, 1, 1);
+
+  /* Outcome figure reel — Transitions.dev spinning-counter recipe.
+     --reel-cell is 1em (not the recipe's fixed 30px) so a column's height
+     tracks whatever font-size it's used at, instead of needing to be
+     re-tuned per element. Built/driven by scripts/outcome-reel.js. */
+  --reel-dur: 1400ms;
+  --reel-cell: 1em;
+  --reel-spin-blur: 3px;
+  --reel-stagger: 90ms;
+  --reel-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -417,6 +427,54 @@ body.overlay-open {
   font-family: var(--font-style);
   font-variant-numeric: normal;
 }
+
+/* Digit-reel enhancement of .outcome__value, built by outcome-reel.js.
+   Only the digit runs in the value spin; surrounding symbols/units
+   (currency signs, %, "M", "weeks", ...) render as plain static text.
+   The built markup is aria-hidden — .outcome__value itself carries the
+   original string as its aria-label, so screen readers get the plain
+   value instead of ten digit cells per reel column. */
+.t-reel-line {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.t-reel {
+  display: inline-flex;
+  align-items: center;
+  height: var(--reel-cell);
+  font-variant-numeric: tabular-nums;
+}
+.t-reel-col {
+  position: relative;
+  width: 1ch;
+  height: var(--reel-cell);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+}
+.t-reel-strip {
+  display: flex;
+  flex-direction: column;
+  will-change: transform, filter;
+}
+.t-reel-digit {
+  height: var(--reel-cell);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.t-reel-static {
+  display: inline-flex;
+  align-items: center;
+  height: var(--reel-cell);
+  white-space: pre;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-reel-strip { transition: none !important; filter: none !important; }
+}
+
 .outcome__label {
   font-size: var(--text-base);
   color: var(--color-ink);
