@@ -155,6 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.__classifyReveal) {
       window.__classifyReveal(overlayContent, overlay.getBoundingClientRect().bottom);
     }
+    if (window.__initOutcomeReels) {
+      window.__initOutcomeReels(overlayContent);
+    }
 
     // Per-project override for .overlay-panel's color (falls back to the
     // CSS default when a project's frontmatter doesn't set one) — read off
