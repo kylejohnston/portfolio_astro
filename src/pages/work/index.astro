@@ -22,7 +22,7 @@ const groups = workGroups.map(({ label, ids }) => ({
 
 <Layout title="All work">
   <div class="h-3 hidden lg:block">&nbsp;</div>
-  <HeroPanels panelBColor="var(--color-paper)" panelARatio="16 / 4" panelBRatio="16 / 4">
+  <HeroPanels panelBColor="var(--color-paper)">
   {groups.map(({ label, entries }) => (
       <h2 class="work-group-title col-span-12 sm:col-start-3 sm:col-span-6">{label}</h2>
       <div class="card-grid all-work mt-3 mb-15">
