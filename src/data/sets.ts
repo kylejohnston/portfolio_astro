@@ -38,13 +38,13 @@ export const sets: Record<string, Set> = {
     ],
   },
   'vanta': {
-    heading: "Hi Vanta — I design for complex, interconnected systems, and I've led design teams before.",
-    intro: "I'm Kyle Johnston. Five years deep as a Staff Product Designer at Etsy sharpened systems thinking and AI-native workflows; before that, I founded and grew Garmin's Web UX team to 10+ people. These four projects show both halves of that story.",
+    heading: "Hi Vanta — I’m Kyle Johnston. I bring clarity to complex, interconnected systems and lead the design teams behind them.",
+    intro: "Five years as a Staff Product Designer at Etsy sharpened my systems thinking and AI-native workflows. Before that, 12+ years managing in-house and agency teams shaped how I lead.",
     projects: [
       { id: 'etsy-global-nav', why: 'a north star vision for a whole product area, with exec buy-in to back it' },
       { id: 'etsy-homepage', why: 'a carousel design that scaled to support 65,000 personalized, ranked items' },
       { id: 'etsy-cursor-for-pds', why: "a proof of concept—AI-native onboarding that got designers to a working prototype without a trainer" },
-      { id: 'flow14-qwally', why: 'zero-to-one for a process-heavy public-sector buyer—no existing product to react to, direct partnership through launch' },
+      { id: 'flow14-qwally', why: 'zero-to-one for a process-heavy SaaS platform—no existing product to react to, direct partnership through launch' },
     ],
   },
   'eli-lilly': {
