@@ -41,10 +41,10 @@ export const sets: Record<string, Set> = {
     heading: "Hi Vanta — I’m Kyle Johnston. I bring clarity to complex, interconnected systems and lead the design teams behind them.",
     intro: "Five years as a Staff Product Designer at Etsy sharpened my systems thinking and AI-native workflows. Before that, 12+ years managing in-house and agency teams shaped how I lead.",
     projects: [
-      { id: 'etsy-global-nav', why: 'vision and design strategy for a whole product area — the IA connecting Etsy’s entire experience, backed by exec buy-in' },
-      { id: 'etsy-homepage', why: 'one pattern scaled across a data-rich, highly configurable system — 65,000 personalized, ranked items' },
-      { id: 'etsy-cursor-for-pds', why: "working AI-natively — onboarding that scaled AI prototyping across a design team, no trainer required" },
-      { id: 'flow14-qwally', why: 'zero-to-one for a workflow-heavy SaaS platform in a regulated space (local government) — direct partnership through launch⁠' },
+      { id: 'etsy-global-nav', why: 'vision and design strategy for a whole product area — the IA connecting Etsy’s entire experience, backed by exec buy-in.' },
+      { id: 'etsy-homepage', why: 'one pattern scaled across a data-rich, highly configurable system — 65,000 personalized, ranked items.' },
+      { id: 'etsy-cursor-for-pds', why: "working AI-natively — onboarding that scaled AI prototyping across a design team, no trainer required." },
+      { id: 'flow14-qwally', why: 'zero-to-one for a workflow-heavy SaaS platform in a regulated space (local government) — direct partnership through launch⁠.' },
     ],
   },
   'eli-lilly': {
