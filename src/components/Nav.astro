@@ -79,7 +79,12 @@ const isAboutActive = path.startsWith('/about');
   }
 
   .nav-pill {
-    display: inline-flex;
+    /* The label column animates 0fr -> 1fr, which tracks the label's real
+       width. The old max-width: 120px approach overshot the ~48px labels,
+       so expanding finished in a third of the duration and collapsing
+       stalled before snapping shut. */
+    display: inline-grid;
+    grid-template-columns: auto 0fr;
     align-items: center;
     padding: 10px 12px;
     background: #fff;
@@ -88,7 +93,7 @@ const isAboutActive = path.startsWith('/about');
     outline-offset: -1px;
     color: var(--color-ink);
     text-decoration: none;
-    transition: padding 220ms ease;
+    transition: padding 220ms ease, grid-template-columns 220ms ease;
     font-family: var(--font-style);
     font-variant-numeric: normal;
   }
@@ -96,7 +101,6 @@ const isAboutActive = path.startsWith('/about');
   .nav-pill__icon {
     width: 20px;
     height: 20px;
-    flex-shrink: 0;
     display: block;
     fill: var(--color-ink);
     transition: fill 220ms ease;
@@ -111,8 +115,7 @@ const isAboutActive = path.startsWith('/about');
   }
 
   .nav-pill__label {
-    display: inline-block;
-    max-width: 0;
+    min-width: 0;
     margin-left: 0;
     overflow: hidden;
     white-space: nowrap;
@@ -121,17 +124,17 @@ const isAboutActive = path.startsWith('/about');
     font-size: var(--text-sm);
     text-box-trim: trim-both;
     text-box-edge: cap alphabetic;
-    transition: max-width 220ms ease, margin-left 220ms ease, opacity 220ms ease;
+    transition: margin-left 220ms ease, opacity 220ms ease;
   }
 
   .nav-pill.is-active,
   .nav-pill:hover {
     padding: 10px 14px 10px 12px;
+    grid-template-columns: auto 1fr;
   }
 
   .nav-pill.is-active .nav-pill__label,
   .nav-pill:hover .nav-pill__label {
-    max-width: 120px;
     margin-left: 4px;
     opacity: 1;
   }
@@ -150,5 +153,39 @@ const isAboutActive = path.startsWith('/about');
     60% { transform:  rotate(-8.0deg) }
     70% { transform:  rotate(00.0deg) }
     100% { transform: rotate(00.0deg) }
+  }
+</style>
+
+<style is:global>
+  /* Cross-document view transition so pills resize and slide between pages
+     instead of snapping when the active pill changes. Only the pills take
+     part: with the root unnamed, the page itself swaps instantly as before. */
+  @media (prefers-reduced-motion: no-preference) {
+    @view-transition { navigation: auto; }
+  }
+
+  :root { view-transition-name: none; }
+
+  .nav-pill { view-transition-class: nav-pill; }
+  .nav-pill--home { view-transition-name: nav-home; }
+  .nav-pill--work { view-transition-name: nav-work; }
+  .nav-pill--about { view-transition-name: nav-about; }
+
+  /* White fill so the part of a resizing pill covered by only one
+     (fading) snapshot doesn't go see-through. */
+  ::view-transition-group(*.nav-pill) {
+    animation-duration: 220ms;
+    overflow: clip;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  /* Draw snapshots at their natural size, pinned left, and let the group
+     crop them as it resizes; the default stretches the label text. */
+  ::view-transition-old(*.nav-pill),
+  ::view-transition-new(*.nav-pill) {
+    height: 100%;
+    object-fit: none;
+    object-position: left;
   }
 </style>
