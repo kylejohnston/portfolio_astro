@@ -155,3 +155,37 @@ const isAboutActive = path.startsWith('/about');
     100% { transform: rotate(00.0deg) }
   }
 </style>
+
+<style is:global>
+  /* Cross-document view transition so pills resize and slide between pages
+     instead of snapping when the active pill changes. Only the pills take
+     part: with the root unnamed, the page itself swaps instantly as before. */
+  @media (prefers-reduced-motion: no-preference) {
+    @view-transition { navigation: auto; }
+  }
+
+  :root { view-transition-name: none; }
+
+  .nav-pill { view-transition-class: nav-pill; }
+  .nav-pill--home { view-transition-name: nav-home; }
+  .nav-pill--work { view-transition-name: nav-work; }
+  .nav-pill--about { view-transition-name: nav-about; }
+
+  /* White fill so the part of a resizing pill covered by only one
+     (fading) snapshot doesn't go see-through. */
+  ::view-transition-group(*.nav-pill) {
+    animation-duration: 220ms;
+    overflow: clip;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  /* Draw snapshots at their natural size, pinned left, and let the group
+     crop them as it resizes; the default stretches the label text. */
+  ::view-transition-old(*.nav-pill),
+  ::view-transition-new(*.nav-pill) {
+    height: 100%;
+    object-fit: none;
+    object-position: left;
+  }
+</style>
