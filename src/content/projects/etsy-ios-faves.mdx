@@ -20,29 +20,23 @@ I led the redesign of favorites on iOS which drove increases to conversion, ad r
 
 <Spacer />
 
-This redesign accomplished several goals:
-- Improved the buyer experience by rethinking wayfinding and surfacing relevant content
-- Simplified maintenance and debugging for engineers by eliminating complex UI states
-- Made the space more extensible for future product and design improvements
+## The design challenge
+Through user research and experimentation, we found the tabbed UI of the control experience limited exploration. Internally, we called this ‘tab blindness’ — people simply didn't see the feature and left the screen without engaging.
 
+## My solution
+- I removed tabs in favor of surfacing content on the landing screen, where people expected to find content.
+- The four most recent favorites, rendered as larger images, became the centerpiece of the screen.
+- This approach improved wayfinding and aided feature discovery by surfacing other types of favorites and provided space for future product and design improvements. 
+- Removing tabs also eliminated complex UI states, simplifying maintenance and debugging for engineers.
 
 <Spacer />
 
-### Control and treatment
+## Control and treatment
 <Span10 src={pics["control-treatment"]} alt="Design: control and treatment" />
 
 <Spacer />
 
-## User insights
-Through user research and experimentation, we found the tabbed UI of the control experience limited exploration. Internally, we called this ‘tab blindness’ — people simply didn't see the feature and left the screen without engaging.
-
-## Design decisions
-- I removed tabs in favor of surfacing content on the landing screen, where people expected to find content.
-- The four most recent favorites, rendered as larger images, became the centerpiece of the screen.
-- This approach aided feature discovery by surfacing other types of favorites and provided space for future product and design improvements. 
-- Removing tabs also eliminated complex UI states, simplifying maintenance and debugging for engineers.
-
-### Screen states
+## Screen states
 <Span12 src={pics["states"]} alt="Screen states: empty, some faves, many faves" />
 
 <Spacer />
