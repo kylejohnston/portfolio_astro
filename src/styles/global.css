@@ -329,20 +329,15 @@ body.overlay-open {
    children. --overlay-panel-color is set per-project by overlay.js from the
    loaded article's data-overlay-color attribute; the var()'s fallback below
    is what renders when a project doesn't define one. */
-/* .halftone-fill also gets applied in markup, for the dot pattern itself —
-   the compound selector here (rather than plain .overlay-panel) is what
-   lets --dot-color/--bg-color win over .halftone-fill's own defaults
-   regardless of which rule comes first in this file, since both are
-   otherwise equal-specificity single-class selectors. */
-.overlay-panel.halftone-fill {
+.overlay-panel {
   position: absolute;
   top: 0;
   right: 0;
   width: calc(var(--overlay-content-pad) + 9 * var(--overlay-grid-col) + 9 * var(--grid-gutter));
   /* height: 324px; */
   aspect-ratio: 16 / 6;
-  --dot-color: var(--overlay-panel-color, #f88);
-  --bg-color: var(--color-paper);
+  background-color: var(--color-paper);
+  background-image: linear-gradient(180deg, var(--overlay-panel-color, #f88), transparent);
   opacity: 0.25;
   z-index: -1;
   pointer-events: none;
