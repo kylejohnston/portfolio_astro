@@ -7,7 +7,7 @@ export interface Set {
 export const sets: Record<string, Set> = {
   default: {
     heading: "I’m Kyle Johnston,",
-    intro: "a product designer with a creative director’s background. I design and test consumer and marketplace experiences where craft and results carry equal weight.",
+    intro: "a staff product designer with a creative director’s background. I design and test consumer and marketplace experiences where craft and results carry equal weight.",
     projects: [
       { id: 'etsy-homepage' },
       { id: 'etsy-cursor-for-pds' },
@@ -19,7 +19,7 @@ export const sets: Record<string, Set> = {
   },
   'babylist': {
     heading: "Hello Babylist!",
-    intro: "I’m Kyle Johnston, a product designer with a creative director’s background. I design and test consumer and marketplace experiences where craft and results carry equal weight.",
+    intro: "I’m Kyle Johnston, a staff product designer with a creative director’s background. I design and test consumer and marketplace experiences where craft and results carry equal weight.",
     projects: [
       { id: 'etsy-homepage', why:'demonstrates impact at scale + an AI-enabled workflow' },
       { id: 'etsy-landings', why:'demonstrates systems thinking + product strategy' },
@@ -49,7 +49,7 @@ export const sets: Record<string, Set> = {
   },
   'eli-lilly': {
     heading: "I’m Kyle Johnston,",
-    intro: "a product designer with a creative director’s background. I design and test consumer and marketplace experiences where craft and results carry equal weight.",
+    intro: "a staff product designer with a creative director’s background. I design and test consumer and marketplace experiences where craft and results carry equal weight.",
     projects: [
       { id: 'flow14-medtronic-ux-ia' },
       { id: 'etsy-global-nav' },
