@@ -29,7 +29,7 @@ export const sets: Record<string, Set> = {
   },
   'seatgeek': {
     heading: "Hi SeatGeek — I design the moment intent becomes a purchase.",
-    intro: "I'm Kyle Johnston. At Etsy I owned that exact stretch—homepage, discovery, and collections—turning browsing into buying, driving $80M+ in combined revenue along the way.",
+    intro: "I'm Kyle Johnston. At Etsy I owned that exact stretch—homepage, discovery, and collections—turning browsing into buying, driving $80M+ in combined sales along the way.",
     projects: [
       { id: 'etsy-homepage', why: 'personalized the funnel entry point, validated with research and live A/B testing' },
       { id: 'etsy-landings', why: 'a literal shopping funnel—discovery-to-listing conversion, built as a flexible system' },
